@@ -21,10 +21,10 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-double-brackets-link`,
+            resolve: `gatsby-remark-wiki-links`,
             options: {
-              stripBrackets: true,
-              titleToURLPath: `${__dirname}/src/utils/double-bracket-handling.js`
+              slugify: `${__dirname}/src/utils/slugify.js`,
+              stripBrackets: true
             }
           },
         ],

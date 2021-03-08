@@ -8,9 +8,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   	const { createNodeField } = actions
     const title = createFilePath({ node, getNode, basePath: `_notes` })
 
-    const refersNotes = findReferences( node.rawMarkdownBody )
-    // :TODO: :NEXTUP: Go thru all the notes, create a map of how references map.
-
     // :TODO: Custom slug based on frontmatter 'slug' field.
     const slug = _.kebabCase(title)
     createNodeField({
@@ -27,7 +24,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   const result = await graphql(`
     query {
       allMarkdownRemark {
@@ -41,6 +38,7 @@ exports.createPages = async ({ graphql, actions }) => {
               title
               tags
               date
+              aliases
             }
             rawMarkdownBody
             excerpt
@@ -56,16 +54,52 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  let referenceMap = {}
+  let backLinkMap = {}
+
+  // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
+  for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
+    const node = result.data.allMarkdownRemark.edges[i].node
+    const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
+
+    // Go thru all the notes, create a map of how references map.
+    const refersNotes = findReferences( node.rawMarkdownBody )
+    referenceMap[title] = refersNotes
+
+    for(let j = 0; j < refersNotes.length; j++) {
+      const tle = refersNotes[j]
+
+      if(backLinkMap[tle] === undefined) backLinkMap[tle] = [ title ]
+      else backLinkMap[tle].push(title)
+    }
+  }
+
+  for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
+    const node = result.data.allMarkdownRemark.edges[i].node
+    const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
+    const aliases = node.frontmatter.aliases ? node.frontmatter.aliases : []
+
     createPage({
       path: node.fields.slug,
       component: path.resolve(`./src/templates/note.jsx`),
       context: {
-        title: node.frontmatter.title ? node.frontmatter.title : node.fields.title,
+        title: title,
         slug: node.fields.slug,
-      },
+        refersTo: referenceMap[title],
+        referredBy: backLinkMap[title]
+      }
     })
-  })
+
+    // Handling Aliases
+    for(let j = 0; j < aliases.length; j++) {
+      createRedirect({
+        fromPath: `/${_.kebabCase(aliases[j])}`,
+        toPath: node.fields.slug,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    }
+  }
 
   result.data.tags.group.forEach(( tag ) => {
     createPage({

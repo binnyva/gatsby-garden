@@ -10,14 +10,27 @@ export default function Note({ pageContext, data }) {
       <h1>{ post.frontmatter.title ? post.frontmatter.title : pageContext.title }</h1>
       <div dangerouslySetInnerHTML={{ __html: post.html }} />
 
-      <div id="tags">
-        <h3>Tagged with:</h3>
-        <ul>
-        {data.markdownRemark.frontmatter.tags.map((tag, index) => (
-          <li key={index}><Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link></li>
-        ))}
-        </ul>
-      </div>
+      { post.frontmatter.tags ? (
+        <div id="tags">
+          <h3>Tagged with:</h3>
+          <ul>
+          {post.frontmatter.tags.map((tag, index) => (
+            <li key={index}><Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link></li>
+          ))}
+          </ul>
+        </div>
+      ) : null }
+
+      { pageContext.referredBy ? (
+        <div id="back-links">
+          <h3>Reffered By</h3>
+          <ul>
+          {pageContext.referredBy.map((title, index) => (
+            <li key={index}><Link to={`/${kebabCase(title)}`}>{title}</Link></li>
+          ))}
+          </ul>
+        </div>
+        ) : null }
     </Layout>
   )
 }
