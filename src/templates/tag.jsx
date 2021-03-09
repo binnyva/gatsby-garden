@@ -15,8 +15,7 @@ export default function Tag({ pageContext, data }) {
 
       <ul>
         {edges.map(({ node }) => {
-          const { slug } = node.fields
-          const { title } = node.frontmatter
+          const { slug,title } = node.fields
           return (
             <li key={ slug }>
               <Link to={ slug }>{ title }</Link>
@@ -42,6 +41,7 @@ export const query = graphql`
         node {
           fields {
             slug
+            title
           }
           frontmatter {
             title

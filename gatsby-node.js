@@ -1,19 +1,25 @@
 const path = require(`path`)
-const matter = require("gray-matter");
 const _ = require("lodash")
+const makeSlug = require("./src/utils/make-slug")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `MarkdownRemark`) {
   	const { createNodeField } = actions
-    const title = createFilePath({ node, getNode, basePath: `_notes` })
+    const title = node.frontmatter.title ? node.frontmatter.title : createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
+    const slug = node.frontmatter.slug ? makeSlug(node.frontmatter.slug) : makeSlug(title)
+    const fileNode = getNode(node.parent)
+    const date = node.frontmatter.date ? node.frontmatter.date : fileNode.ctime
 
-    // :TODO: Custom slug based on frontmatter 'slug' field.
-    const slug = _.kebabCase(title)
     createNodeField({
       node,
       name: `slug`,
       value: `/${slug}`
+    })
+    createNodeField({
+      node,
+      name: `date`,
+      value: date
     })
     createNodeField({
       node,
@@ -93,7 +99,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // Handling Aliases
     for(let j = 0; j < aliases.length; j++) {
       createRedirect({
-        fromPath: `/${_.kebabCase(aliases[j])}`,
+        fromPath: `/${makeSlug(aliases[j])}`,
         toPath: node.fields.slug,
         redirectInBrowser: true,
         isPermanent: true,
@@ -103,7 +109,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.tags.group.forEach(( tag ) => {
     createPage({
-      path: `/tags/${_.kebabCase(tag.fieldValue)}`,
+      path: `/tags/${makeSlug(tag.fieldValue)}`,
       component: path.resolve(`./src/templates/tag.jsx`),
       context: {
         tag: tag.fieldValue

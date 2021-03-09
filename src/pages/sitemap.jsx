@@ -1,9 +1,11 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../layout/layout"
-export default function MyFiles({ data }) {
+
+export default function Sitemap({ data }) {
   return (
     <Layout>
+      <h1>Sitemap</h1>
         <table>
           <thead>
             <tr>
@@ -15,9 +17,16 @@ export default function MyFiles({ data }) {
           <tbody>
             {data.allMarkdownRemark.edges.map(( data, index ) => (
               <tr key={index}>
-                <td><Link to={`${data.node.fields.slug}`}>{data.node.frontmatter.title}</Link></td>
-                <td>{data.node.frontmatter.tags.join(",")}</td>
-                <td>{data.node.frontmatter.date}</td>
+                <td><Link to={`${data.node.fields.slug}`}>{data.node.fields.title}</Link></td>
+                <td>{data.node.frontmatter.tags ? 
+                  data.node.frontmatter.tags.map((tag, index) => (
+                    <span key={index}>
+                      <Link to={`\tags\${tag}`}>#{tag}</Link>
+                      { index < data.node.frontmatter.tags.length - 1 ? ", " : "" }
+                    </span>
+                  )) 
+                  : "No Tags" }</td>
+                <td>{data.node.fields.date}</td>
               </tr>
             ))}
           </tbody>
@@ -33,11 +42,11 @@ query {
       node {
         fields {
           slug
+          title
+          date(formatString: "DD MMMM, YYYY")
         }
         frontmatter {
-          title
           tags
-          date
         }
       }
     }
