@@ -91,8 +91,8 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         title: title,
         slug: node.fields.slug,
-        refersTo: referenceMap[title],
-        referredBy: backLinkMap[title]
+        refersTo: referenceMap[title] ? referenceMap[title] : [],
+        referredBy: backLinkMap[title] ? backLinkMap[title] : []
       }
     })
 
@@ -133,6 +133,7 @@ function findReferences( content ) {
   const matched_notes = links.map( lnk => lnk[1] )
 
   // :TODO: Send a bit of text around the link back as well. Can be used in back links for context.
+  // :TODO: This will break if custom slug is used. 
 
   return matched_notes
 }
