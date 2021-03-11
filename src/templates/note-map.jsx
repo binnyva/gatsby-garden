@@ -13,6 +13,7 @@ export default function Note({ pageContext }) {
     links: [],
   }
 
+  // Set up the linkages between the notes.
   for(let noteTitle in pageContext.referenceMap) {
     const refNoteTitles = pageContext.referenceMap[noteTitle]
 
