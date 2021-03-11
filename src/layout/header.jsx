@@ -14,5 +14,7 @@ export default function Header({ title }) {
     `
   )
 
-  return <h1><Link to={`/`}>{data.site.siteMetadata.title } { title ? ` : ${title}` : null }</Link></h1>
+  return (
+      <h1><Link to={`/`}>{data.site.siteMetadata.title } { title ? ` : ${title}` : null }</Link></h1>
+  )
 }

@@ -107,6 +107,14 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
+  createPage({
+    path: `/note-map`,
+    component: path.resolve('./src/templates/note-map.jsx'),
+    context: {
+      referenceMap
+    }
+  })
+
   result.data.tags.group.forEach(( tag ) => {
     createPage({
       path: `/tags/${makeSlug(tag.fieldValue)}`,

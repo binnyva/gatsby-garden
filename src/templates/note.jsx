@@ -2,7 +2,7 @@ import React from "react"
 import { graphql,Link,navigate } from "gatsby"
 import { Graph } from "react-d3-graph";
 import Layout from "../layout/layout"
-import "./note.css"
+import "./graph.css"
 const makeSlug = require("../utils/make-slug")
 
 export default function Note({ pageContext, data }) {
@@ -15,12 +15,14 @@ export default function Note({ pageContext, data }) {
     focusedNodeId: post.fields.title
   }
 
+  // Links to the current Note
   for(let i = 0; i < pageContext.referredBy.length; i++) {
     const refNoteTitle = pageContext.referredBy[i]
     graphData.nodes.push({id: refNoteTitle })
     graphData.links.push({source: refNoteTitle, target: post.fields.title })
   }
 
+  // Links from the current Note
   for(let i = 0; i < pageContext.refersTo.length; i++) {
     const refNoteTitle = pageContext.refersTo[i]
     graphData.nodes.push({id: refNoteTitle })
@@ -61,7 +63,7 @@ export default function Note({ pageContext, data }) {
         </div>
       ) : null }
 
-      { pageContext.referredBy ? (
+      { pageContext.referredBy.length ? (
         <div id="back-links">
           <h3>Reffered By</h3>
           <ul>

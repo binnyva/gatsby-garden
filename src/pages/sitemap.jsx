@@ -6,6 +6,7 @@ export default function Sitemap({ data }) {
   return (
     <Layout>
       <h1>Sitemap</h1>
+      <Link to="/note-map">Map of All Notes</Link>
       <table>
         <thead>
           <tr>
