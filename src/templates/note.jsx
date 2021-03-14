@@ -48,39 +48,43 @@ export default function Note({ pageContext, data }) {
   };
 
   return (
-    <Layout>
-      <h1>{ post.fields.title }</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
+    <Layout title={ post.fields.title }>
 
-      { post.frontmatter.tags ? (
-        <div id="tags">
-          <h3>Tagged with:</h3>
-          <ul>
-          {post.frontmatter.tags.map((tag, index) => (
-            <li key={index}><Link to={`/tags/${makeSlug(tag)}`}>{tag}</Link></li>
-          ))}
-          </ul>
+      <div className="note-area">
+        <h1 className="note-title">{ post.fields.title }</h1>
+        <div className="note-content" dangerouslySetInnerHTML={{ __html: post.html }}>
         </div>
-      ) : null }
 
-      { pageContext.referredBy.length ? (
-        <div id="back-links">
-          <h3>Reffered By</h3>
+        { post.frontmatter.tags ? (
+        <div className="note-tags">
+          <h6>Tagged With: </h6>
           <ul>
-          {pageContext.referredBy.map((title, index) => (
-            <li key={index}><Link to={`/${makeSlug(title)}`}>{title}</Link></li>
-          ))}
+            {post.frontmatter.tags.map((tag, index) => (
+              <li key={index}><Link to={`/tags/${makeSlug(tag)}`}>{tag}</Link></li>
+            ))}
           </ul>
         </div>
         ) : null }
 
-      <div id="graph-container">
-        <Graph
-          id="note-link-graph"
-          data={graphData}
-          config={graphConfig}
-          onClickNode={onClickNode}
-        />
+        { pageContext.referredBy.length ? (
+        <div className="note-references">
+          <h6>Reffered By</h6>
+          <ul>
+            {pageContext.referredBy.map((title, index) => (
+              <li key={index}><Link to={`/${makeSlug(title)}`}>{title}</Link></li>
+            ))}
+          </ul>
+        </div>
+        ) : null }
+
+        <div className="note-graph">
+          <Graph
+            id="note-link-graph"
+            data={graphData}
+            config={graphConfig}
+            onClickNode={onClickNode}
+          />
+        </div>
       </div>
     </Layout>
   )

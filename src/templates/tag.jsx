@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../layout/layout"
+import NoteList from "../components/note-list"
 
 export default function Tag({ pageContext, data }) {
   const { tag } = pageContext
@@ -13,16 +14,7 @@ export default function Tag({ pageContext, data }) {
     <Layout>
       <h1>{heading}</h1>
 
-      <ul>
-        {edges.map(({ node }) => {
-          const { slug,title } = node.fields
-          return (
-            <li key={ slug }>
-              <Link to={ slug }>{ title }</Link>
-            </li>
-          )
-        })}
-      </ul>
+      <NoteList notes={edges} />
 
       <Link to="/tags">All tags</Link>
     </Layout>
@@ -33,18 +25,19 @@ export const query = graphql`
   query($tag: String) {
     allMarkdownRemark(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount
       edges {
         node {
+          excerpt
           fields {
             slug
             title
+            date(formatString: "DD MMMM, YYYY")
           }
           frontmatter {
-            title
+            tags
           }
         }
       }

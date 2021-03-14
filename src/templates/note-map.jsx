@@ -19,7 +19,11 @@ export default function Note({ pageContext }) {
 
     for(let i in refNoteTitles) {
       const refNoteTitle = refNoteTitles[i]
-      graphData.links.push({source: noteTitle, target: refNoteTitle })
+
+      // Show links to only the notes that exists. There will be some linking to non existing notes - that will break the graph.
+      if(pageContext.referenceMap[refNoteTitle] !== undefined) {
+        graphData.links.push({source: noteTitle, target: refNoteTitle })
+      }
     }
   }
 
