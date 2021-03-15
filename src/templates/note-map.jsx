@@ -2,7 +2,7 @@ import React from "react"
 import { Link,navigate } from "gatsby"
 import { Graph } from "react-d3-graph";
 import Layout from "../layout/layout"
-import "./graph.css"
+import "../styles/graph.css"
 const makeSlug = require("../utils/make-slug")
 
 export default function Note({ pageContext }) {
@@ -12,6 +12,8 @@ export default function Note({ pageContext }) {
     nodes: Object.keys(pageContext.referenceMap).map( (key,index) => { return {id: key} } ),
     links: [],
   }
+
+  graphData.nodes.push({id: "No Links", color: "#eee", fontColor: "#999"}) // All unlinked notes will link to this. So that the graphing library will render it properly.
 
   // Set up the linkages between the notes.
   for(let noteTitle in pageContext.referenceMap) {
@@ -24,6 +26,11 @@ export default function Note({ pageContext }) {
       if(pageContext.referenceMap[refNoteTitle] !== undefined) {
         graphData.links.push({source: noteTitle, target: refNoteTitle })
       }
+    }
+
+    // If this is an orphan note(no links to and from other notes), we need some hackery to get it to work.
+    if(!pageContext.referenceMap[noteTitle].length && !pageContext.backLinkMap[noteTitle].length) {
+      graphData.links.push({source: noteTitle, target: "No Links", color: "#eee"})
     }
   }
 

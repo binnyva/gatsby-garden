@@ -1,46 +1,7 @@
 body {
-  padding-top: 4rem;
+  padding-top: 56px;
   font-family: Inter;
 }
-.note-area {
-    border-top: 1px solid #eff7f0;
-    border-left: 1px solid #eff7f0;
-    box-shadow: 5px 10px 5px #89a289;
-    background: #f8f9fa;
-    padding-bottom: 5px;
-}
-
-.note-area h1.note-title {
-	background-color: #eff7f0;
-	margin: 0 5px;
-	padding: 0 5px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.note-tags h6, .note-tags ul, .note-tags li {
-  display: inline;
-}
-.note-tags ul {
-  padding: 0;
-}
-.note-area .note-tags li::after {
-  content: ", "
-}
-.note-area .note-tags li:last-child:after {
-    content: "";
-}
-
-.note-graph {
-	background-color: #eff7f0;
-	border: 1px solid #89a289;
-	height: 400px;
-}
-
-.note-content, .note-references, .note-tags, .note-graph {
-	margin: 10px;
-}
-
 
 .table-striped tbody tr:nth-of-type(2n+1) {
   background-color: #eff7f0;
@@ -50,4 +11,13 @@ body {
 }
 .table thead th {
   border-bottom: 2px solid #89a289;
+}
+
+/* Header */
+.navbar-nav .dropdown-menu {
+  display: none;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+  display: block;
 }

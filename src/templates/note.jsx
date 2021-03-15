@@ -2,7 +2,8 @@ import React from "react"
 import { graphql,Link,navigate } from "gatsby"
 import { Graph } from "react-d3-graph";
 import Layout from "../layout/layout"
-import "./graph.css"
+import "../styles/note.css"
+import "../styles/graph.css"
 const makeSlug = require("../utils/make-slug")
 
 export default function Note({ pageContext, data }) {
@@ -29,7 +30,14 @@ export default function Note({ pageContext, data }) {
     graphData.links.push({source: post.fields.title, target: refNoteTitle })
   }
 
+  // If this is an orphan note(no links to and from other notes), we need some hackery to get it to work.
+  if(graphData.nodes.length === 1) {
+    graphData.nodes.push({id: "No Links", color: "#eee", fontColor: "#999"})
+    graphData.links.push({source: post.fields.title, target: "No Links", color: "#eee"})
+  }
+
   const onClickNode = function(nodeId) {
+    if(nodeId === "Unlinked") return
     const slug = makeSlug(nodeId)
     navigate(`/${slug}`)
   };

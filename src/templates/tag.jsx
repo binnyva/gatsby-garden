@@ -13,10 +13,10 @@ export default function Tag({ pageContext, data }) {
   return (
     <Layout>
       <h1>{heading}</h1>
+      
+      <p><Link to="/tags">See All tags</Link></p>
 
-      <NoteList notes={edges} />
-
-      <Link to="/tags">All tags</Link>
+      <NoteList notes={edges} />   
     </Layout>
   )
 }

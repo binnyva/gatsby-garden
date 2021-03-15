@@ -2,7 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../layout/layout"
 import kebabCase from "lodash/kebabCase"
-import "./tag-list.css"
+import "../styles/tag-list.css"
 
 export default function TagList({ data }) {
   let tagList = data.allMarkdownRemark.group

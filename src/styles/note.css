@@ -1,0 +1,44 @@
+.note-area {
+    border-top: 1px solid #eff7f0;
+    border-left: 1px solid #eff7f0;
+    box-shadow: 5px 10px 5px #89a289;
+    background: #f8f9fa;
+    padding: 0 10px 10px 10px;
+}
+
+.note-area .note-title {
+	background-color: #eff7f0;
+	margin: 0 5px;
+	padding: 0 5px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.note-tags h6, .note-tags ul, .note-tags li {
+  display: inline;
+}
+.note-tags ul {
+  padding: 0;
+}
+.note-area .note-tags li::after {
+  content: ", "
+}
+.note-area .note-tags li:last-child:after {
+    content: "";
+}
+
+.note-graph {
+	background-color: #eff7f0;
+	border: 1px solid #89a289;
+	height: 400px;
+}
+
+.note-content, .note-references, .note-tags, .note-graph {
+	margin: 10px;
+}
+.note-list .note-area {
+  padding: 10px;
+}
+.note-list .note-area:nth-child(odd) {
+  background-color: #eff7f0;
+}

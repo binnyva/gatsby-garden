@@ -4,7 +4,7 @@ import site_config from "../../gatsby-config"
 import { camelCase, startCase } from "lodash"
 
 export default function Menu() {
-  let menu_structure = [
+  let menu_structure = [ // Default Menu.
     {
       type: 'page',
       item: '',
@@ -20,9 +20,11 @@ export default function Menu() {
     }
   ]
 
-  if(site_config.siteMetadata.menu !== undefined) {
+  if(site_config.siteMetadata.menu !== undefined) { // If main menu exists in the config, use that.
     menu_structure = site_config.siteMetadata.menu
-  }
+  } else if(site_config.siteMetadata.headerMenu !== undefined) { // If not, use the header menu.
+    menu_structure = site_config.siteMetadata.headerMenu
+  } // If nothing exists, use the default menu.
 
   return (<div className="garden-menu">
     <MenuStructure menu={menu_structure} />

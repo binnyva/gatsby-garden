@@ -60,6 +60,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
+  // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let referenceMap = {}
   let backLinkMap = {}
 
@@ -67,6 +68,8 @@ exports.createPages = async ({ graphql, actions }) => {
   for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
     const node = result.data.allMarkdownRemark.edges[i].node
     const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
+    
+    if(backLinkMap[title] === undefined) backLinkMap[title] = [] // Create a element in the back link map if its already not made.
 
     // Go thru all the notes, create a map of how references map.
     const refersNotes = findReferences( node.rawMarkdownBody )
@@ -111,7 +114,8 @@ exports.createPages = async ({ graphql, actions }) => {
     path: `/note-map`,
     component: path.resolve('./src/templates/note-map.jsx'),
     context: {
-      referenceMap
+      referenceMap,
+      backLinkMap
     }
   })
 
