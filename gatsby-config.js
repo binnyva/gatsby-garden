@@ -3,11 +3,11 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 module.exports = {
+  pathPrefix: `/notes`,
   siteMetadata: {
     title: `Digital Zen Garden`,
     description: `My Digital Garden, My Zettelkasten Note Drawer, A place that holds my thoughts...`,
     siteUrl: `https://notes.binnyva.com/notes/`,
-    pathPrefix: `/notes`,
 
     headerMenu: [
       {type: 'page', item: '', title: 'Home'},
