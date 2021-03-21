@@ -6,7 +6,8 @@ module.exports = {
   siteMetadata: {
     title: `Digital Zen Garden`,
     description: `My Digital Garden, My Zettelkasten Note Drawer, A place that holds my thoughts...`,
-    siteUrl: `https://notes.binnyva.com/`,
+    siteUrl: `https://notes.binnyva.com/notes/`,
+    pathPrefix: `/notes`,
 
     headerMenu: [
       {type: 'page', item: '', title: 'Home'},

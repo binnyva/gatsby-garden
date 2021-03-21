@@ -48,6 +48,8 @@ export default function Note({ pageContext }) {
     nodeHighlightBehavior: true,
     linkHighlightBehavior: true,
     collapsible: true,
+    height: 800,
+    width: 1100,
     
     node: {
       color: "gray",
@@ -76,7 +78,7 @@ export default function Note({ pageContext }) {
     <Layout>
       <h1>All Notes</h1>
 
-      <p>Total Notes: <Link to="/sitemap"><strong>{ pageContext.referenceMap.length }</strong></Link></p>
+      <p>Total Notes: <Link to="/sitemap"><strong>{ Object.keys(pageContext.referenceMap).length }</strong></Link></p>
 
       <div id="graph-container">
         <Graph
