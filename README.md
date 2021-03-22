@@ -45,17 +45,3 @@ https://www.gatsbyjs.com/plugins/gatsby-theme-networked-thought/
 https://www.gatsbyjs.com/plugins/gatsby-theme-garden/?=digital
 https://www.gatsbyjs.com/plugins/@maiertech/gatsby-theme-digital-garden/?=digital
 
-
-## TODO
-
-- Sitemap should be paginated
-- Light\Dark theme
-- `private`/hidden/draft in frontmatter
-- rootNote / indexNote - config should have one note that is given as the root note - shown when people go to index
-- Create a few sample notes that we want to use for the demo.
-
-## DONE
-
-- RSS Feed - DONE
-- Home page should have better functionality. A note with a specific title, menu items, or Site Header and description. 
-- Support for non-root installs. Right now, app depends on it being uploaded to the / folder. Use `pathPrefix` for this.

@@ -3,48 +3,48 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 module.exports = {
-  pathPrefix: `/notes`,
+  // pathPrefix: `/notes`,
   siteMetadata: {
-    title: `Digital Zen Garden`,
-    description: `My Digital Garden, My Zettelkasten Note Drawer, A place that holds my thoughts...`,
-    siteUrl: `https://notes.binnyva.com/notes/`,
+    title: `Gatsby Garden`,
+    description: `Digital Garden Tended by Gatsby`,
+    // siteUrl: `http://localhost:8000/`,
 
-    headerMenu: [
-      {type: 'page', item: '', title: 'Home'},
-      {type: 'page', item: 'sitemap', title: 'Sitemap'},
-      {type: 'page', item: 'rss.xml', title: 'RSS'},
-      {
-        type: 'page', item: 'tags', title: 'Tags',
-        menu: [
-          {type: 'tag',item: 'zettelkasten'},
-          {type: 'tag',item: 'philosophy'},
-          {type: 'tag',item: 'psychology'},
-          {type: 'tag',item: 'rationality'},
-        ]
-      },
-    ],
+    // headerMenu: [
+    //   {type: 'page', item: '', title: 'Home'},
+    //   {type: 'page', item: 'sitemap', title: 'Sitemap'},
+    //   {type: 'page', item: 'rss.xml', title: 'RSS'},
+    //   {
+    //     type: 'page', item: 'tags', title: 'Tags',
+    //     menu: [
+    //       {type: 'tag',item: 'zettelkasten'},
+    //       {type: 'tag',item: 'philosophy'},
+    //       {type: 'tag',item: 'psychology'},
+    //       {type: 'tag',item: 'rationality'},
+    //     ]
+    //   },
+    // ],
 
-    menu: [
-      // type can be 'tag', 'note' or 'page'
-      {type: 'tag', item: 'tech'},
-      {
-        type: 'tag',item: 'growth',
-        menu: [
-          {
-            type: 'tag',item: 'learning',
-            menu: [
-              {type: 'tag',item: 'zettelkasten'},
-            ]
-          },
-          { type: 'tag',item: 'productivity' },
-        ]
-      },
-      {type: 'tag',item: 'mad',title: 'MAD'},
-      {type: 'tag',item: 'philosophy'},
-      {type: 'tag',item: 'psychology'},
-      {type: 'tag',item: 'rationality'},
-      {type: 'page',item: 'sitemap'}
-    ]
+    // menu: [
+    //   // type can be 'tag', 'note' or 'page'
+    //   {type: 'tag', item: 'tech'},
+    //   {
+    //     type: 'tag',item: 'growth',
+    //     menu: [
+    //       {
+    //         type: 'tag',item: 'learning',
+    //         menu: [
+    //           {type: 'tag',item: 'zettelkasten'},
+    //         ]
+    //       },
+    //       { type: 'tag',item: 'productivity' },
+    //     ]
+    //   },
+    //   {type: 'tag',item: 'mad',title: 'MAD'},
+    //   {type: 'tag',item: 'philosophy'},
+    //   {type: 'tag',item: 'psychology'},
+    //   {type: 'tag',item: 'rationality'},
+    //   {type: 'page',item: 'sitemap'}
+    // ]
   },
   plugins: [
     {

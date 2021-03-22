@@ -3,15 +3,16 @@ import { Link } from "gatsby"
 import { Helmet } from "react-helmet"
 import { startCase, camelCase } from "lodash"
 import siteConfig from "../../gatsby-config"
+import menuStructure from "../utils/menu-structure"
 
 export default function Header({ title }) {
-  let menuStructure = [
-    { type: 'page', item: '', title: 'Home' },
-    { type: 'page', item: 'sitemap' }
-  ]
-  if(siteConfig.siteMetadata.headerMenu !== undefined) {
-    menuStructure = siteConfig.siteMetadata.headerMenu
-  }
+  // let menuStructure = [
+  //   { type: 'page', item: '', title: 'Home' },
+  //   { type: 'page', item: 'sitemap' }
+  // ]
+  // if(siteConfig.siteMetadata.headerMenu !== undefined) {
+  //   menuStructure = siteConfig.siteMetadata.headerMenu
+  // }
 
   return (
     <>
@@ -60,6 +61,7 @@ function MenuItem({ item }) {
   if(item.type === 'page') itm = <Page item={item} />
   else if(item.type === 'tag') itm = <Tag item={item} />
   else if(item.type === 'note') itm = <Note item={item} />
+  else if(item.type === 'link') itm = <ExternalLink item={item} />
 
   return itm
 }
@@ -74,4 +76,8 @@ function Note({ item }) {
 
 function Tag({ item }) {
   return (<Link className="nav-link" to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
+}
+
+function ExternalLink({ item }) {
+  return (<a className="nav-link" href={ item.item }>{ item.title ? item.title : startCase(camelCase(item.item)) }</a>)
 }

@@ -40,6 +40,7 @@ function MenuItem({ item }) {
   if(item.type === 'page') itm = <Page item={item} />
   else if(item.type === 'tag') itm = <Tag item={item} />
   else if(item.type === 'note') itm = <Note item={item} />
+  else if(item.type === 'link') itm = <ExternalLink item={item} />
 
   return (<li>{ itm }{ item.menu ? <MenuStructure menu={ item.menu } /> : null }</li>)
 }
@@ -50,6 +51,10 @@ function Page({ item }) {
 
 function Note({ item }) {
   return (<Link to={ `/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
+}
+
+function Tag({ item }) {
+  return (<Link to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
 }
 
 function Tag({ item }) {
