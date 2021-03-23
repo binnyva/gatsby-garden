@@ -45,7 +45,7 @@ Edit `gatsby-config.js` file and add your site details to the `siteMetaData` sec
 
 ```js
 module.exports = {
-  pathPrefix: `/notes`, // If your site has to be published at a non-root location, use this to specify the base folder. You'll see this in effect when you build the site. See <https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/> for more details.
+  pathPrefix: `/notes`, // If your site has to be published at a non-root location, use this to specify the base folder. You'll see this in effect ONLY when you build the site with the 'gatsby build --prefix-paths' command. See <https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/> for more details.
   siteMetadata: {
     title: `Website Name`,
     description: `Short Description about the website`,
@@ -113,7 +113,7 @@ The top part(within the `---`) is called frontmatter. Its the metadata about the
 
 ## Contributing
 
-I am looking for people who can help me flesh out this project. If you are interested in helping out, go to the [Contributing page](https://github.com/binnyva/gatsby-garden/blob/master/CONTRIBUTING.md).
+One of the reasons I built this tool is to learn Gatsby. If you know what Gatsby and want to help with this project, I'm more than excited to get some expert help :-D. If you are interested in helping out, go to the [Contributing page](https://github.com/binnyva/gatsby-garden/blob/master/CONTRIBUTING.md).
 
 <!-- ## Other Tools
 
