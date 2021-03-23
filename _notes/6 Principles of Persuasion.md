@@ -1,8 +1,7 @@
 ---
 title: "6 Principles of Persuasion"
-tags: ["communication","literature-notes","persuasion","psychology"]
+tags: ["communication","literature-notes","persuation","psychology"]
 date: 2020-12-07 19:28:24
-source: "https://www.influenceatwork.com/principles-of-persuasion/"
 ---
 
 [Source](https://www.influenceatwork.com/principles-of-persuasion/)
@@ -14,3 +13,4 @@ source: "https://www.influenceatwork.com/principles-of-persuasion/"
 - **Liking**: People prefer to say yes to those that they like. We like people who are similar to us, we like people who pay us compliments, and we like people who cooperate with us towards mutual goals.
 - **Consensus**: Especially when they are uncertain, people will look to the actions and behaviors of others to determine their own.
 
+[[2 Minute New Habit|Make a new habit of this]]

@@ -4,7 +4,7 @@ import Menu from "../components/menu"
 import siteConfig from "../../gatsby-config"
 
 export default function Home() {
-  // :TODO: Is there a siteConfig.siteMetadata.
+  // :TODO: Is there a siteConfig.siteMetadata.homeNote? Show that then.
 
   return (
     <Layout title="Home">

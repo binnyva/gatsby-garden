@@ -3,7 +3,7 @@
   "private": true,
   "description": "Convert your Obsidian Zettelkasten Notes into a public Digital Garden. gatsby-garden lets you create a static html version of your markdown notes.",
   "version": "0.1.0",
-  "license": "0BSD",
+  "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",

@@ -10,13 +10,14 @@ module.exports = {
     // homeNote: `Home`, :TODO:
     // siteUrl: `http://localhost:8000/`,
 
-    // headerMenu: [
-    //   {type: 'page', item: '', title: 'Home'},
+    // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published
+    // headerMenu: [ // Top Navbar items
+    //   {type: 'page', item: '', title: 'Home'}, // Type can be 'page', 'note', 'tag', or 'link'
     //   {type: 'page', item: 'sitemap', title: 'Sitemap'},
     //   {type: 'page', item: 'rss.xml', title: 'RSS'},
     //   {
     //     type: 'page', item: 'tags', title: 'Tags',
-    //     menu: [
+    //     menu: [ // Only one level depth, please.
     //       {type: 'tag',item: 'zettelkasten'},
     //       {type: 'tag',item: 'philosophy'},
     //       {type: 'tag',item: 'psychology'},
@@ -25,20 +26,9 @@ module.exports = {
     //   },
     // ],
 
-    menu: [
-      // type can be 'tag', 'note' or 'page'
-      {
-        type: 'tag',item: 'learning',
-        menu: [
-          {type: 'tag',item: 'zettelkasten'},
-        ]
-      },
-      {type: 'tag',item: 'mad',title: 'MAD'},
-      {type: 'tag',item: 'philosophy'},
-      {type: 'tag',item: 'psychology'},
-      {type: 'tag',item: 'rationality'},
-      {type: 'page',item: 'sitemap'}
-    ]
+    // menu: [ // This is the Table of Contents that comes in the home page if a homeNote is not specified. It can be much longer than the header menu.
+    //   ... Same structure as headerMenu. You can have any depth level - multiple menus can be nested.
+    // ]
   },
   plugins: [
     {
