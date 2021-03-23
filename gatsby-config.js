@@ -7,6 +7,7 @@ module.exports = {
   siteMetadata: {
     title: `Gatsby Garden`,
     description: `Digital Garden Tended by Gatsby`,
+    // homeNote: `Home`, :TODO:
     // siteUrl: `http://localhost:8000/`,
 
     // headerMenu: [
@@ -24,27 +25,20 @@ module.exports = {
     //   },
     // ],
 
-    // menu: [
-    //   // type can be 'tag', 'note' or 'page'
-    //   {type: 'tag', item: 'tech'},
-    //   {
-    //     type: 'tag',item: 'growth',
-    //     menu: [
-    //       {
-    //         type: 'tag',item: 'learning',
-    //         menu: [
-    //           {type: 'tag',item: 'zettelkasten'},
-    //         ]
-    //       },
-    //       { type: 'tag',item: 'productivity' },
-    //     ]
-    //   },
-    //   {type: 'tag',item: 'mad',title: 'MAD'},
-    //   {type: 'tag',item: 'philosophy'},
-    //   {type: 'tag',item: 'psychology'},
-    //   {type: 'tag',item: 'rationality'},
-    //   {type: 'page',item: 'sitemap'}
-    // ]
+    menu: [
+      // type can be 'tag', 'note' or 'page'
+      {
+        type: 'tag',item: 'learning',
+        menu: [
+          {type: 'tag',item: 'zettelkasten'},
+        ]
+      },
+      {type: 'tag',item: 'mad',title: 'MAD'},
+      {type: 'tag',item: 'philosophy'},
+      {type: 'tag',item: 'psychology'},
+      {type: 'tag',item: 'rationality'},
+      {type: 'page',item: 'sitemap'}
+    ]
   },
   plugins: [
     {

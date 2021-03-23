@@ -3,16 +3,10 @@ import { Link } from "gatsby"
 import { Helmet } from "react-helmet"
 import { startCase, camelCase } from "lodash"
 import siteConfig from "../../gatsby-config"
-import menuStructure from "../utils/menu-structure"
+import { DefaultMenuStructure } from "../utils/menu-structure"
 
 export default function Header({ title }) {
-  // let menuStructure = [
-  //   { type: 'page', item: '', title: 'Home' },
-  //   { type: 'page', item: 'sitemap' }
-  // ]
-  // if(siteConfig.siteMetadata.headerMenu !== undefined) {
-  //   menuStructure = siteConfig.siteMetadata.headerMenu
-  // }
+  const menu = DefaultMenuStructure()
 
   return (
     <>
@@ -29,7 +23,7 @@ export default function Header({ title }) {
 
         <div className="collapse navbar-collapse" id="default-navbar">
           <ul className="navbar-nav mr-auto">
-            { menuStructure.map((item, index) => {
+            { menu.map((item, index) => {
               return item.menu ?
                 (<li className="nav-item dropdown" key={index}>
                     <Link className="nav-link dropdown-toggle" to={`/${item.item}`} id={`dropdown-${item.item}`} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

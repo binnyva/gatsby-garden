@@ -1,6 +1,7 @@
+const { paginate } = require('gatsby-awesome-pagination')
 const path = require(`path`)
-const _ = require("lodash")
 const makeSlug = require("./src/utils/make-slug")
+const _ = require('lodash')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -59,6 +60,7 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  const allNotes = _.get(result, "data.allMarkdownRemark.edges")
 
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let referenceMap = {}
@@ -120,32 +122,51 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   result.data.tags.group.forEach(( tag ) => {
-    createPage({
-      path: `/tags/${makeSlug(tag.fieldValue)}`,
-      component: path.resolve(`./src/templates/tag.jsx`),
+    const taggedNotes = allNotes.filter(note => note.node.frontmatter.tags.includes(tag.fieldValue))
+    paginate({
+      createPage,
+      items: taggedNotes,
+      itemsPerPage: 10,
+      pathPrefix: `/tags/${makeSlug(tag.fieldValue)}`,
+      component: path.resolve('./src/templates/tag.jsx'),
       context: {
         tag: tag.fieldValue
-      },
+      }
     })
+
+    // createPage({
+    //   path: `/tags/${makeSlug(tag.fieldValue)}`,
+    //   component: path.resolve(`./src/templates/tag.jsx`),
+    //   context: {
+    //     tag: tag.fieldValue
+    //   },
+    // })
   })
 
   createPage({
     path: `/tags`,
     component: path.resolve(`./src/templates/tag-list.jsx`)
   })
-}
 
-// exports.sourceNodes = require("./src/source-nodes");
+  // Paginate Sitemap - that page has list of all notes
+  paginate({
+    createPage,
+    items: allNotes,
+    itemsPerPage: 10,
+    pathPrefix: '/sitemap',
+    component: path.resolve('./src/templates/sitemap.jsx')
+  })
+}
 
 function findReferences( content ) {
   // Handles both [[Note Title]] and [[Note Title|text to show]] formats
-  const link_regex = /\[\[([^\]\|]+)(\|.+)?\]\]/g;
-  let links = [...content.matchAll(link_regex)]
+  const linkRegex = /\[\[([^\]\|]+)(\|.+)?\]\]/g;
+  let links = [...content.matchAll(linkRegex)]
 
-  const matched_notes = links.map( lnk => lnk[1] )
+  const matchedNotes = links.map( lnk => lnk[1] )
 
   // :TODO: Send a bit of text around the link back as well. Can be used in back links for context.
   // :TODO: This will break if custom slug is used. 
 
-  return matched_notes
+  return matchedNotes
 }

@@ -1,37 +1,24 @@
 import React from "react"
 import { Link } from "gatsby"
-import site_config from "../../gatsby-config"
+import siteConfig from "../../gatsby-config"
 import { camelCase, startCase } from "lodash"
+import { DefaultMenuStructure } from "../utils/menu-structure"
 
 export default function Menu() {
-  let menu_structure = [ // Default Menu.
-    {
-      type: 'page',
-      item: '',
-      title: 'Home'
-    },
-    {
-      type: 'page',
-      item: 'tags'
-    },
-    {
-      type: 'page',
-      item: 'sitemap'
-    }
-  ]
+  let menuData = DefaultMenuStructure()
 
-  if(site_config.siteMetadata.menu !== undefined) { // If main menu exists in the config, use that.
-    menu_structure = site_config.siteMetadata.menu
-  } else if(site_config.siteMetadata.headerMenu !== undefined) { // If not, use the header menu.
-    menu_structure = site_config.siteMetadata.headerMenu
-  } // If nothing exists, use the default menu.
+  if(siteConfig.siteMetadata.menu !== undefined) { // If main menu exists in the config, use that.
+    menuData = siteConfig.siteMetadata.menu
+  } else if(siteConfig.siteMetadata.headerMenu !== undefined) { // If not, use the header menu.
+    menuData = siteConfig.siteMetadata.headerMenu
+  }
 
   return (<div className="garden-menu">
-    <MenuStructure menu={menu_structure} />
+    <RootMenu menu={menuData} />
   </div>)
 }
 
-function MenuStructure({ menu }) {
+function RootMenu({ menu }) {
   return (<ul>{ menu.map((item,index) => <MenuItem item={item} key={index} />) }</ul>)
 }
 
@@ -42,7 +29,7 @@ function MenuItem({ item }) {
   else if(item.type === 'note') itm = <Note item={item} />
   else if(item.type === 'link') itm = <ExternalLink item={item} />
 
-  return (<li>{ itm }{ item.menu ? <MenuStructure menu={ item.menu } /> : null }</li>)
+  return (<li>{ itm }{ item.menu ? <RootMenu menu={ item.menu } /> : null }</li>)
 }
 
 function Page({ item }) {
@@ -57,6 +44,6 @@ function Tag({ item }) {
   return (<Link to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
 }
 
-function Tag({ item }) {
-  return (<Link to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
+function ExternalLink({ item }) {
+  return (<a href={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</a>)
 }

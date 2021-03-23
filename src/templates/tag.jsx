@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../layout/layout"
 import NoteList from "../components/note-list"
+import Pager from "../components/pager"
 
 export default function Tag({ pageContext, data }) {
   const { tag } = pageContext
@@ -13,18 +14,21 @@ export default function Tag({ pageContext, data }) {
   return (
     <Layout>
       <h1>{heading}</h1>
-      
-      <p><Link to="/tags">See All tags</Link></p>
 
-      <NoteList notes={edges} />   
+      <NoteList notes={edges} />  
+
+      <Pager context={pageContext} />
+
+      <p><Link to="/tags">See All tags</Link></p>
     </Layout>
   )
 }
 
 export const query = graphql`
-  query($tag: String) {
+  query($tag: String, $skip: Int!, $limit: Int!) {
     allMarkdownRemark(
-      limit: 2000
+      skip: $skip
+      limit: $limit
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount

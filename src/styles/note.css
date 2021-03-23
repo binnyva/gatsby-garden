@@ -39,6 +39,25 @@
 .note-list .note-area {
   padding: 10px;
 }
+.note-area .note-title {
+  font-size: 1.5em;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+.note-area .note-excerpt {
+  margin: 0;
+}
+.note-list .note-tag-list {
+  margin:0;
+  color: #999;
+  font-size: small;
+}
+.note-list .note-date {
+  margin:0;
+  color: #666;
+  font-size: small; 
+}
 .note-list .note-area:nth-child(odd) {
   background-color: #eff7f0;
 }

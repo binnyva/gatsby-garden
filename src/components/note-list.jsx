@@ -5,9 +5,9 @@ import "../styles/note.css"
 export default function NoteList({ notes }) {
   return (<div className="note-list">{notes.map(( data, index ) => (
     <div className="note-area" key={index}>
-      <h3><Link to={ `${data.node.fields.slug}` }>{data.node.fields.title}</Link></h3>
-      <p>{ data.node.excerpt }</p>
-      <p>Tagged with: { data.node.frontmatter && data.node.frontmatter.tags ?
+      <h3 className="note-title"><Link to={ `${data.node.fields.slug}` }>{data.node.fields.title}</Link></h3>
+      <p className="note-excerpt">{ data.node.excerpt }</p>
+      <p className="note-tag-list">Tagged with: { data.node.frontmatter && data.node.frontmatter.tags ?
         data.node.frontmatter.tags.map((tag, index) => (
           <span key={index}>
             <Link to={ `/tags/${tag}` }>#{tag}</Link>
@@ -15,7 +15,7 @@ export default function NoteList({ notes }) {
           </span>
         ))
         : "No Tags" }</p>
-      <p>Published on {data.node.fields.date}</p>
+      <p className="note-date">Published on {data.node.fields.date}</p>
     </div>
   ))}</div>)
 }
