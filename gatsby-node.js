@@ -3,6 +3,7 @@ const path = require(`path`)
 const makeSlug = require("./src/utils/make-slug")
 const _ = require('lodash')
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const siteConfig = require("./gatsby-config")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `MarkdownRemark`) {
@@ -122,7 +123,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   result.data.tags.group.forEach(( tag ) => {
-    const taggedNotes = allNotes.filter(note => note.node.frontmatter.tags.includes(tag.fieldValue))
+    const taggedNotes = allNotes.filter(note => note.node.frontmatter.tags ? note.node.frontmatter.tags.includes(tag.fieldValue) : false)
     paginate({
       createPage,
       items: taggedNotes,
@@ -133,14 +134,6 @@ exports.createPages = async ({ graphql, actions }) => {
         tag: tag.fieldValue
       }
     })
-
-    // createPage({
-    //   path: `/tags/${makeSlug(tag.fieldValue)}`,
-    //   component: path.resolve(`./src/templates/tag.jsx`),
-    //   context: {
-    //     tag: tag.fieldValue
-    //   },
-    // })
   })
 
   createPage({

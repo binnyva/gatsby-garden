@@ -7,8 +7,6 @@ module.exports = {
   siteMetadata: {
     title: `Gatsby Garden`,
     description: `Digital Garden Tended by Gatsby`,
-    // homeNote: `Home`, :TODO:
-    // siteUrl: `http://localhost:8000/`,
 
     // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published
     // headerMenu: [ // Top Navbar items
@@ -26,7 +24,7 @@ module.exports = {
     //   },
     // ],
 
-    // menu: [ // This is the Table of Contents that comes in the home page if a homeNote is not specified. It can be much longer than the header menu.
+    // menu: [ // This is the Table of Contents that comes in the home page if a Home Note is not specified. It can be much longer than the header menu.
     //   ... Same structure as headerMenu. You can have any depth level - multiple menus can be nested.
     // ]
   },

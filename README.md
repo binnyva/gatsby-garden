@@ -71,7 +71,17 @@ module.exports = {
   },
 ```
 
-Once you are done with the configuration, you can generate the static version of your site. Use this command to do it...
+#### Home Page Customization
+
+If you want to set any note as your Home Note(the first page that shows up when you open the site), just give the `home` slug. You can do this by adding this to that note's frontmatter...
+
+```
+slug: "home"
+```
+
+### Building
+
+Once you are done with the configuration, you can **generate the static version of your site**. Use this command to do it...
 
 ```
 gatsby build
