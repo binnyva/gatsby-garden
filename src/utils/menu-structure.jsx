@@ -12,15 +12,14 @@ export const DefaultMenuStructure = () => {
   const { allMarkdownRemark } = useStaticQuery(
     graphql`
       query {
-	    allMarkdownRemark(limit: 2000) {
-	      group(field: frontmatter___tags) {
-	        fieldValue
-	        totalCount
-	      }
-	    }
-	  }
-    `
-  )
+		    allMarkdownRemark(limit: 2000) {
+		      group(field: frontmatter___tags) {
+		        fieldValue
+		        totalCount
+		      }
+		    }
+		  }
+    `)
 
 	if(siteConfig.siteMetadata.menu !== undefined) { // If main menu exists in the config, use that.
 	  structure = siteConfig.siteMetadata.menu

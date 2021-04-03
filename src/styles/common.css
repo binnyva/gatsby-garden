@@ -21,3 +21,7 @@ body {
 .navbar-nav .dropdown:hover .dropdown-menu {
   display: block;
 }
+
+nav.navbar {
+	background-color:  #eff7f0 !important;
+}

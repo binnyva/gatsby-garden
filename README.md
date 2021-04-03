@@ -39,7 +39,7 @@ If everything went fine, you should see `gatsby-garden` running in your browser 
 
 ### Configuration
 
-Once gatsby-garden has been installed, you can **add your markdown notes to the `_notes` folder**. If you are using Obsidian to create notes, you can set the `_notes` folder to be a shortcut/link to the Obsidian vault. If you don't do that, you'll have to copy over all the notes from the vault to the `_notes` folder everytime you want to make a static build of your notes.
+Once gatsby-garden has been installed, **add your markdown notes to the `_notes` folder**. Make sure you delete all the sample notes there first. If you are using Obsidian to create notes, you can set the `_notes` folder to be a shortcut/link to the Obsidian vault. If you don't do that, you'll have to copy over all the notes from the vault to the `_notes` folder everytime you want to make a static build of your notes.
 
 Edit `gatsby-config.js` file and add your site details to the `siteMetaData` section. Few supported values are...
 

@@ -3,10 +3,10 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 module.exports = {
-  // pathPrefix: `/notes`,
+  // pathPrefix: `/notes`, // If your Digital Garden is not published at the root of your website, use this.
   siteMetadata: {
     title: `Gatsby Garden`,
-    description: `Digital Garden Tended by Gatsby`,
+    description: `A Digital Garden Tended by Gatsby`,
 
     // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published
     // headerMenu: [ // Top Navbar items
@@ -56,9 +56,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-          fonts: [
-              `inter:300,400,500,600,700`       
-          ], display: 'swap'       
+        fonts: [
+            `inter:300,400,500,600,700`       
+        ], display: 'swap'       
       }
     }
   ],

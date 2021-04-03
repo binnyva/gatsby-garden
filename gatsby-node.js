@@ -73,8 +73,10 @@ exports.createPages = async ({ graphql, actions }) => {
   for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
     const node = result.data.allMarkdownRemark.edges[i].node
     const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
+
+    const noteTitle = getPreExistingTitle(title, backLinkMap)
     
-    if(backLinkMap[title] === undefined) backLinkMap[title] = [] // Create a element in the back link map if its already not made.
+    if(!noteTitle || backLinkMap[noteTitle] === undefined) backLinkMap[title] = [] // Create a element in the back link map if its already not made.
 
     // Go thru all the notes, create a map of how references map.
     const refersNotes = findReferences( node.rawMarkdownBody )
@@ -82,9 +84,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
     for(let j = 0; j < refersNotes.length; j++) {
       const tle = refersNotes[j]
+      const noteTitle = getPreExistingTitle(tle, backLinkMap)
 
-      if(backLinkMap[tle] === undefined) backLinkMap[tle] = [ title ]
-      else backLinkMap[tle].push(title)
+      if(!noteTitle || backLinkMap[noteTitle] === undefined) backLinkMap[noteTitle] = [ title ]
+      else backLinkMap[noteTitle].push(title)
     }
   }
 
@@ -180,12 +183,21 @@ exports.createSchemaCustomization = ({ actions }) => {
 function findReferences( content ) {
   // Handles both [[Note Title]] and [[Note Title|text to show]] formats
   const linkRegex = /\[\[([^\]\|]+)(\|.+)?\]\]/g;
-  let links = [...content.matchAll(linkRegex)]
+  const links = [...content.matchAll(linkRegex)]
 
   const matchedNotes = links.map( lnk => lnk[1] )
+  const uniqueNotes = _.uniqWith(matchedNotes, (a,b) => a.toLowerCase() === b.toLowerCase()) // Returns only the unique notes - in an case insensitive manner
 
   // :TODO: Send a bit of text around the link back as well. Can be used in back links for context.
   // :TODO: This will break if custom slug is used. 
+  // :TODO: Handle # in the link - eg [[Note Title#section-3]]
 
   return matchedNotes
+}
+
+// This makes the keys case insensitive. [Permenent Notes] and [permenant notes] should be treated the same.
+function getPreExistingTitle(title, obj) {
+  const key = Object.keys(obj).find(key => key.toLowerCase() === title.toLowerCase())
+
+  return key
 }
