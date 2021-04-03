@@ -28,7 +28,13 @@ export const DefaultMenuStructure = () => {
 	  structure = siteConfig.siteMetadata.headerMenu
 	} else {
 	  let tagList = allMarkdownRemark.group.sort((a, b) => { return b.totalCount - a.totalCount }).slice(0, 10) // Get the top 5 tags.
-	  structure[2].menu = tagList.map((tag) => { return {type:'tag', item:tag.fieldValue} })
+
+	  if(tagList.length) {
+		  structure[2].menu = tagList.map((tag) => { return {type:'tag', item:tag.fieldValue} })
+		
+		} else { // If no tags, don't show the tag section.
+			structure.splice(2, 1)
+		}
 	}
 
 	return structure

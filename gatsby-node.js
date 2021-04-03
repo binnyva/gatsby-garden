@@ -28,6 +28,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `title`,
       value: title.replace(/\//g,'')
     })
+
+    // :TODO: Add tags. Ideally, every supported frontmatter should be added as a field.
   }
 }
 
@@ -149,6 +151,30 @@ exports.createPages = async ({ graphql, actions }) => {
     pathPrefix: '/sitemap',
     component: path.resolve('./src/templates/sitemap.jsx')
   })
+}
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    """
+    Markdown Node
+    """
+    type MarkdownRemark implements Node @infer {
+      frontmatter: Frontmatter
+    }
+
+    """
+    Markdown Frontmatter
+    """
+    type Frontmatter @infer {
+      title: String
+      date: Date @dateformat
+      tags: [String]
+      aliases: [String]
+      slug: String
+    }
+  `
+  createTypes(typeDefs)
 }
 
 function findReferences( content ) {
