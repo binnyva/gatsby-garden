@@ -19,8 +19,6 @@ export default function Home() {
 		    }
 		}`)
 
-  console.log(post)
-
   return post.markdownRemark ? (
   		<Layout title={post.markdownRemark.fields.title}>
   			<div className="note-area">

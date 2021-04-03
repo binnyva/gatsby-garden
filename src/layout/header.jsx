@@ -69,7 +69,7 @@ function Note({ item }) {
 }
 
 function Tag({ item }) {
-  return (<Link className="nav-link" to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
+  return (<Link className="nav-link" to={ `/tags/${item.item.toLowerCase()}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
 }
 
 function ExternalLink({ item }) {

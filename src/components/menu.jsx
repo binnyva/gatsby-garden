@@ -41,7 +41,7 @@ function Note({ item }) {
 }
 
 function Tag({ item }) {
-  return (<Link to={ `/tags/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
+  return (<Link to={ `/tags/${item.item.toLowerCase()}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
 }
 
 function ExternalLink({ item }) {
