@@ -3,10 +3,11 @@ import { Link } from "gatsby"
 import { Helmet } from "react-helmet"
 import { startCase, camelCase } from "lodash"
 import siteConfig from "../../gatsby-config"
-import { DefaultMenuStructure } from "../utils/menu-structure"
+import { DefaultMenuStructure, MenuItemPage,MenuItemText,
+    MenuItemNote,MenuItemTag,MenuItemExternalLink } from "../utils/menu-structure"
 
 export default function Header({ title }) {
-  const menu = DefaultMenuStructure()
+  const menu = DefaultMenuStructure('header')
 
   return (
     <>
@@ -31,12 +32,12 @@ export default function Header({ title }) {
                     </Link>
                     <div className="dropdown-menu" aria-labelledby={`dropdown-${item.item}`}>
                       {item.menu.map((sub_item, sub_index) => {
-                        return (<MenuItem item={sub_item} key={sub_index} />)
+                        return (<MenuItem className="nav-link" item={sub_item} key={sub_index} />)
                       })}
                     </div>
                   </li>)
                 : (<li className="nav-item" key={index}>
-                    <MenuItem item={item} />
+                    <MenuItem className="nav-link" item={item} />
                   </li>)
             })}
           </ul>
@@ -50,28 +51,13 @@ export default function Header({ title }) {
   )
 }
 
-function MenuItem({ item }) {
+function MenuItem({ item, className }) {
   let itm
-  if(item.type === 'page') itm = <Page item={item} />
-  else if(item.type === 'tag') itm = <Tag item={item} />
-  else if(item.type === 'note') itm = <Note item={item} />
-  else if(item.type === 'link') itm = <ExternalLink item={item} />
+  if(item.type === 'page') itm = <MenuItemPage item={item} className={className} />
+  else if(item.type === 'tag') itm = <MenuItemTag item={item} className={className} />
+  else if(item.type === 'note') itm = <MenuItemNote item={item} className={className} />
+  else if(item.type === 'link') itm = <MenuItemExternalLink item={item} className={className} />
+  else if(item.type === 'text') itm = <MenuItemText item={item} className={className} />
 
   return itm
-}
-
-function Page({ item }) {
-  return (<Link className="nav-link" to={ `/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
-}
-
-function Note({ item }) {
-  return (<Link className="nav-link" to={ `/${item.item}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
-}
-
-function Tag({ item }) {
-  return (<Link className="nav-link" to={ `/tags/${item.item.toLowerCase()}`}>{ item.title ? item.title : startCase(camelCase(item.item)) }</Link>)
-}
-
-function ExternalLink({ item }) {
-  return (<a className="nav-link" href={ item.item }>{ item.title ? item.title : startCase(camelCase(item.item)) }</a>)
 }

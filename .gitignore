@@ -1,6 +1,7 @@
 DZG
-_notes_all
-ui/
+Research/
+Deploy.txt
+package-lock.json
 
 *.sublime-*
 

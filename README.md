@@ -2,6 +2,8 @@
 
 Gatsby Garden lets you **create a static HTML version of your markdown notes**. You can convert your Obsidian Zettelkasten Notes into a public Digital Garden.
 
+To see an example site built using Gatsby Garden, visit my [Digital Garden](https://notes.binnya.com/)
+
 ## Features
 
 - Support for wiki links - \[\[Note Name\]\]
@@ -51,7 +53,7 @@ module.exports = {
     description: `Short Description about the website`,
     siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published
     headerMenu: [ // Top Navbar items
-      {type: 'page', item: '', title: 'Home'}, // Type can be 'page', 'note', 'tag', or 'link'
+      {type: 'page', item: '', title: 'Home'}, // Type can be 'page', 'note', 'tag', 'text' or 'link'
       {type: 'page', item: 'sitemap', title: 'Sitemap'},
       {type: 'page', item: 'rss.xml', title: 'RSS'},
       {
@@ -124,22 +126,3 @@ The top part(within the `---`) is called frontmatter. Its the metadata about the
 ## Contributing
 
 One of the reasons I built this tool is to learn Gatsby. If you know what Gatsby and want to help with this project, I'm more than excited to get some expert help :-D. If you are interested in helping out, go to the [Contributing page](https://github.com/binnyva/gatsby-garden/blob/master/CONTRIBUTING.md).
-
-<!-- ## Other Tools
-
-Other Tools to Generate Static Sites from Obsidian Notes...
-
-### Gatsby
-
-- <https://github.com/johno/digital-garden>
-- <https://github.com/mathieudutour/gatsby-digital-garden>
-- <https://www.gatsbyjs.com/plugins/@westegg/gatsby-theme-digital-garden/>
-- <https://www.gatsbyjs.com/plugins/gatsby-theme-networked-thought/>
-- <https://www.gatsbyjs.com/plugins/gatsby-theme-garden/>
-- <https://www.gatsbyjs.com/plugins/@maiertech/gatsby-theme-digital-garden/>
-
-### Others
-
-- <https://github.com/binyamin/eleventy-garden>
-- <https://github.com/maximevaillancourt/digital-garden-jekyll-template>
- -->
