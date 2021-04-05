@@ -2,7 +2,7 @@
 
 Gatsby Garden lets you **create a static HTML version of your markdown notes**. You can convert your Obsidian Zettelkasten Notes into a public Digital Garden.
 
-To see an example site built using Gatsby Garden, visit my [Digital Garden](https://notes.binnya.com/)
+To see an example site built using Gatsby Garden, visit my [Digital Garden](https://notes.binnyva.com/)
 
 ## Features
 
