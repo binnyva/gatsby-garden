@@ -8,7 +8,7 @@ module.exports = {
     title: `Gatsby Garden`,
     description: `A Digital Garden Tended by Gatsby`,
 
-    // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published
+    // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published. This should be present if you want RSS feed.
     // headerMenu: [ // Top Navbar items
     //   {type: 'page', item: '', title: 'Home'}, // Type can be 'page', 'note', 'tag', or 'link'
     //   {type: 'page', item: 'sitemap', title: 'Sitemap'},
@@ -29,9 +29,9 @@ module.exports = {
     // ]
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-feed`
-    },
+    // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
+    //   resolve: `gatsby-plugin-feed`
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

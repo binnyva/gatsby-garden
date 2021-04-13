@@ -31,7 +31,7 @@ query ($skip: Int!, $limit: Int!) {
         fields {
           slug
           title
-          date(formatString: "DD MMMM, YYYY")
+          date
         }
         frontmatter {
           tags

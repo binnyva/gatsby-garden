@@ -5,6 +5,7 @@ import Layout from "../layout/layout"
 import "../styles/note.css"
 import "../styles/graph.css"
 const makeSlug = require("../utils/make-slug")
+const moment = require('moment')
 
 export default function Note({ pageContext, data }) {
   const post = data.markdownRemark
@@ -63,6 +64,10 @@ export default function Note({ pageContext, data }) {
         <div className="note-content" dangerouslySetInnerHTML={{ __html: post.html }}>
         </div>
 
+        <div className="note-meta">
+          <p>Published on: { moment(new Date(post.fields.date)).format("do MMMM, YYYY") }</p>
+        </div>
+
         { post.frontmatter.tags ? (
         <div className="note-tags">
           <h6>Tagged With: </h6>
@@ -104,7 +109,7 @@ export const query = graphql`
       html
       fields {
         title
-        date(formatString: "DD MMMM, YYYY")
+        date
       }
       frontmatter {
         tags

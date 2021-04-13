@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import "../styles/note.css"
+const moment = require('moment')
 
 export default function NoteList({ notes }) {
   return (<div className="note-list">{notes.map(( data, index ) => (
@@ -15,7 +16,7 @@ export default function NoteList({ notes }) {
           </span>
         ))
         : "No Tags" }</p>
-      <p className="note-date">Published on {data.node.fields.date}</p>
+      <p className="note-date">Published on { moment(new Date(data.node.fields.date)).format("Do MMMM, YYYY") }</p>
     </div>
   ))}</div>)
 }

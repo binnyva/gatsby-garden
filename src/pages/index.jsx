@@ -12,20 +12,20 @@ export default function Home() {
 	      html
 	      fields {
 	        title
-	        date(formatString: "DD MMMM, YYYY")
+	        date
 	      }
 	      frontmatter {
 	        tags
 	      }
 	    }
-	    notes: allMarkdownRemark(limit: 5) {
+	    notes: allMarkdownRemark(limit: 5, sort: {fields: fields___date, order: DESC}) {
 		    edges {
 		      node {
 		        excerpt
 		        fields {
 		          slug
 		          title
-		          date(formatString: "DD MMMM, YYYY")
+		          date
 		        }
 		        frontmatter {
 		          tags
@@ -51,7 +51,7 @@ export default function Home() {
 	      <h3>Table Of Contents</h3>
 	      <Menu />
 
-	      <h3>Notes</h3>
+	      <h3>Latest Notes</h3>
 	      <NoteList notes={data.notes.edges} />
 
 	      <br /><Link to="/sitemap">See All Notes</Link>

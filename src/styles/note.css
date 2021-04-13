@@ -28,7 +28,7 @@
 	height: 400px;
 }
 
-.note-content, .note-references, .note-tags, .note-graph {
+.note-content, .note-references, .note-tags, .note-graph, .note-meta {
 	margin: 10px;
 }
 .note-list .note-area {
