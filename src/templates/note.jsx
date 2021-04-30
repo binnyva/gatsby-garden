@@ -81,7 +81,7 @@ export default function Note({ pageContext, data }) {
 
         { pageContext.referredBy.length ? (
         <div className="note-references">
-          <h6>Reffered By</h6>
+          <h6>Referred By</h6>
           <ul>
             {pageContext.referredBy.map((title, index) => (
               <li key={index}><Link to={`/${makeSlug(title)}`}>{title}</Link></li>
