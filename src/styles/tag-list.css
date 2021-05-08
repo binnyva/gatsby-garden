@@ -1,8 +1,10 @@
+@import "variables.css";
+
 .tags {
-	border: 1px solid #eff7f0;
-	background-color: #f8f9fa;
-	display: inline;
-	padding: 3px;
-	margin: 5px;
-	float: left;
+  border: 1px solid #eff7f0;
+  background-color: var(--card-color);
+  display: inline;
+  padding: 3px;
+  margin: 5px;
+  float: left;
 }
