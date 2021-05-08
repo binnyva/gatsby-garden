@@ -6,7 +6,7 @@ import Pager from "../components/pager"
 
 export default function Tag({ pageContext, data }) {
   const { tag } = pageContext
-  const { edges, totalCount } = data.allMarkdownRemark
+  const { edges, totalCount } = data.allMdx
   const heading = `${totalCount} note${
     totalCount === 1 ? "" : "s"
   } tagged with "${tag}"`
@@ -15,18 +15,20 @@ export default function Tag({ pageContext, data }) {
     <Layout>
       <h1>{heading}</h1>
 
-      <NoteList notes={edges} />  
+      <NoteList notes={edges} />
 
       <Pager context={pageContext} />
 
-      <p><Link to="/tags">See All tags</Link></p>
+      <p>
+        <Link to="/tags">See All tags</Link>
+      </p>
     </Layout>
   )
 }
 
 export const query = graphql`
   query($tag: String, $skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
+    allMdx(
       skip: $skip
       limit: $limit
       filter: { frontmatter: { tags: { in: [$tag] } } }
@@ -34,7 +36,6 @@ export const query = graphql`
       totalCount
       edges {
         node {
-          excerpt
           fields {
             slug
             title
