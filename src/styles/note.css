@@ -1,35 +1,43 @@
+@import "variables.css";
+
 .note-area {
-    padding: 0 10px 10px 10px;
+  padding: 0 10px 10px 10px;
 }
 
 .note-area .note-title {
-	margin: 0 5px;
-	padding: 0 5px;
+  margin: 0 5px;
+  padding: 0 5px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-.note-tags h6, .note-tags ul, .note-tags li {
+.note-tags h6,
+.note-tags ul,
+.note-tags li {
   display: inline;
 }
 .note-tags ul {
   padding: 0;
 }
 .note-area .note-tags li::after {
-  content: ", "
+  content: ", ";
 }
 .note-area .note-tags li:last-child:after {
-    content: "";
+  content: "";
 }
 
 .note-graph {
-	background-color: #eff7f0;
-	border: 1px solid #89a289;
-	height: 400px;
+  background-color: var(--card-color);
+  border: 1px solid #89a289;
+  height: 400px;
 }
 
-.note-content, .note-references, .note-tags, .note-graph, .note-meta {
-	margin: 10px;
+.note-content,
+.note-references,
+.note-tags,
+.note-graph,
+.note-meta {
+  margin: 10px;
 }
 .note-list .note-area {
   padding: 10px;
@@ -44,15 +52,15 @@
   margin: 0;
 }
 .note-list .note-tag-list {
-  margin:0;
+  margin: 0;
   color: #999;
   font-size: small;
 }
 .note-list .note-date {
-  margin:0;
+  margin: 0;
   color: #666;
-  font-size: small; 
+  font-size: small;
 }
 .note-list .note-area:nth-child(odd) {
-  background-color: #eff7f0;
+  background-color: var(--card-color);
 }

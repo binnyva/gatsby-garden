@@ -1,0 +1,16 @@
+body {
+  --main-bg-color: #fff;
+  --card-color: #eff7f0;
+  --main-text-color: #333;
+  --navbar-bg-color: #eff7f0;
+  --link-color: #0a0a0a;
+}
+
+body.dark {
+  --main-bg-color: #0a0a0a;
+  --card-color: #161618;
+  --main-text-color: #fff;
+  --navbar-bg-color: #212124;
+  --secondary-text-color: #818181;
+  --link-color: #818181;
+}

@@ -32,6 +32,7 @@ module.exports = {
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
     //   resolve: `gatsby-plugin-feed`
     // },
+    "gatsby-plugin-dark-mode",
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -47,8 +48,8 @@ module.exports = {
             resolve: `gatsby-remark-wiki-links`,
             options: {
               slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true
-            }
+              stripBrackets: true,
+            },
           },
         ],
       },
@@ -56,10 +57,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-            `inter:300,400,500,600,700`       
-        ], display: 'swap'       
-      }
-    }
+        fonts: [`inter:300,400,500,600,700`],
+        display: "swap",
+      },
+    },
   ],
 }
