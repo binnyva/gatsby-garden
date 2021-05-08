@@ -2,7 +2,7 @@
 
 #graph-container {
   border: 1px solid #666;
-  background-color: #eee;
+  background-color: var(--card-color);
 }
 text {
   fill: var(--main-text-color);
