@@ -1,4 +1,9 @@
+@import "variables.css";
+
 #graph-container {
-	border: 1px solid #666;
-	background-color: #eee;
+  border: 1px solid #666;
+  background-color: var(--card-color);
+}
+text {
+  fill: var(--main-text-color);
 }
