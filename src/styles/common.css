@@ -1,12 +1,17 @@
+@import "variables.css";
+
 body {
   padding-top: 56px;
   font-family: Inter;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
 }
 
-.table-striped tbody tr:nth-of-type(2n+1) {
+.table-striped tbody tr:nth-of-type(2n + 1) {
   background-color: #eff7f0;
 }
-.table td, .table th {
+.table td,
+.table th {
   border-top: 1px solid #89a289;
 }
 .table thead th {
@@ -23,5 +28,17 @@ body {
 }
 
 nav.navbar {
-	background-color:  #eff7f0 !important;
+  background-color: var(--navbar-bg-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--navbar-bg-color) !important;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--link-color);
+}
+.navbar-brand {
+  color: var(--main-text-color);
 }
