@@ -1,7 +1,8 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 import { startCase, camelCase } from "lodash"
+import { useFlexSearch } from 'react-use-flexsearch'
 import siteConfig from "../../gatsby-config"
 import {
   DefaultMenuStructure,
@@ -15,7 +16,23 @@ import {
 import DarkMode from "../components/dark-mode"
 
 export default function Header({ title }) {
+  // Needed for search functionality
+  const searchStore = useStaticQuery(graphql`
+    {
+      localSearchNotesIndex {
+        index
+        store
+      }
+    }`)
+
+  const index = searchStore.localSearchNotesIndex.index
+  const store = searchStore.localSearchNotesIndex.store
+
+  const [query, setQuery] = React.useState('')
+  const results = useFlexSearch(query, index, store)
+
   const menu = DefaultMenuStructure("header")
+
 
   return (
     <>
@@ -26,6 +43,8 @@ export default function Header({ title }) {
             (title ? ` : ${title}` : "")}
         </title>
       </Helmet>
+
+      <span>{ searchStore.localSearchNotesIndex.publicStoreURL }</span>
 
       <nav className="navbar navbar-expand-md navbar fixed-top">
         <Link className="navbar-brand" to="/">
@@ -40,7 +59,7 @@ export default function Header({ title }) {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon">...</span>
         </button>
 
         <div className="collapse navbar-collapse" id="default-navbar">
@@ -83,10 +102,18 @@ export default function Header({ title }) {
               <DarkMode />
             </li>
           </ul>
-          {/* <form className="form-inline my-2 my-lg-0" action="/">
-            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="filter" />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> */}
+          <form className="form-inline my-2 my-lg-0" id="search-form" action="/">
+            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search..." 
+              name="filter" value={query} onChange={(event) => setQuery(event.target.value)} />
+            { results.length ? 
+              <div className="search-results">
+                <ul>
+                  {results.map((result) => (
+                    <li key={result.slug}><Link to={result.slug}>{result.title}</Link></li>
+                  ))}
+                </ul>
+              </div> : null }
+          </form>
         </div>
       </nav>
     </>

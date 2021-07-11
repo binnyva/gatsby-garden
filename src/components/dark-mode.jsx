@@ -13,7 +13,9 @@ class DarkMode extends React.Component {
               checked={theme === "dark"}
               hidden
             />
-            {theme === "dark" ? <div>🌞 mode </div> : <div>🌙 mode</div>}
+            {theme === "dark" ? 
+              <div><span role="img" aria-label="sun">🌞</span> Mode </div> 
+              : <div><span role="img" aria-label="moon">🌙</span> Mode</div>}
           </label>
         )}
       </ThemeToggler>

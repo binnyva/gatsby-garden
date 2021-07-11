@@ -42,3 +42,23 @@ nav.navbar {
 .navbar-brand {
   color: var(--main-text-color);
 }
+.navbar-toggler {
+  color: var(--main-text-color);
+}
+
+form#search-form {
+  position:  relative;
+}
+form .search-results {
+  background-color: var(--navbar-bg-color);
+  position: absolute;
+  top: 40px;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+}
+form .search-results ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} 
