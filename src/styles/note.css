@@ -32,13 +32,16 @@
   height: 400px;
 }
 
-.note-content,
 .note-references,
 .note-tags,
 .note-graph,
 .note-meta {
   margin: 10px;
 }
+.note-content {
+  margin:  10px 0;
+}
+
 .note-list .note-area {
   padding: 10px;
 }

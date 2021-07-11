@@ -45,6 +45,20 @@ nav.navbar {
 .navbar-toggler {
   color: var(--main-text-color);
 }
+.note-content img {
+  max-width: 100% !important;
+}
+.note-content table {
+  width: 100%;
+  border-top: 1px solid var(--navbar-bg-color);
+  margin: 20px 0;
+}
+.note-content table tr {
+  border-bottom: 1px solid var(--navbar-bg-color);
+}
+.note-content table td,.note-content table th {
+  padding:  5px;
+}
 
 form#search-form {
   position:  relative;
