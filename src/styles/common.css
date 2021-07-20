@@ -56,12 +56,19 @@ nav.navbar {
 .note-content table tr {
   border-bottom: 1px solid var(--navbar-bg-color);
 }
-.note-content table td,.note-content table th {
-  padding:  5px;
+.note-content table td,
+.note-content table th {
+  padding: 5px;
 }
 
 form#search-form {
-  position:  relative;
+  position: relative;
+}
+
+form#search-form input {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  border: 1px solid var(--main-text-color);
 }
 form .search-results {
   background-color: var(--navbar-bg-color);
@@ -75,4 +82,4 @@ form .search-results ul {
   list-style: none;
   margin: 0;
   padding: 0;
-} 
+}
