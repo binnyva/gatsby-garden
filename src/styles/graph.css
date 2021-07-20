@@ -6,4 +6,21 @@
 }
 text {
   fill: var(--main-text-color);
+  opacity: 0.6;
+}
+
+text:hover {
+  opacity: 1;
+}
+
+#graph-container svg {
+  width: 100% !important;
+}
+
+.note-graph {
+  overflow: hidden !important;
+}
+
+.note-graph svg {
+  width: 100% !important;
 }
