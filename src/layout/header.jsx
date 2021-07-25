@@ -33,7 +33,6 @@ export default function Header({ title }) {
 
   const menu = DefaultMenuStructure("header")
 
-
   return (
     <>
       <Helmet>
@@ -112,6 +111,7 @@ export default function Header({ title }) {
                     <li key={result.slug}><Link to={result.slug}>{result.title}</Link></li>
                   ))}
                 </ul>
+                <button className="close-search button-link" onClick={() => setQuery("")}>Close</button>
               </div> : null }
           </form>
         </div>

@@ -35,11 +35,47 @@
 .note-references,
 .note-tags,
 .note-graph,
-.note-meta {
+.note-meta,
+.note-content {
   margin: 10px;
 }
-.note-content {
-  margin:  10px 0;
+
+.note-content img {
+  max-width: 100% !important;
+}
+.note-content table {
+  width: 100%;
+  border-top: 1px solid var(--navbar-bg-color);
+  margin: 20px 0;
+}
+.note-content table tr {
+  border-bottom: 1px solid var(--navbar-bg-color);
+}
+.note-content table td,
+.note-content table th {
+  padding: 5px;
+}
+
+.note-content blockquote {
+  background: var(--navbar-bg-color);
+  border-left: 10px solid var(--card-color);
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+.note-content blockquote:before {
+  color: var(--card-color);
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+.note-content blockquote p {
+  display: inline;
+}
+.note-content code {
+  color: var(--secondary-text-color);
 }
 
 .note-list .note-area {
@@ -53,6 +89,11 @@
 }
 .note-area .note-excerpt {
   margin: 0;
+}
+.note-meta p, .note-meta div {
+  margin: 0;
+  opacity: 80%;
+  font-size: .9em;
 }
 .note-list .note-tag-list {
   margin: 0;

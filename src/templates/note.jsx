@@ -7,6 +7,28 @@ import "../styles/graph.css"
 const makeSlug = require("../utils/make-slug")
 const moment = require('moment')
 
+function Source({ src }) {
+  if(!src) return null
+
+  let link = ""
+  if(src.includes("<a ")) { // Source given as HTML Link
+    link = <span dangerouslySetInnerHTML={{ __html: src }}></span>
+  } else if(src.includes("](")) { // Source given as Markdown Link - [Text](url)
+    const linkParts = src.match(/\[(.+)\]\((.+)\)/)
+    if(linkParts) {
+      link = <a href={linkParts[2]} target="_blank" rel="noreferrer">{linkParts[1]}</a>
+    } else {
+      return null
+    }
+  } else { // Just an URL given as source
+    link = <a href={src} target="_blank" rel="noreferrer">Link to Source</a>
+  }
+
+  return (
+      <p><strong className="note-meta-title">Source</strong>: { link }</p>
+    );
+}
+
 export default function Note({ pageContext, data }) {
   const post = data.markdownRemark
 
@@ -65,30 +87,32 @@ export default function Note({ pageContext, data }) {
         </div>
 
         <div className="note-meta">
-          <p>Published on: { moment(new Date(post.fields.date)).format("do MMMM, YYYY") }</p>
+          <p><strong className="note-meta-title">Published on: </strong> { moment(new Date(post.fields.date)).format("do MMMM, YYYY") }</p>
+          { post.frontmatter.source ? <Source src={ post.frontmatter.source } /> : null }
+
+          { post.frontmatter.tags ? (
+          <div className="note-tags">
+            <strong className="note-meta-title">Tagged With: </strong>
+            <ul>
+              {post.frontmatter.tags.map((tag, index) => (
+                <li key={index}><Link to={`/tags/${makeSlug(tag)}`}>{tag}</Link></li>
+              ))}
+            </ul>
+          </div>
+          ) : null }
+
+          { pageContext.referredBy.length ? (
+          <div className="note-references">
+            <strong className="note-meta-title">Referred By</strong>
+            <ul>
+              {pageContext.referredBy.map((title, index) => (
+                <li key={index}><Link to={`/${makeSlug(title)}`}>{title}</Link></li>
+              ))}
+            </ul>
+          </div>
+          ) : null }
         </div>
 
-        { post.frontmatter.tags ? (
-        <div className="note-tags">
-          <h6>Tagged With: </h6>
-          <ul>
-            {post.frontmatter.tags.map((tag, index) => (
-              <li key={index}><Link to={`/tags/${makeSlug(tag)}`}>{tag}</Link></li>
-            ))}
-          </ul>
-        </div>
-        ) : null }
-
-        { pageContext.referredBy.length ? (
-        <div className="note-references">
-          <h6>Referred By</h6>
-          <ul>
-            {pageContext.referredBy.map((title, index) => (
-              <li key={index}><Link to={`/${makeSlug(title)}`}>{title}</Link></li>
-            ))}
-          </ul>
-        </div>
-        ) : null }
 
         <div className="note-graph">
           <Graph
@@ -113,6 +137,7 @@ export const query = graphql`
       }
       frontmatter {
         tags
+        source
       }
     }
   }

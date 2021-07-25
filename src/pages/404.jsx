@@ -1,7 +1,6 @@
 import React from "react"
 import Layout from "../layout/layout"
 import Menu from "../components/menu"
-import NoteList from "../components/note-list"
 
 export default function NotFound() {
   return (

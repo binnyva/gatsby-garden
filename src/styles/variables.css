@@ -1,8 +1,9 @@
 body {
   --main-bg-color: #fff;
-  --card-color: #eff7f0;
+  --card-color: #d8dfd9;
   --main-text-color: #333;
   --navbar-bg-color: #eff7f0;
+  --secondary-text-color: #282923;
   --link-color: #818181;
 }
 
