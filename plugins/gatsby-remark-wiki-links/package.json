@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.21",
-    "unist-util-visit": "^2.0.2"
+    "unist-util-visit": "^2.0.3"
   }
 }

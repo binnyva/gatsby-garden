@@ -1,6 +1,8 @@
 const visit = require("unist-util-visit")
 const _ = require("lodash")
 
+// Mostly Taken from https://github.com/mathieudutour/gatsby-digital-garden/tree/master/packages/gatsby-remark-double-brackets-link
+
 const defaultSlugify = (title) => {
     const segments = title.split('/');
     let slugifiedTitle = _.kebabCase(segments.pop());
@@ -8,11 +10,12 @@ const defaultSlugify = (title) => {
     return `${segments.join('/')}/${slugifiedTitle}`;
 };
 
-module.exports = async ({ markdownAST }, pluginOptions) => {
+module.exports = async ({ cache, markdownAST }, pluginOptions) => {
   const slugify = (pluginOptions === null || pluginOptions === void 0 ? void 0 : pluginOptions.slugify) ? require(pluginOptions.slugify) : defaultSlugify;
   const definitions = {};
 
   visit(markdownAST, `definition`, (node) => {
+      console.log(node);
       if (!node.identifier || typeof node.identifier !== "string") {
           return;
       }
@@ -20,10 +23,12 @@ module.exports = async ({ markdownAST }, pluginOptions) => {
   });
 
   visit(markdownAST, `linkReference`, (node, index, parent) => {
+    console.log(node);
     if (node.referenceType !== "shortcut" ||
         (typeof node.identifier === "string" && definitions[node.identifier])) {
         return;
     }
+
     const siblings = parent.children;
     if (!siblings || !Array.isArray(siblings)) {
         return;

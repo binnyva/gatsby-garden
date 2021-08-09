@@ -40,20 +40,45 @@ module.exports = {
         path: `${__dirname}/_notes/`,
       },
     },
-    {
-      resolve: `gatsby-transformer-remark`,
+    // {
+    //   resolve: `gatsby-transformer-remark`,
+    //   options: {
+    //     plugins: [
+    //       // {
+    //       //   resolve: `gatsby-remark-wiki-links`,
+    //       //   options: {
+    //       //     slugify: `${__dirname}/src/utils/make-slug.js`,
+    //       //     stripBrackets: true,
+    //       //   },
+    //       // },
+    //       {
+    //         resolve: `gatsby-remark-double-brackets-link`,
+    //         options: {
+    //           titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
+    //           stripBrackets: true,
+    //           parseWikiLinks: true
+    //         },
+    //       }
+    //     ],
+    //   },
+    // },
+
+    { // Will need mare effort to get this to work.
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-wiki-links`,
             options: {
               slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true,
-            },
-          },
+              stripBrackets: true
+            }
+          }
         ],
       },
     },
+
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
@@ -73,17 +98,14 @@ module.exports = {
         // The following engines are supported: flexsearch, lunr
         engine: 'flexsearch',
 
-        // Provide options to the engine. This is optional and only recommended
-        // for advanced users.
-        //
+        // Provide options to the engine. This is optional and only recommended for advanced users.
         // Note: Only the flexsearch engine supports options.
         engineOptions: 'speed',
 
-        // GraphQL query used to fetch all data for the search index. This is
-        // required.
+        // GraphQL query used to fetch all data for the search index. This is required.
         query: `
           {
-            allMarkdownRemark {
+            allMdx {
               nodes {
                 id
                 fields {
@@ -118,7 +140,7 @@ module.exports = {
         // containing properties to index. The objects must contain the `ref`
         // field above (default: 'id'). This is required.
         normalizer: ({ data }) =>
-          data.allMarkdownRemark.nodes.map((node) => ({
+          data.allMdx.nodes.map((node) => ({
             id: node.id,
             slug: node.fields.slug,
             title: node.fields.title,

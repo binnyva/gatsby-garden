@@ -8,7 +8,7 @@ import NoteList from "../components/note-list"
 export default function Home() {
   const data = useStaticQuery(graphql`
 		query HomeQuery {
-			homeNote: markdownRemark(fields: { slug: { eq: "/home" } }) {
+			homeNote: mdx(fields: { slug: { eq: "/home" } }) {
 	      html
 	      fields {
 	        title
@@ -18,7 +18,7 @@ export default function Home() {
 	        tags
 	      }
 	    }
-	    notes: allMarkdownRemark(limit: 5, sort: {fields: fields___date, order: DESC}) {
+	    notes: allMdx(limit: 5, sort: {fields: fields___date, order: DESC}) {
 		    edges {
 		      node {
 		        excerpt

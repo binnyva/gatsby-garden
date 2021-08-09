@@ -5,7 +5,7 @@ import kebabCase from "lodash/kebabCase"
 import "../styles/tag-list.css"
 
 export default function TagList({ data }) {
-  let tagList = data.allMarkdownRemark.group
+  let tagList = data.allMdx.group
   tagList.sort((a, b) => { return b.totalCount - a.totalCount })
 
   return (
@@ -27,7 +27,7 @@ export default function TagList({ data }) {
 
 export const query = graphql`
   query {
-    allMarkdownRemark(limit: 2000) {
+    allMdx(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount

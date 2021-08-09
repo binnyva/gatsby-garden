@@ -21,7 +21,7 @@ export default function Sitemap({ pageContext, data }) {
 
 export const query = graphql`
 query ($skip: Int!, $limit: Int!) {
-  notes: allMarkdownRemark(
+  notes: allMdx(
     skip: $skip
     limit: $limit
   ) {

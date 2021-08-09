@@ -6,7 +6,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const siteConfig = require("./gatsby-config")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `mdx`) {
   	const { createNodeField } = actions
     const title = node.frontmatter.title ? node.frontmatter.title : createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
     const slug = node.frontmatter.slug ? makeSlug(node.frontmatter.slug) : makeSlug(title)
@@ -37,7 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
   const result = await graphql(`
     query {
-      allMarkdownRemark {
+      allMdx {
         edges {
           node {
             fields {
@@ -56,22 +56,22 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      tags: allMarkdownRemark(limit: 2000) {
+      tags: allMdx(limit: 2000) {
         group(field: frontmatter___tags) {
           fieldValue
         }
       }
     }
   `)
-  const allNotes = _.get(result, "data.allMarkdownRemark.edges")
+  const allNotes = _.get(result, "data.allMdx.edges")
 
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let referenceMap = {}
   let backLinkMap = {}
 
   // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
-  for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
-    const node = result.data.allMarkdownRemark.edges[i].node
+  for(let i = 0; i < result.data.allMdx.edges.length; i++) {
+    const node = result.data.allMdx.edges[i].node
     const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
 
     const noteTitle = getPreExistingTitle(title, backLinkMap)
@@ -91,8 +91,8 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  for(let i = 0; i < result.data.allMarkdownRemark.edges.length; i++) {
-    const node = result.data.allMarkdownRemark.edges[i].node
+  for(let i = 0; i < result.data.allMdx.edges.length; i++) {
+    const node = result.data.allMdx.edges[i].node
     const title = node.frontmatter.title ? node.frontmatter.title : node.fields.title
     const aliases = node.frontmatter.aliases ? node.frontmatter.aliases : []
 
@@ -162,7 +162,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     """
     Markdown Node
     """
-    type MarkdownRemark implements Node @infer {
+    type mdx implements Node @infer {
       frontmatter: Frontmatter
     }
 

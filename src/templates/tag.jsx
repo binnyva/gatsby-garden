@@ -6,7 +6,7 @@ import Pager from "../components/pager"
 
 export default function Tag({ pageContext, data }) {
   const { tag } = pageContext
-  const { edges, totalCount } = data.allMarkdownRemark
+  const { edges, totalCount } = data.allMdx
   const heading = `${totalCount} note${
     totalCount === 1 ? "" : "s"
   } tagged with "${tag}"`
@@ -26,7 +26,7 @@ export default function Tag({ pageContext, data }) {
 
 export const query = graphql`
   query($tag: String, $skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
+    allMdx(
       skip: $skip
       limit: $limit
       filter: { frontmatter: { tags: { in: [$tag] } } }
