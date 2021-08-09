@@ -1,9 +1,9 @@
-import React from "react"
-import { Link, navigate } from "gatsby"
-import { Graph } from "react-d3-graph"
-import Layout from "../layout/layout"
-import "../styles/graph.css"
-const makeSlug = require("../utils/make-slug")
+import React from 'react'
+import { Link, navigate } from 'gatsby'
+import { Graph } from 'react-d3-graph'
+import Layout from '../layout/layout'
+import '../styles/graph.css'
+const makeSlug = require('../utils/make-slug')
 
 export default function Note({ pageContext }) {
   // Create the data for the graph visualisation for the note linking.
@@ -14,7 +14,7 @@ export default function Note({ pageContext }) {
     links: [],
   }
 
-  graphData.nodes.push({ id: "No Links", color: "#eee", fontColor: "#999" }) // All unlinked notes will link to this. So that the graphing library will render it properly.
+  graphData.nodes.push({ id: 'No Links', color: '#eee', fontColor: '#999' }) // All unlinked notes will link to this. So that the graphing library will render it properly.
 
   // Set up the linkages between the notes.
   for (let noteTitle in pageContext.referenceMap) {
@@ -36,8 +36,8 @@ export default function Note({ pageContext }) {
     ) {
       graphData.links.push({
         source: noteTitle,
-        target: "No Links",
-        color: "#eee",
+        target: 'No Links',
+        color: '#eee',
       })
     }
   }
@@ -60,17 +60,17 @@ export default function Note({ pageContext }) {
     width: 1100,
 
     node: {
-      color: "gray",
+      color: 'gray',
       size: 120,
       fontSize: 10,
       highlightFontSize: 10,
-      highlightFontWeight: "bold",
-      highlightStrokeColor: "black",
+      highlightFontWeight: 'bold',
+      highlightStrokeColor: 'black',
       highlightStrokeWidth: 1.5,
-      labelPosition: "top",
+      labelPosition: 'top',
     },
     link: {
-      highlightColor: "black",
+      highlightColor: 'black',
     },
 
     d3: {
@@ -87,7 +87,7 @@ export default function Note({ pageContext }) {
       <h1>All Notes</h1>
 
       <p>
-        Total Notes:{" "}
+        Total Notes:{' '}
         <Link to="/sitemap">
           <strong>{Object.keys(pageContext.referenceMap).length}</strong>
         </Link>

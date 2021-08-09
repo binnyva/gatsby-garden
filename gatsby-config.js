@@ -1,7 +1,3 @@
-/**
- * Configure your Gatsby site with this file.
- * See: https://www.gatsbyjs.com/docs/gatsby-config/
- */
 module.exports = {
   // pathPrefix: `/notes`, // If your Digital Garden is not published at the root of your website, use this.
   siteMetadata: {
@@ -33,7 +29,7 @@ module.exports = {
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
     //   resolve: `gatsby-plugin-feed`
     // },
-    "gatsby-plugin-dark-mode",
+    `gatsby-plugin-dark-mode`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -52,9 +48,9 @@ module.exports = {
             options: {
               titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
               stripBrackets: true,
-              parseWikiLinks: true
+              parseWikiLinks: true,
             },
-          }
+          },
         ],
       },
     },
@@ -63,11 +59,11 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [`inter:300,400,500,600,700`],
-        display: "swap",
+        display: `swap`,
       },
     },
 
-    { // https://www.gatsbyjs.com/plugins/gatsby-plugin-local-search
+    {
       resolve: 'gatsby-plugin-local-search',
       options: {
         // A unique name for the search index. This should be descriptive of
@@ -101,12 +97,10 @@ module.exports = {
           }
         `,
 
-        // Field used as the reference value for each document.
-        // Default: 'id'.
+        // Field used as the reference value for each document. Default: 'id'.
         ref: 'id',
 
-        // List of keys to index. The values of the keys are taken from the
-        // normalizer function below.
+        // List of keys to index. The values of the keys are taken from the normalizer function below.
         // Default: all fields
         index: ['title', 'body', 'tags'],
 
@@ -120,7 +114,7 @@ module.exports = {
         // containing properties to index. The objects must contain the `ref`
         // field above (default: 'id'). This is required.
         normalizer: ({ data }) =>
-          data.allMdx.nodes.map((node) => ({
+          data.allMdx.nodes.map(node => ({
             id: node.id,
             slug: node.fields.slug,
             title: node.fields.title,

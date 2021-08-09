@@ -1,12 +1,14 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-import Layout from "../layout/layout"
-import kebabCase from "lodash/kebabCase"
-import "../styles/tag-list.css"
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import Layout from '../layout/layout'
+import kebabCase from 'lodash/kebabCase'
+import '../styles/tag-list.css'
 
 export default function TagList({ data }) {
   let tagList = data.allMdx.group
-  tagList.sort((a, b) => { return b.totalCount - a.totalCount })
+  tagList.sort((a, b) => {
+    return b.totalCount - a.totalCount
+  })
 
   return (
     <Layout>

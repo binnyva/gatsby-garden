@@ -1,9 +1,9 @@
-import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import { Helmet } from "react-helmet"
-import { startCase, camelCase } from "lodash"
+import React from 'react'
+import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Helmet } from 'react-helmet'
+import { startCase, camelCase } from 'lodash'
 import { useFlexSearch } from 'react-use-flexsearch'
-import siteConfig from "../../gatsby-config"
+import siteConfig from '../../gatsby-config'
 import {
   DefaultMenuStructure,
   MenuItemPage,
@@ -11,9 +11,9 @@ import {
   MenuItemNote,
   MenuItemTag,
   MenuItemExternalLink,
-} from "../utils/menu-structure"
+} from '../utils/menu-structure'
 
-import DarkMode from "../components/dark-mode"
+import DarkMode from '../components/dark-mode'
 
 export default function Header({ title }) {
   // Needed for search functionality
@@ -23,7 +23,8 @@ export default function Header({ title }) {
         index
         store
       }
-    }`)
+    }
+  `)
 
   const index = searchStore.localSearchNotesIndex.index
   const store = searchStore.localSearchNotesIndex.store
@@ -31,23 +32,23 @@ export default function Header({ title }) {
   const [query, setQuery] = React.useState('')
   const results = useFlexSearch(query, index, store)
 
-  const menu = DefaultMenuStructure("header")
+  const menu = DefaultMenuStructure('header')
 
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          {(siteConfig.siteMetadata.title || "Gatsby Garden") +
-            (title ? ` : ${title}` : "")}
+          {(siteConfig.siteMetadata.title || 'Gatsby Garden') +
+            (title ? ` : ${title}` : '')}
         </title>
       </Helmet>
 
-      <span>{ searchStore.localSearchNotesIndex.publicStoreURL }</span>
+      <span>{searchStore.localSearchNotesIndex.publicStoreURL}</span>
 
       <nav className="navbar navbar-expand-md navbar fixed-top">
         <Link className="navbar-brand" to="/">
-          {siteConfig.siteMetadata.title || "Gatsby Garden"}
+          {siteConfig.siteMetadata.title || 'Gatsby Garden'}
         </Link>
         <button
           className="navbar-toggler"
@@ -101,18 +102,37 @@ export default function Header({ title }) {
               <DarkMode />
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0" id="search-form" action="/">
-            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search..." 
-              name="filter" value={query} onChange={(event) => setQuery(event.target.value)} />
-            { results.length ? 
+          <form
+            className="form-inline my-2 my-lg-0"
+            id="search-form"
+            action="/"
+          >
+            <input
+              className="form-control mr-sm-2"
+              type="text"
+              placeholder="Search"
+              aria-label="Search..."
+              name="filter"
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+            />
+            {results.length ? (
               <div className="search-results">
                 <ul>
-                  {results.map((result) => (
-                    <li key={result.slug}><Link to={result.slug}>{result.title}</Link></li>
+                  {results.map(result => (
+                    <li key={result.slug}>
+                      <Link to={result.slug}>{result.title}</Link>
+                    </li>
                   ))}
                 </ul>
-                <button className="close-search button-link" onClick={() => setQuery("")}>Close</button>
-              </div> : null }
+                <button
+                  className="close-search button-link"
+                  onClick={() => setQuery('')}
+                >
+                  Close
+                </button>
+              </div>
+            ) : null}
           </form>
         </div>
       </nav>
@@ -122,15 +142,15 @@ export default function Header({ title }) {
 
 function MenuItem({ item, className }) {
   let itm
-  if (item.type === "page")
+  if (item.type === 'page')
     itm = <MenuItemPage item={item} className={className} />
-  else if (item.type === "tag")
+  else if (item.type === 'tag')
     itm = <MenuItemTag item={item} className={className} />
-  else if (item.type === "note")
+  else if (item.type === 'note')
     itm = <MenuItemNote item={item} className={className} />
-  else if (item.type === "link")
+  else if (item.type === 'link')
     itm = <MenuItemExternalLink item={item} className={className} />
-  else if (item.type === "text")
+  else if (item.type === 'text')
     itm = <MenuItemText item={item} className={className} />
 
   return itm
