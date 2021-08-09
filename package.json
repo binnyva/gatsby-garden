@@ -1,6 +1,6 @@
 {
   "name": "gatsby-garden",
-  "version": "0.2.1",
+  "version": "1.0.1",
   "description": "Gatsby Garden lets you create a static html version of your markdown notes. You can convert your Obsidian Zettelkasten Notes into a public Digital Garden.",
   "homepage": "https://github.com/binnyva/gatsby-garden",
   "keywords": [

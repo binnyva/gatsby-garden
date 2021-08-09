@@ -41,42 +41,12 @@ module.exports = {
         path: `${__dirname}/_notes/`,
       },
     },
-    // {
-    //   resolve: `gatsby-transformer-remark`,
-    //   options: {
-    //     plugins: [
-    //       // {
-    //       //   resolve: `gatsby-remark-wiki-links`,
-    //       //   options: {
-    //       //     slugify: `${__dirname}/src/utils/make-slug.js`,
-    //       //     stripBrackets: true,
-    //       //   },
-    //       // },
-    //       {
-    //         resolve: `gatsby-remark-double-brackets-link`,
-    //         options: {
-    //           titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
-    //           stripBrackets: true,
-    //           parseWikiLinks: true
-    //         },
-    //       }
-    //     ],
-    //   },
-    // },
 
-    { // Will need more effort to get this to work.
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
-          // {
-          //   resolve: require.resolve('./plugins/gatsby-remark-wiki-links'),
-          //   options: {
-          //     slugify: `${__dirname}/src/utils/make-slug.js`,
-          //     stripBrackets: true
-          //   }
-          // },
-
           {
             resolve: `gatsby-remark-double-brackets-link`,
             options: {

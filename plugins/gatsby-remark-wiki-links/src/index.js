@@ -1,12 +1,25 @@
+/*
+We are NOT using this right now. gatsby-remark-double-brackets-link added the `parseWikiLinks` option that we build this to support. If you need to reenable this plugin, add...
+
+```
+gatsbyRemarkPlugins: [
+    {
+      resolve: require.resolve('./plugins/gatsby-remark-wiki-links'),
+      options: {
+        slugify: `${__dirname}/src/utils/make-slug.js`,
+        stripBrackets: true
+      }
+    },
+```
+in the `gatsby-config.js` file
+*/
+
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const visit = __importDefault(require("unist-util-visit"));
 const _ = __importDefault(require("lodash"));
-
-// const visit = require("unist-util-visit")
-// const _ = require("lodash")
 
 // Mostly Taken from https://github.com/mathieudutour/gatsby-digital-garden/tree/master/packages/gatsby-remark-double-brackets-link
 
