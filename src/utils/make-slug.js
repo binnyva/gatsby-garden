@@ -17,5 +17,5 @@ module.exports = (str) => {
     .replace(/\s+/g, "-") // collapse whitespace and replace by -
     .replace(/-+/g, "-"); // collapse dashes
 
-  return str;
-};
+  return str
+}

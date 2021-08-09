@@ -89,6 +89,8 @@ Once you are done with the configuration, you can **generate the static version 
 gatsby build
 ```
 
+PS: You'll need to use `gatsby build --prefix-paths` if you are using a sub-directory for publishing your content.
+
 ### Modifying
 
 If you want to change something, edit the code in the `src` folder. You'll need a bit of JavaScript knowledge to do this. To do this well, you'll need to know how [Gatsby works](https://www.gatsbyjs.com/docs/tutorial/).

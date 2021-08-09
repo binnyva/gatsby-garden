@@ -12,10 +12,10 @@ export const DefaultMenuStructure = (menuType = 'main') => {
   let structure = null
 
   // If nothing exists, use the default menu, with a few mods.
-  const { allMarkdownRemark } = useStaticQuery(
+  const { allMdx } = useStaticQuery(
     graphql`
       query {
-        allMarkdownRemark(limit: 2000) {
+        allMdx(limit: 2000) {
           group(field: frontmatter___tags) {
             fieldValue
             totalCount
@@ -42,7 +42,7 @@ export const DefaultMenuStructure = (menuType = 'main') => {
   if(!structure) {
     structure = defaultStructure
 
-    let tagList = allMarkdownRemark.group.sort((a, b) => { return b.totalCount - a.totalCount }).slice(0, 10) // Get the top 5 tags.
+    let tagList = allMdx.group.sort((a, b) => { return b.totalCount - a.totalCount }).slice(0, 10) // Get the top 5 tags.
 
     if(tagList.length) {
       structure[2].menu = tagList.map((tag) => { return {type:'tag', item:tag.fieldValue} })

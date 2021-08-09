@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql,Link,navigate } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Graph } from "react-d3-graph";
 import Layout from "../layout/layout"
 import "../styles/note.css"
@@ -30,7 +31,7 @@ function Source({ src }) {
 }
 
 export default function Note({ pageContext, data }) {
-  const post = data.markdownRemark
+  const post = data.mdx
 
   // Create the data for the graph visualisation for the note linking.
   const graphData = {
@@ -83,8 +84,7 @@ export default function Note({ pageContext, data }) {
 
       <div className="note-area">
         <h1 className="note-title">{ post.fields.title }</h1>
-        <div className="note-content" dangerouslySetInnerHTML={{ __html: post.html }}>
-        </div>
+        <div className="note-content"><MDXRenderer>{post.body}</MDXRenderer></div>
 
         <div className="note-meta">
           <p><strong className="note-meta-title">Published on: </strong> { moment(new Date(post.fields.date)).format("do MMMM, YYYY") }</p>
@@ -129,8 +129,8 @@ export default function Note({ pageContext, data }) {
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+    mdx(fields: { slug: { eq: $slug } }) {
+      body
       fields {
         title
         date

@@ -29,6 +29,7 @@ module.exports = {
     // ]
   },
   plugins: [
+    `gatsby-plugin-remove-trailing-slashes`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
     //   resolve: `gatsby-plugin-feed`
     // },
@@ -63,17 +64,26 @@ module.exports = {
     //   },
     // },
 
-    { // Will need mare effort to get this to work.
+    { // Will need more effort to get this to work.
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
+          // {
+          //   resolve: require.resolve('./plugins/gatsby-remark-wiki-links'),
+          //   options: {
+          //     slugify: `${__dirname}/src/utils/make-slug.js`,
+          //     stripBrackets: true
+          //   }
+          // },
+
           {
-            resolve: `gatsby-remark-wiki-links`,
+            resolve: `gatsby-remark-double-brackets-link`,
             options: {
-              slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true
-            }
+              titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
+              stripBrackets: true,
+              parseWikiLinks: true
+            },
           }
         ],
       },
@@ -115,7 +125,7 @@ module.exports = {
                 frontmatter {
                   tags
                 }
-                rawMarkdownBody
+                rawBody
               }
             }
           }
@@ -145,7 +155,7 @@ module.exports = {
             slug: node.fields.slug,
             title: node.fields.title,
             tags: node.frontmatter.tags,
-            body: node.rawMarkdownBody,
+            body: node.rawBody,
           })),
       },
     },

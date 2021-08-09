@@ -6,7 +6,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const siteConfig = require("./gatsby-config")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === `mdx`) {
+  if (node.internal.type === `Mdx`) {
   	const { createNodeField } = actions
     const title = node.frontmatter.title ? node.frontmatter.title : createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
     const slug = node.frontmatter.slug ? makeSlug(node.frontmatter.slug) : makeSlug(title)
@@ -50,7 +50,7 @@ exports.createPages = async ({ graphql, actions }) => {
               date
               aliases
             }
-            rawMarkdownBody
+            rawBody
             excerpt
             fileAbsolutePath
           }
@@ -79,7 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
     if(!noteTitle || backLinkMap[noteTitle] === undefined) backLinkMap[title] = [] // Create a element in the back link map if its already not made.
 
     // Go thru all the notes, create a map of how references map.
-    const refersNotes = findReferences( node.rawMarkdownBody )
+    const refersNotes = findReferences( node.rawBody )
     referenceMap[title] = refersNotes
 
     for(let j = 0; j < refersNotes.length; j++) {
@@ -162,7 +162,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     """
     Markdown Node
     """
-    type mdx implements Node @infer {
+    type Mdx implements Node @infer {
       frontmatter: Frontmatter
     }
 

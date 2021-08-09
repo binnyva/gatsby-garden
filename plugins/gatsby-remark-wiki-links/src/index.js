@@ -1,5 +1,12 @@
-const visit = require("unist-util-visit")
-const _ = require("lodash")
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const visit = __importDefault(require("unist-util-visit"));
+const _ = __importDefault(require("lodash"));
+
+// const visit = require("unist-util-visit")
+// const _ = require("lodash")
 
 // Mostly Taken from https://github.com/mathieudutour/gatsby-digital-garden/tree/master/packages/gatsby-remark-double-brackets-link
 
@@ -14,16 +21,14 @@ module.exports = async ({ cache, markdownAST }, pluginOptions) => {
   const slugify = (pluginOptions === null || pluginOptions === void 0 ? void 0 : pluginOptions.slugify) ? require(pluginOptions.slugify) : defaultSlugify;
   const definitions = {};
 
-  visit(markdownAST, `definition`, (node) => {
-      console.log(node);
+  visit.default(markdownAST, `definition`, (node) => {
       if (!node.identifier || typeof node.identifier !== "string") {
           return;
       }
       definitions[node.identifier] = true;
   });
 
-  visit(markdownAST, `linkReference`, (node, index, parent) => {
-    console.log(node);
+  visit.default(markdownAST, `linkReference`, (node, index, parent) => {
     if (node.referenceType !== "shortcut" ||
         (typeof node.identifier === "string" && definitions[node.identifier])) {
         return;
