@@ -43,6 +43,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
+          'gatsby-remark-mermaid',
           {
             resolve: `gatsby-remark-double-brackets-link`,
             options: {
