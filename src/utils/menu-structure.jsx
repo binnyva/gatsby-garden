@@ -129,7 +129,7 @@ export function MenuItemText({ item, className }) {
 
 export function MenuItemExternalLink({ item, className }) {
   return (
-    <a className={className} href={`/tags/${item.item}`}>
+    <a className={className} href={item.item}>
       {item.title ? item.title : startCase(camelCase(item.item))}
     </a>
   )

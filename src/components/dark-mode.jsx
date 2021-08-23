@@ -16,16 +16,14 @@ class DarkMode extends React.Component {
             {theme === 'dark' ? (
               <div>
                 <span role="img" aria-label="sun">
-                  🌞
-                </span>{' '}
-                Mode
+                  <img src="/img/sun.svg" id="dark-mode-toggle" alt="Switch to Light Mode" />
+                </span>
               </div>
             ) : (
               <div>
                 <span role="img" aria-label="moon">
-                  🌙
-                </span>{' '}
-                Mode
+                  <img src="/img/moon.svg" id="dark-mode-toggle" alt="Switch to Light Mode" />
+                </span>
               </div>
             )}
           </label>

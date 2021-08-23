@@ -15,7 +15,7 @@ import {
 
 import DarkMode from '../components/dark-mode'
 
-export default function Header({ title }) {
+export default function Header({ title, type }) {
   // Needed for search functionality
   const searchStore = useStaticQuery(graphql`
     {
@@ -33,107 +33,114 @@ export default function Header({ title }) {
   const results = useFlexSearch(query, index, store)
 
   const menu = DefaultMenuStructure('header')
+  const pageTitle = (siteConfig.siteMetadata.title || 'Gatsby Garden') + (title ? ` : ${title}` : '')
+
+  // <meta content={ siteConfig.siteMetadata.description } property="og:description" />
+  // <meta content="{{ site.url }}{{ page.url }}" property="og:url">
 
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <title>
-          {(siteConfig.siteMetadata.title || 'Gatsby Garden') +
-            (title ? ` : ${title}` : '')}
-        </title>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content={ siteConfig.siteMetadata.title } property="og:site_name" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet" />
+        <meta content={ title ? title : pageTitle } property="og:title" />
+
+        { type === 'note' ?
+          <meta content="article" property="og:type"></meta>
+        :
+          <meta content="website" property="og:type"></meta>
+        }
+        
+        <title>{ pageTitle }</title>
+
+        <link rel="apple-touch-icon" href="/assets/img/profile.png" />
+        <link rel="icon" href="/assets/img/favicon.png" type="image/png" sizes="16x16" />
+        <link href="/css/style.css" rel="stylesheet" media="all" className="default" />
+        <link href="/css/main.css" rel="stylesheet" media="all" className="default" />
+        <link href="/css/custom.css" rel="stylesheet" media="all" className="default" />
+        <link href="/css/Util.css" rel="stylesheet" media="all" className="default" />
+        <link href="/css/vendor/Katex.css" rel="stylesheet" media="all" className="default" />
+
+        <script type="text/javascript" src="/js/common.js"></script>
       </Helmet>
 
       <span>{searchStore.localSearchNotesIndex.publicStoreURL}</span>
 
-      <nav className="navbar navbar-expand-md navbar fixed-top">
-        <Link className="navbar-brand" to="/">
-          {siteConfig.siteMetadata.title || 'Gatsby Garden'}
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#default-navbar"
-          aria-controls="default-navbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon">...</span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="default-navbar">
-          <ul className="navbar-nav mr-auto">
-            {menu.map((item, index) => {
+      <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand">
+          <Link className="navbar-brand" to="/">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" clipRule="evenodd" d="M36.9477 13.7742C38.3043 11.4086 41.6957 11.4086 43.0523 13.7742L70.5226 61.6774C71.8791 64.043 70.1834 67 67.4703 67H12.5297C9.81658 67 8.12089 64.043 9.47744 61.6774L36.9477 13.7742ZM40 16.9677L13.7506 62.7419H66.2494L40 16.9677Z" fill="var(--text-main)"/>
+            </svg>
+            <h4>{siteConfig.siteMetadata.title || 'Gatsby Garden'}</h4>  
+          </Link>
+          <div className="navbar-item navbar-dark-mode__mobile is-hidden-tablet">
+            <DarkMode />
+          </div>
+          <button className="navbar-burger button-link" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        
+        <div id="navbarBasicExample" className="navbar-menu">
+          <div className="navbar-start">
+            { menu.map((item, index) => {
               return item.menu ? (
-                <li className="nav-item dropdown" key={index}>
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    to={`/${item.item}`}
-                    id={`dropdown-${item.item}`}
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                <span key={index} className="navbar-item dropdown">
+                  <Link to={`/${item.item}`} id={`dropdown-${item.item}`} className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {item.title ? item.title : startCase(camelCase(item.item))}
                   </Link>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby={`dropdown-${item.item}`}
-                  >
-                    {item.menu.map((sub_item, sub_index) => {
+                  <div className="dropdown-menu" aria-labelledby={`dropdown-${item.item}`}>
+                    { item.menu.map((subItem, subIndex) => {
                       return (
-                        <MenuItem
-                          className="nav-link"
-                          item={sub_item}
-                          key={sub_index}
-                        />
+                        <MenuItem className="navbar-item" item={subItem} key={subIndex} />
                       )
                     })}
                   </div>
-                </li>
-              ) : (
-                <li className="nav-item" key={index}>
-                  <MenuItem className="nav-link" item={item} />
-                </li>
+                </span>
+              ) :  (
+                <MenuItem className="navbar-item" item={item} key={index} />
               )
             })}
-            <li className="nav-link">
-              <DarkMode />
-            </li>
-          </ul>
-          <form
-            className="form-inline my-2 my-lg-0"
-            id="search-form"
-            action="/"
-          >
-            <input
-              className="form-control mr-sm-2"
-              type="text"
-              placeholder="Search"
-              aria-label="Search..."
-              name="filter"
-              value={query}
-              onChange={event => setQuery(event.target.value)}
-            />
-            {results.length ? (
-              <div className="search-results">
-                <ul>
-                  {results.map(result => (
-                    <li key={result.slug}>
-                      <Link to={result.slug}>{result.title}</Link>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  className="close-search button-link"
-                  onClick={() => setQuery('')}
-                >
-                  Close
-                </button>
-              </div>
-            ) : null}
-          </form>
+          </div>
+          <div className="navbar-end is-hidden-mobile">
+            <form
+              className="nav-search"
+              id="search-form"
+              action="/">
+              <input
+                className="input is-small"
+                type="text"
+                placeholder="Search"
+                aria-label="Search..."
+                name="filter"
+                value={query}
+                onChange={event => setQuery(event.target.value)}
+              />
+              {results.length ? (
+                <div className="nav-search-results">
+                  <ul>
+                    {results.map(result => (
+                      <li key={result.slug}>
+                        <Link to={result.slug}>{result.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    className="close-search button-link"
+                    onClick={() => setQuery('')}>
+                    Close
+                  </button>
+                </div>
+              ) : null}
+            </form>
+            <DarkMode />
+          </div>
         </div>
       </nav>
     </>
@@ -155,3 +162,8 @@ function MenuItem({ item, className }) {
 
   return itm
 }
+
+
+/*
+
+*/

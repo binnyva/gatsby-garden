@@ -33,7 +33,7 @@ function Source({ src }) {
     if (titleParts) {
       link = <Link to={'/' + makeSlug(titleParts[2])}>{titleParts[1]}</Link>
     } else {
-      const title = src.replaceAll(RegExp(/[\[\]]/, 'g'), '') // eslint-disable-line
+      const title = src.replace(new RegExp(/[\[\]]/, 'g'), '') // eslint-disable-line
       link = <Link to={'/' + makeSlug(title)}>{title}</Link>
     }
   } else {
@@ -106,7 +106,7 @@ export default function Note({ pageContext, data }) {
   }
 
   return (
-    <Layout title={post.fields.title}>
+    <Layout title={post.fields.title} type="note">
       <div className="note-area">
         <h1 className="note-title">{post.fields.title}</h1>
         <div className="note-content">

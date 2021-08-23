@@ -2,10 +2,10 @@
 
 #graph-container {
   border: 1px solid #666;
-  background-color: var(--card-color);
+  background-color: var(--bg-sub);
 }
 text {
-  fill: var(--main-text-color);
+  fill: var(--text-main);
   opacity: 0.6;
 }
 

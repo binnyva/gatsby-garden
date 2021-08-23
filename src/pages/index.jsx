@@ -37,7 +37,7 @@ export default function Home() {
   `)
 
   return data.homeNote ? (
-    <Layout title={data.homeNote.fields.title}>
+    <Layout title={data.homeNote.fields.title} type="home">
       <div className="note-area">
         <h1 className="note-title">{data.homeNote.fields.title}</h1>
         <div
@@ -47,15 +47,21 @@ export default function Home() {
       </div>
     </Layout>
   ) : (
-    <Layout title="Home">
-      <h1>{siteConfig.siteMetadata.title}</h1>
-      <p className="lead">{siteConfig.siteMetadata.description}</p>
+    <Layout title="Home" type="home">
+      <div className="block">
+        <h1>{siteConfig.siteMetadata.title}</h1>
+        <p className="lead">{siteConfig.siteMetadata.description}</p>
+      </div>
 
-      <h3>Table Of Contents</h3>
-      <Menu />
+      <div className="block">
+        <h3>Table Of Contents</h3>
+        <Menu />
+      </div>
 
-      <h3>Latest Notes</h3>
-      <NoteList notes={data.notes.edges} />
+      <div className="block">
+        <h3>Latest Notes</h3>
+        <NoteList notes={data.notes.edges} />
+      </div>
 
       <br />
       <Link to="/sitemap">See All Notes</Link>

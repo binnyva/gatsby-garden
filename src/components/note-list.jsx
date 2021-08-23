@@ -5,14 +5,14 @@ const moment = require('moment')
 
 export default function NoteList({ notes }) {
   return (
-    <div className="note-list">
+    <div className="block note-cards note-list">
       {notes.map((data, index) => (
-        <div className="note-area" key={index}>
-          <h3 className="note-title">
+        <div className="note-area box-feed" key={index}>
+          <h4 className="note-title">
             <Link to={`${data.node.fields.slug}`}>
               {data.node.fields.title}
             </Link>
-          </h3>
+          </h4>
           <p className="note-excerpt">{data.node.excerpt}</p>
           <p className="note-tag-list">
             Tagged with:{' '}
@@ -27,7 +27,7 @@ export default function NoteList({ notes }) {
           </p>
           <p className="note-date">
             Published on{' '}
-            {moment(new Date(data.node.fields.date)).format('Do MMMM, YYYY')}
+            {moment(new Date(data.node.fields.date)).fromNow()}
           </p>
         </div>
       ))}

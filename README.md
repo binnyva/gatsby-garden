@@ -16,25 +16,22 @@ To see an example site built using Gatsby Garden, visit my [Digital Garden](http
 
 ### Prerequisites
 
-To use this tool, you'll need [node](https://nodejs.org/en/download/), [npm](https://www.npmjs.com/get-npm), [git](https://git-scm.com/downloads) and [Gatsby](https://www.gatsbyjs.com/docs/tutorial/part-zero/) installed on your system. You can install gatsby using this command....
-
-```
-npm install -g gatsby-cli
-```
+To use this tool, you'll need [node](https://nodejs.org/en/download/), [npm](https://www.npmjs.com/get-npm) and [git](https://git-scm.com/downloads) installed on your system. 
 
 ### Installation
 
 Once you have installed the necessary tools, you can **create a new site using `gatsby-garden` using this command**...
 
 ```
-gatsby new my-garden https://github.com/binnyva/gatsby-garden
+git clone https://github.com/binnyva/gatsby-garden my-garden
 ```
 
 In this example, `my-garden` is the name of your site. You can test it using this command...
 
 ```
 cd my-garden
-gatsby develop
+npm install --legacy-peer-deps
+npm run develop
 ```
 
 If everything went fine, you should see `gatsby-garden` running in your browser at <http://localhost:8000/>.
@@ -86,7 +83,7 @@ slug: "home"
 Once you are done with the configuration, you can **generate the static version of your site**. Use this command to do it...
 
 ```
-gatsby build
+npm run build
 ```
 
 PS: You'll need to use `gatsby build --prefix-paths` if you are using a sub-directory for publishing your content.
@@ -98,7 +95,7 @@ If you want to change something, edit the code in the `src` folder. You'll need 
 You can test your modifications using this command...
 
 ```
-gatsby develop
+npm run develop
 ```
 
 ## The Notes
