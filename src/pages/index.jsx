@@ -4,6 +4,7 @@ import Layout from '../layout/layout'
 import Menu from '../components/menu'
 import siteConfig from '../../gatsby-config'
 import NoteList from '../components/note-list'
+import Search from '../components/search'
 
 export default function Home() {
   const data = useStaticQuery(graphql`
@@ -56,6 +57,10 @@ export default function Home() {
       <div className="block">
         <h3>Table Of Contents</h3>
         <Menu />
+      </div>
+
+      <div className="block">
+        <Search size="medium" showExcerpt={true} />
       </div>
 
       <div className="block">

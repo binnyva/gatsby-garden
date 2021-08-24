@@ -1,0 +1,28 @@
+form.search-form {
+  position: relative;
+}
+
+form.search-form input {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+form .search-result {
+  background-color: var(--bg-sub);
+  position: absolute;
+  top: 40px;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid var(--border);
+}
+form .search-result ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-result p {
+  padding-left: 1rem;
+  border-left: 1px solid var(--text-main);
+}

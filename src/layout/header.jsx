@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import { startCase, camelCase } from 'lodash'
-import { useFlexSearch } from 'react-use-flexsearch'
 import siteConfig from '../../gatsby-config'
+import Search from '../components/search'
 import {
   DefaultMenuStructure,
   MenuItemPage,
@@ -16,22 +16,6 @@ import {
 import DarkMode from '../components/dark-mode'
 
 export default function Header({ title, type }) {
-  // Needed for search functionality
-  const searchStore = useStaticQuery(graphql`
-    {
-      localSearchNotesIndex {
-        index
-        store
-      }
-    }
-  `)
-
-  const index = searchStore.localSearchNotesIndex.index
-  const store = searchStore.localSearchNotesIndex.store
-
-  const [query, setQuery] = React.useState('')
-  const results = useFlexSearch(query, index, store)
-
   const menu = DefaultMenuStructure('header')
   const pageTitle = (siteConfig.siteMetadata.title || 'Gatsby Garden') + (title ? ` : ${title}` : '')
 
@@ -66,8 +50,6 @@ export default function Header({ title, type }) {
 
         <script type="text/javascript" src="/js/common.js"></script>
       </Helmet>
-
-      <span>{searchStore.localSearchNotesIndex.publicStoreURL}</span>
 
       <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
@@ -109,36 +91,7 @@ export default function Header({ title, type }) {
             })}
           </div>
           <div className="navbar-end is-hidden-mobile">
-            <form
-              className="nav-search"
-              id="search-form"
-              action="/">
-              <input
-                className="input is-small"
-                type="text"
-                placeholder="Search"
-                aria-label="Search..."
-                name="filter"
-                value={query}
-                onChange={event => setQuery(event.target.value)}
-              />
-              {results.length ? (
-                <div className="nav-search-results">
-                  <ul>
-                    {results.map(result => (
-                      <li key={result.slug}>
-                        <Link to={result.slug}>{result.title}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    className="close-search button-link"
-                    onClick={() => setQuery('')}>
-                    Close
-                  </button>
-                </div>
-              ) : null}
-            </form>
+            <Search size="small" showExcerpt={false} />
             <DarkMode />
           </div>
         </div>
