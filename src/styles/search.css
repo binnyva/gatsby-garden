@@ -8,13 +8,16 @@ form.search-form input {
   border: 1px solid var(--border);
 }
 form .search-result {
-  background-color: var(--bg-sub);
+  background-color: var(--bg-main);
   position: absolute;
   top: 40px;
   left: 0;
   padding: 10px;
   width: 100%;
   border: 1px solid var(--border);
+}
+form .search-result:hover {
+  background-color: var(--bg-main);
 }
 form .search-result ul {
   list-style: none;
@@ -25,4 +28,6 @@ form .search-result ul {
 .search-result p {
   padding-left: 1rem;
   border-left: 1px solid var(--text-main);
+  margin-left: .5rem;
+  font-size: small;
 }

@@ -4,7 +4,8 @@ a:hover {
 
 /* Header */
 #dark-mode-toggle {
-  width: 1.75rem
+  width: 1.75rem;
+  margin-left: 1rem;
 }
 
 nav.navbar .dropdown {

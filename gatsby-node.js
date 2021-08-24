@@ -75,6 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let referenceMap = {}
   let backLinkMap = {}
+  let related = {}
 
   // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
@@ -85,8 +86,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const noteTitle = getPreExistingTitle(title, backLinkMap)
 
-    if (!noteTitle || backLinkMap[noteTitle] === undefined)
+    if (!noteTitle || backLinkMap[noteTitle] === undefined) {
       backLinkMap[title] = [] // Create a element in the back link map if its already not made.
+
+      related[title] = [{
+        title: title,
+        excerpt: node.excerpt,
+        slug: node.slug
+      }]
+    }
 
     // Go thru all the notes, create a map of how references map.
     const refersNotes = findReferences(node.rawBody)
@@ -96,9 +104,23 @@ exports.createPages = async ({ graphql, actions }) => {
       const tle = refersNotes[j]
       const noteTitle = getPreExistingTitle(tle, backLinkMap)
 
-      if (!noteTitle || backLinkMap[noteTitle] === undefined)
+      if (!noteTitle || backLinkMap[noteTitle] === undefined) {
         backLinkMap[noteTitle] = [title]
-      else backLinkMap[noteTitle].push(title)
+        related[noteTitle] = [{
+          title: title,
+          excerpt: node.excerpt,
+          slug: node.slug
+        }]
+
+      } else {
+        backLinkMap[noteTitle].push(title)
+
+        related[noteTitle].push({
+          title: title,
+          excerpt: node.excerpt,
+          slug: node.slug
+        })
+      }
     }
   }
 
@@ -117,6 +139,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         refersTo: referenceMap[title] ? referenceMap[title] : [],
         referredBy: backLinkMap[title] ? backLinkMap[title] : [],
+        related: related[title] ? related[title] : []
       },
     })
 

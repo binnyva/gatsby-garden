@@ -7,9 +7,7 @@ export default function Layout({ children, title, type }) {
       <Header title={title} type={type} />
       <section className="section">
         <div className="columns is-centered">
-          <div className="column is-half">
-            {children}
-          </div>
+          {children}
         </div>
       </section>
     </>

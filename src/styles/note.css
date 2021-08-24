@@ -24,12 +24,6 @@
   content: "";
 }
 
-.note-graph {
-  background-color: var(--bg-sub);
-  border: 1px solid #89a289;
-  height: 400px;
-}
-
 .note-references,
 .note-tags,
 .note-graph,

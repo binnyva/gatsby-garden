@@ -1,7 +1,7 @@
 @import "variables.css";
 
 #graph-container {
-  border: 1px solid #666;
+  border: 1px solid var(--border);
   background-color: var(--bg-sub);
 }
 text {
@@ -17,7 +17,11 @@ text:hover {
   width: 100% !important;
 }
 
+
 .note-graph {
+  background-color: var(--bg-sub);
+  border: 1px solid var(--border);
+  height: 400px;
   overflow: hidden !important;
 }
 
