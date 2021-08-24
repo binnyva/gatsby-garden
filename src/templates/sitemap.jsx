@@ -7,13 +7,15 @@ import Pager from '../components/pager'
 export default function Sitemap({ pageContext, data }) {
   return (
     <Layout>
-      <h1>Sitemap</h1>
+      <div className="column is-half">
+        <h1>Sitemap</h1>
 
-      <NoteList notes={data.notes.edges} />
+        <NoteList notes={data.notes.edges} />
 
-      <Pager context={pageContext} />
+        <Pager context={pageContext} />
 
-      <Link to="/note-map">Map of All Notes</Link>
+        <Link to="/note-map">Map of All Notes</Link>
+      </div>
     </Layout>
   )
 }

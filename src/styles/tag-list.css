@@ -1,8 +1,15 @@
-.tags {
-  border: 1px solid #eff7f0;
-  background-color: var(--bg-sub);
+@import "variables.css";
+
+.tag-name {
+  border: 1px solid var(--border);
+  background-color: var(--bg-main);
   display: inline;
-  padding: 3px;
+  padding: 3px 5px;
   margin: 5px;
   float: left;
+}
+
+.tag-name .badge {
+  color: var(--text-sub);
+  font-size: small;
 }

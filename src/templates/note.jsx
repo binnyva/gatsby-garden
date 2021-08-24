@@ -89,7 +89,7 @@ export default function Note({ pageContext, data }) {
                   <h5 className="block-title">Links to this note</h5>
                   <div className="related-wrapper">
                     { pageContext.related.map((note, index) => (
-                      <div key={index} className="related-group"><Link to={`/${note.slug}`}>
+                      <div key={index} className="related-group"><Link to={`/${ makeSlug(note.title) }`}>
                         <h4>{ note.title }</h4>
                         <p className="related-excerpt">{ note.excerpt }</p>
                       </Link></div>

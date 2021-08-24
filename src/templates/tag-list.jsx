@@ -11,18 +11,20 @@ export default function TagList({ data }) {
   })
 
   return (
-    <Layout>
-      <h1>Tags</h1>
+    <Layout title="All Tags" type="tag">
+      <div className="column is-half">
+        <h1>All Tags</h1>
 
-      <ul>
-        {tagList.map(tag => (
-          <li key={tag.fieldValue} className="tags">
-            <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-              {tag.fieldValue} <span className="badge">{tag.totalCount}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {tagList.map(tag => (
+            <li key={tag.fieldValue} className="tag-name">
+              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+                {tag.fieldValue} <span className="badge">{tag.totalCount}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </Layout>
   )
 }

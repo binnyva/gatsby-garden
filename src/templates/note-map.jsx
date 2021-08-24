@@ -84,22 +84,24 @@ export default function Note({ pageContext }) {
 
   return (
     <Layout>
-      <h1>All Notes</h1>
+      <div className="column is-half">
+        <h1>All Notes</h1>
 
-      <p>
-        Total Notes:{' '}
-        <Link to="/sitemap">
-          <strong>{Object.keys(pageContext.referenceMap).length}</strong>
-        </Link>
-      </p>
+        <p>
+          Total Notes:{' '}
+          <Link to="/sitemap">
+            <strong>{Object.keys(pageContext.referenceMap).length}</strong>
+          </Link>
+        </p>
 
-      <div id="graph-container">
-        <Graph
-          id="all-note-link-graph"
-          data={graphData}
-          config={graphConfig}
-          onClickNode={onClickNode}
-        />
+        <div id="graph-container">
+          <Graph
+            id="all-note-link-graph"
+            data={graphData}
+            config={graphConfig}
+            onClickNode={onClickNode}
+          />
+        </div>
       </div>
     </Layout>
   )

@@ -12,16 +12,18 @@ export default function Tag({ pageContext, data }) {
   } tagged with "${tag}"`
 
   return (
-    <Layout>
-      <h1>{heading}</h1>
+    <Layout title={`Notes tagged with "${tag}"`} type="tag">
+      <div className="column is-half">
+        <h1>{heading}</h1>
 
-      <NoteList notes={edges} />
+        <NoteList notes={edges} />
 
-      <Pager context={pageContext} />
+        <Pager context={pageContext} />
 
-      <p>
-        <Link to="/tags">See All tags</Link>
-      </p>
+        <p>
+          <Link to="/tags">See All tags</Link>
+        </p>
+      </div>
     </Layout>
   )
 }

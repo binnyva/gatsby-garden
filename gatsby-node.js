@@ -37,6 +37,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     })
 
     // :TODO: Add tags. Ideally, every supported frontmatter should be added as a field.
+    // Excerpt
+    // Visibility
   }
 }
 
@@ -75,7 +77,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let referenceMap = {}
   let backLinkMap = {}
-  let related = {}
+  let related = {}  // :TODO: We only need related OR backLinkMap. Remove backLinkMap
 
   // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
@@ -88,12 +90,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     if (!noteTitle || backLinkMap[noteTitle] === undefined) {
       backLinkMap[title] = [] // Create a element in the back link map if its already not made.
-
-      related[title] = [{
-        title: title,
-        excerpt: node.excerpt,
-        slug: node.slug
-      }]
+      related[title] = []
     }
 
     // Go thru all the notes, create a map of how references map.
@@ -118,7 +115,7 @@ exports.createPages = async ({ graphql, actions }) => {
         related[noteTitle].push({
           title: title,
           excerpt: node.excerpt,
-          slug: node.slug
+          slug: node.slug // :TODO: Confirm slug works for notes that don't specify a slug in frontmatter
         })
       }
     }
