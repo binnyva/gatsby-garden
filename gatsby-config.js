@@ -25,6 +25,7 @@ module.exports = {
     // ]
   },
   plugins: [
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-remove-trailing-slashes`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
     //   resolve: `gatsby-plugin-feed`

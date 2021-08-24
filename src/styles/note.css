@@ -1,9 +1,5 @@
 @import "variables.css";
 
-.note-area {
-  padding: 0 10px 10px 10px;
-}
-
 .note-area .note-title {
   margin: 0 5px;
   padding: 0 5px;

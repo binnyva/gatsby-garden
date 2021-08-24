@@ -521,13 +521,13 @@ a.has-text-black:hover, a.has-text-black:focus {
   background-color: #0a0a0a !important; }
 
 .has-text-light {
-  color: var(--bg-sub); !important; }
+  color: var(--bg-sub) !important; }
 
 a.has-text-light:hover, a.has-text-light:focus {
   color: #dbdbdb !important; }
 
 .has-background-light {
-  background-color: var(--bg-sub); !important; }
+  background-color: var(--bg-sub) !important; }
 
 .has-text-dark {
   color: var(--text-main) !important; }

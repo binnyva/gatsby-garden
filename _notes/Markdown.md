@@ -45,10 +45,12 @@ And...
 
 You can put `code` in Markddown...
 
-```
-#include <stdlib.h>
+```c
+#include <stdio.h>
 
-cout<<"Hello World!"<<endl;
+void main() {
+    cout<<"Hello World!"<<endl;
+}
 ```
 
 ## Advanced

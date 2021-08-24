@@ -50,13 +50,15 @@ export default function Header({ title, type, description }) {
         
         <title>{ pageTitle }</title>
 
-        <link rel="apple-touch-icon" href="/assets/img/profile.png" />
-        <link rel="icon" href="/assets/img/favicon.png" type="image/png" sizes="16x16" />
+        <link rel="apple-touch-icon" href="/img/favicon.png" />
+        <link rel="icon" href="/img/favicon.png" type="image/png" sizes="16x16" />
+        {/*
+          These are included using gatsby-browser.js - if I include these like shown here, there is a horrible FOUC
         <link href="/css/style.css" rel="stylesheet" media="all" className="default" />
         <link href="/css/main.css" rel="stylesheet" media="all" className="default" />
         <link href="/css/custom.css" rel="stylesheet" media="all" className="default" />
         <link href="/css/Util.css" rel="stylesheet" media="all" className="default" />
-        <link href="/css/vendor/Katex.css" rel="stylesheet" media="all" className="default" />
+        */}
       </Helmet>
 
       <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">

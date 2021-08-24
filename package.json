@@ -38,6 +38,7 @@
     "gatsby-plugin-postcss": "^4.11.0",
     "gatsby-plugin-react-helmet": "^4.12.0",
     "gatsby-plugin-remove-trailing-slashes": "^3.11.0",
+    "gatsby-plugin-styled-components": "^4.12.0",
     "gatsby-remark-double-brackets-link": "^0.1.11",
     "gatsby-remark-mermaid": "^2.1.0",
     "gatsby-source-filesystem": "^3.11.0",
