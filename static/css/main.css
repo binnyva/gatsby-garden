@@ -213,7 +213,6 @@ th {
     text-align: left; }
 
 html {
-  background-color: var(--bg-sub);
   font-size: 14px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -319,7 +318,7 @@ table th {
     text-align: left; }
 
 table th {
-  color: var(--border); }
+  color: var(--text-sub); }
 
 .is-clearfix::after {
   clear: both;

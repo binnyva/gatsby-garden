@@ -1,3 +1,5 @@
+@import "variables.css";
+
 .note-area {
   padding: 0 10px 10px 10px;
 }
@@ -35,6 +37,9 @@
 .note-content img {
   max-width: 100% !important;
 }
+.note-content a {
+  color: var(--link) !important;
+}
 .note-content table {
   width: 100%;
   border-top: 1px solid var(--bg-sub);
@@ -55,7 +60,7 @@
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
-.note-content blockquote:before {
+.note-content blockquote::before {
   color: var(--border);
   content: open-quote;
   font-size: 4em;

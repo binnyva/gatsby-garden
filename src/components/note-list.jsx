@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, navigate} from 'gatsby'
 import '../styles/note.css'
 const moment = require('moment')
 
@@ -7,7 +7,9 @@ export default function NoteList({ notes }) {
   return (
     <div className="block note-cards note-list">
       {notes.map((data, index) => (
-        <div className="note-area box-feed" key={index}>
+        <div className="note-area box-feed" key={index} role='button' tabIndex={index}
+            onClick={() => { navigate(data.node.fields.slug) }}
+            onKeyDown={(event) => { if(event.keycode === 13) navigate(data.node.fields.slug) }}>
           <h4 className="note-title">
             <Link to={`${data.node.fields.slug}`}>
               {data.node.fields.title}

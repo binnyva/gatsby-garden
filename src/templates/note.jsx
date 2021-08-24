@@ -62,7 +62,7 @@ export default function Note({ pageContext, data }) {
   }
 
   return (
-    <Layout title={post.fields.title} type="note">
+    <Layout title={post.fields.title} type="note" description="{ post.excerpt }">
       <div className="column is-three-fifths">
         <main>
           <div className="note-area note-page-section">

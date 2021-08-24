@@ -2,14 +2,34 @@ a:hover {
   color: var(--link);
 }
 
-/* Header */
-#dark-mode-toggle {
-  width: 1.75rem;
-  margin-left: 1rem;
+body {
+  background-color: var(--bg-sub);
 }
 
+.close-search {
+  font-size: smaller;
+  color: var(--text-sub);
+  float: right;
+  cursor: pointer;
+}
+
+.button-link {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Header */
 nav.navbar .dropdown {
   position: relative;
+}
+.navbar-brand svg {
+  margin-right: 1rem;
+}
+.navbar-brand h4 {
+  margin-top: -4px;
 }
 nav.navbar .dropdown-menu {
   display: none;
@@ -52,18 +72,4 @@ nav.navbar {
 .navbar-toggler {
   color: var(--text-main);
 }
-.navbar .close-search {
-  font-size: smaller;
-  color: var(--text-sub);
-  float: right;
-  cursor: pointer;
-}
 
-.button-link {
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  color: var(--link);
-  text-decoration: underline;
-  cursor: pointer;
-}
