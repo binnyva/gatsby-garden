@@ -212,6 +212,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       tags: [String]
       aliases: [String]
       slug: String
+      source: String
     }
   `
   createTypes(typeDefs)

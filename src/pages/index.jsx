@@ -5,6 +5,7 @@ import Menu from '../components/menu'
 import siteConfig from '../../gatsby-config'
 import NoteList from '../components/note-list'
 import Search from '../components/search'
+import '../styles/index.css'
 
 export default function Home() {
   const data = useStaticQuery(graphql`
@@ -55,7 +56,7 @@ export default function Home() {
           <p className="lead">{siteConfig.siteMetadata.description}</p>
         </div>
 
-        <div className="block">
+        <div className="block table-of-contents  box-feed">
           <h3>Table Of Contents</h3>
           <Menu />
         </div>

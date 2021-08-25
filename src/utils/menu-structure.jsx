@@ -49,7 +49,7 @@ export const DefaultMenuStructure = (menuType = 'main') => {
       .sort((a, b) => {
         return b.totalCount - a.totalCount
       })
-      .slice(0, 10) // Get the top 5 tags.
+      .slice(0, 10) // Get the top 10 tags.
 
     if (tagList.length) {
       structure[2].menu = tagList.map(tag => {
