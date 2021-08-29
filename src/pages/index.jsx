@@ -1,11 +1,11 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import Layout from '../layout/layout'
-import Menu from '../components/menu'
 import siteConfig from '../../gatsby-config'
 import NoteList from '../components/note-list'
 import Search from '../components/search'
 import '../styles/index.css'
+import { DefaultMenuStructure, MenuRoot } from '../utils/menu-structure'
 
 export default function Home() {
   const data = useStaticQuery(graphql`
@@ -38,6 +38,8 @@ export default function Home() {
     }
   `)
 
+  const tagList = DefaultMenuStructure('tag-list')
+
   return data.homeNote ? (
     <Layout title={data.homeNote.fields.title} type="home">
       <div className="column is-half">
@@ -56,9 +58,8 @@ export default function Home() {
           <p className="lead">{siteConfig.siteMetadata.description}</p>
         </div>
 
-        <div className="block table-of-contents  box-feed">
-          <h3>Table Of Contents</h3>
-          <Menu />
+        <div className="block tag-list">
+          <MenuRoot menu={tagList} />
         </div>
 
         <div className="block">

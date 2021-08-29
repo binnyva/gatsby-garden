@@ -39,10 +39,24 @@ export const DefaultMenuStructure = (menuType = 'main') => {
     } else if (siteConfig.siteMetadata.menu !== undefined) {
       structure = siteConfig.siteMetadata.menu
     }
+  } else if (menuType === 'tag-list') {
+    let tagList = allMdx.group
+      .sort((a, b) => {
+        return b.totalCount - a.totalCount
+      })
+      .slice(0, 20) // Get the top 20 tags.
+
+    if (tagList.length) {
+      structure = tagList.map(tag => {
+        return { type: 'tag', item: tag.fieldValue, liClassName: 'pill' }
+      })
+    } else {
+      structure = false
+    }
   }
 
   // If no menu exists, create a custom menu.
-  if (!structure) {
+  if (structure === null) { // Do NOT create a standard menu it structure === false
     structure = defaultStructure
 
     let tagList = allMdx.group
@@ -88,7 +102,7 @@ export function MenuItem({ item, className }) {
     itm = <MenuItemText item={item} className={className} />
 
   return (
-    <li>
+    <li className={ item.liClassName ? item.liClassName : null }>
       {itm}
       {item.menu ? <MenuRoot menu={item.menu} /> : null}
     </li>

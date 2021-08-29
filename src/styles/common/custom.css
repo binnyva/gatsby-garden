@@ -21,6 +21,16 @@ body {
   cursor: pointer;
 }
 
+.pill {
+  background-color: var(--bg-main);
+  border-radius: 8px;
+  color: var(--text-main);
+  display: inline-block;
+  padding: .5rem 1rem;
+  margin: .25rem;
+}
+
+
 /* Header */
 nav.navbar .dropdown {
   position: relative;

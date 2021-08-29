@@ -1,5 +1,30 @@
 @import "variables.css";
 
+/* Undo Resets */
+.note-area p,
+.note-area ol,
+.note-area ul,
+.note-area li,
+.note-area dl,
+.note-area dt,
+.note-area dd,
+.note-area blockquote,
+.note-area figure,
+.note-area fieldset,
+.note-area legend,
+.note-area textarea,
+.note-area pre,
+.note-area iframe,
+.note-area hr,
+{
+  margin: inherit;
+  padding: inherit;
+}
+
+.note-area ul {
+  list-style: inherit; }
+
+
 .note-area .note-title {
   margin: 0 5px;
   padding: 0 5px;
@@ -75,7 +100,6 @@
   padding: 10px;
 }
 .note-area .note-title {
-  font-size: 1.5em;
   background-color: transparent;
   margin: 0;
   padding: 0;
