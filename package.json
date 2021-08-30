@@ -31,7 +31,7 @@
     "gatsby": "^3.11.0",
     "gatsby-awesome-pagination": "^0.3.6",
     "gatsby-plugin-dark-mode": "^1.1.2",
-    "gatsby-plugin-feed": "^3.12.0",
+    "gatsby-plugin-feed-mdx": "^1.1.0",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-local-search": "^2.0.1",
     "gatsby-plugin-mdx": "^2.12.0",

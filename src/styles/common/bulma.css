@@ -156,6 +156,7 @@
     cursor: not-allowed; }
 
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+/* Disabling these as its causing too much issues
 html,
 body,
 p,
@@ -180,6 +181,7 @@ hr,
 
 ul {
   list-style: none; }
+*/
 
 button,
 input,

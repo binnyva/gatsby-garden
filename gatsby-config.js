@@ -26,10 +26,56 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-remove-trailing-slashes`,
-    // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present as well.
-    //   resolve: `gatsby-plugin-feed`
-    // },
     `gatsby-plugin-dark-mode`,
+    // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
+    //   resolve: `gatsby-plugin-feed-mdx`,
+    //   options: {
+    //     query: `
+    //       {
+    //         site {
+    //           siteMetadata {
+    //             title
+    //             description
+    //             siteUrl
+    //             site_url: siteUrl
+    //           }
+    //         }
+    //       }
+    //     `,
+    //     feeds: [
+    //       {
+    //         serialize: ({ query: { site, allMdx } }) => {
+    //           return allMdx.edges.map(edge => {
+    //             return Object.assign({}, edge.node.fields, {
+    //               description: edge.node.excerpt,
+    //               date: edge.node.fields.date,
+    //               url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+    //               guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+    //               custom_elements: [{ "content:encoded": edge.node.html }]
+    //             });
+    //           });
+    //         },
+    //         query: `
+    //           {
+    //             allMdx(
+    //               sort: { order: DESC, fields: [fields___date] },
+    //             ) {
+    //               edges {
+    //                 node {
+    //                   excerpt
+    //                   html
+    //                   fields { slug date title }
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         `,
+    //         output: "/rss.xml",
+    //         title: "RSS Feed",
+    //       }
+    //     ]
+    //   }
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -37,7 +83,6 @@ module.exports = {
         path: `${__dirname}/_notes/`,
       },
     },
-
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
