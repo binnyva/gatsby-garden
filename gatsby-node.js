@@ -18,7 +18,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       ? makeSlug(node.frontmatter.slug)
       : makeSlug(title)
     const fileNode = getNode(node.parent)
-    const date = node.frontmatter.date ? node.frontmatter.date : fileNode.ctime
+    const date = node.frontmatter.date ? node.frontmatter.date : fileNode.mtime
 
     createNodeField({
       node,

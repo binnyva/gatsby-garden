@@ -24,7 +24,7 @@ class DarkMode extends React.Component {
             ) : (
               <div>
                 <span role="img" aria-label="sun">
-                  <img src="/img/sun.svg" id="dark-mode-toggle" alt="Switch to Light Mode" />
+                  <img src="/img/sun.svg" id="dark-mode-toggle" alt="Switch to Dark Mode" />
                 </span>
               </div>
             )}

@@ -58,6 +58,7 @@ module.exports = {
     //         query: `
     //           {
     //             allMdx(
+    //               limit: 20,
     //               sort: { order: DESC, fields: [fields___date] },
     //             ) {
     //               edges {
