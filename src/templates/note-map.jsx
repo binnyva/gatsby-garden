@@ -85,12 +85,12 @@ export default function Note({ pageContext }) {
   return (
     <Layout>
       <div className="column is-half">
-        <h1>All Notes</h1>
+        <h1>Note Map</h1>
 
         <p>
           Total Notes:{' '}
           <Link to="/sitemap">
-            <strong>{Object.keys(pageContext.referenceMap).length}</strong>
+            <strong>{ Object.keys(pageContext.referenceMap).length }</strong>
           </Link>
         </p>
 

@@ -1,5 +1,6 @@
 ---
 title: Gatsby Garden
+description: Test content.
 tags:
  - tool
  - digital-garden

@@ -22,7 +22,13 @@ export default function Sitemap({ pageContext, data }) {
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
-    notes: allMdx(skip: $skip, limit: $limit) {
+    notes: allMdx(
+        skip: $skip, 
+        limit: $limit, 
+        filter: {
+          fields: { visibility: { eq: "public" } }
+        }
+      ) {
       edges {
         node {
           excerpt
@@ -30,6 +36,7 @@ export const query = graphql`
             slug
             title
             date
+            excerpt
           }
           frontmatter {
             tags

@@ -8,18 +8,19 @@ const siteConfig = require(`./gatsby-config`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `Mdx`) {
     const { createNodeField } = actions
-    const title = node.frontmatter.title
-      ? node.frontmatter.title
-      : createFilePath({ node, getNode, basePath: `_notes` }).replace(
-          /^\/(.+)\/$/,
-          `$1`
-        )
+    const title = node.frontmatter.title 
+      ? node.frontmatter.title 
+      : createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
     const slug = node.frontmatter.slug
       ? makeSlug(node.frontmatter.slug)
       : makeSlug(title)
     const fileNode = getNode(node.parent)
     const date = node.frontmatter.date ? node.frontmatter.date : fileNode.mtime
+    const visibility = node.frontmatter.visibility ? node.frontmatter.visibility : "public"
 
+    // node.excerpt is always returned as undefined. I think its a Gatbsy/MDx bug. So, workaround...
+    const excerpt = node.frontmatter.excerpt ? node.frontmatter.excerpt : node.excerpt
+    
     createNodeField({
       node,
       name: `slug`,
@@ -35,33 +36,43 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `title`,
       value: title.replace(/\//g, ``),
     })
+    createNodeField({
+      node,
+      name: `excerpt`,
+      value: excerpt
+    })
+    createNodeField({
+      node,
+      name: `visibility`,
+      value: visibility
+    })
 
     // :TODO: Add tags. Ideally, every supported frontmatter should be added as a field.
-    // Excerpt
-    // Visibility
   }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
+  // Process for notes all excerpt ones marked private
   const result = await graphql(`
     query {
-      allMdx {
+      allMdx(filter: {fields: {visibility: {ne: "private"}}}) {
         edges {
           node {
             fields {
               slug
               title
+              visibility
+              excerpt
             }
             frontmatter {
-              title
               tags
+              title
               date
               aliases
             }
-            rawBody
             excerpt
-            fileAbsolutePath
+            rawBody
           }
         }
       }
@@ -82,9 +93,13 @@ exports.createPages = async ({ graphql, actions }) => {
   // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
     const node = result.data.allMdx.edges[i].node
-    const title = node.frontmatter.title
-      ? node.frontmatter.title
-      : node.fields.title
+    if(node.fields.visibility !== 'public') continue;
+
+    const title = node.fields.title
+    const slug = node.fields.slug
+    const excerpt = node.fields.excerpt ? node.fields.excerpt : node.excerpt
+
+    console.log({title, slug, excerpt})
 
     const noteTitle = getPreExistingTitle(title, backLinkMap)
 
@@ -105,8 +120,8 @@ exports.createPages = async ({ graphql, actions }) => {
         backLinkMap[noteTitle] = [title]
         related[noteTitle] = [{
           title: title,
-          excerpt: node.excerpt,
-          slug: node.slug
+          excerpt: excerpt,
+          slug: slug 
         }]
 
       } else {
@@ -114,18 +129,17 @@ exports.createPages = async ({ graphql, actions }) => {
 
         related[noteTitle].push({
           title: title,
-          excerpt: node.excerpt,
-          slug: node.slug // :TODO: Confirm slug works for notes that don't specify a slug in frontmatter
+          excerpt: excerpt,
+          slug: slug
         })
       }
     }
   }
 
+  // Create page for all notes.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
     const node = result.data.allMdx.edges[i].node
-    const title = node.frontmatter.title
-      ? node.frontmatter.title
-      : node.fields.title
+    const title = node.fields.title ? node.fields.title : node.frontmatter.title
     const aliases = node.frontmatter.aliases ? node.frontmatter.aliases : []
 
     createPage({
@@ -160,6 +174,7 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
+  // Handle all tag pages.
   result.data.tags.group.forEach(tag => {
     const taggedNotes = allNotes.filter(note =>
       note.node.frontmatter.tags
@@ -213,6 +228,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       aliases: [String]
       slug: String
       source: String
+      visibility: String
+      excerpt: String
     }
   `
   createTypes(typeDefs)

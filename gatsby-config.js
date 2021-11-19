@@ -128,12 +128,15 @@ module.exports = {
         // GraphQL query used to fetch all data for the search index. This is required.
         query: `
           {
-            allMdx {
+            allMdx(filter: {
+                fields: { visibility: { eq: "public" } }
+              }) {
               nodes {
                 id
                 fields {
                   title
                   slug
+                  excerpt
                 }
                 frontmatter {
                   tags
@@ -166,7 +169,7 @@ module.exports = {
             id: node.id,
             slug: node.fields.slug,
             title: node.fields.title,
-            excerpt: node.excerpt,
+            excerpt: node.fields.excerpt ? node.fields.excerpt : node.excerpt,
             tags: node.frontmatter.tags,
             body: node.rawBody,
           })),

@@ -62,7 +62,7 @@ export default function Note({ pageContext, data }) {
   }
 
   return (
-    <Layout title={post.fields.title} type="note" description="{ post.excerpt }">
+    <Layout title={post.fields.title} type="note">
       <div className="column is-three-fifths">
         <main>
           <div className="note-area note-page-section">
@@ -80,7 +80,7 @@ export default function Note({ pageContext, data }) {
 
             <h1 className="note-title">{post.fields.title}</h1>
             <div className="note-content">
-              <MDXRenderer>{post.body}</MDXRenderer>
+              <MDXRenderer>{ post.body }</MDXRenderer>
             </div>
 
             <div className="note-meta">

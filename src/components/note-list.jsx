@@ -15,7 +15,7 @@ export default function NoteList({ notes }) {
               {data.node.fields.title}
             </Link>
           </h4>
-          <p className="note-excerpt">{data.node.excerpt}</p>
+          <p className="note-excerpt">{ data.node.fields.excerpt ? data.node.fields.excerpt : data.node.excerpt }</p>
           <p className="note-tag-list">
             Tagged with:{' '}
             {data.node.frontmatter && data.node.frontmatter.tags

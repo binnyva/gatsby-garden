@@ -20,7 +20,13 @@ export default function Home() {
           tags
         }
       }
-      notes: allMdx(limit: 5, sort: { fields: fields___date, order: DESC }) {
+      notes: allMdx(
+          filter: { 
+            fields: { visibility: { eq: "public" } }
+          }, 
+          limit: 5, 
+          sort: { fields: fields___date, order: DESC }
+        ) {
         edges {
           node {
             excerpt

@@ -33,7 +33,10 @@ export const query = graphql`
     allMdx(
       skip: $skip
       limit: $limit
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { 
+        frontmatter: { tags: { in: [$tag] } },
+        fields: { visibility: { eq: "public" } }
+      }
     ) {
       totalCount
       edges {
@@ -43,6 +46,7 @@ export const query = graphql`
             slug
             title
             date
+            excerpt
           }
           frontmatter {
             tags
