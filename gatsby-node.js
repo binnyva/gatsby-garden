@@ -53,10 +53,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
-  // Process for notes all excerpt ones marked private
+  // Process for notes all public notes
   const result = await graphql(`
     query {
-      allMdx(filter: {fields: {visibility: {ne: "private"}}}) {
+      allMdx(
+          filter: {
+            fields: { visibility: { eq: "public" } }
+          }) {
         edges {
           node {
             fields {
@@ -86,53 +89,42 @@ exports.createPages = async ({ graphql, actions }) => {
   const allNotes = _.get(result, `data.allMdx.edges`)
 
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
-  let referenceMap = {}
-  let backLinkMap = {}
-  let related = {}  // :TODO: We only need related OR backLinkMap. Remove backLinkMap
+  let refersTo = {} // refersTo['note title'] = ['note that "note title" linked to', 'another note that "note title" linked to', ...]
+  let referredBy = {} // referredBy['note title'] = [{title: 'note that linked to "note title"' ...}, {title: 'another note that linked to "note title"', ...}, ...]
 
-  // I didn't used the much more cleaner foreach because the `referenceMap` was not working well with that.
+  let linkageCache = {} // Caches all linking. To prevent duplicate linking. Eg. linkageCache['note title->linked note'] = true
+
+  const allNoteTitles = allNotes.map(note => note.node.fields.title) // A list of all note titles. Helps in finding the correct title in a case-insensitive manner.
+
+  // I didn't used the much more cleaner foreach because the `refersTo` was not working well with that.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
     const node = result.data.allMdx.edges[i].node
-    if(node.fields.visibility !== 'public') continue;
 
     const title = node.fields.title
     const slug = node.fields.slug
     const excerpt = node.fields.excerpt ? node.fields.excerpt : node.excerpt
 
-    console.log({title, slug, excerpt})
-
-    const noteTitle = getPreExistingTitle(title, backLinkMap)
-
-    if (!noteTitle || backLinkMap[noteTitle] === undefined) {
-      backLinkMap[title] = [] // Create a element in the back link map if its already not made.
-      related[title] = []
-    }
-
     // Go thru all the notes, create a map of how references map.
-    const refersNotes = findReferences(node.rawBody)
-    referenceMap[title] = refersNotes
 
-    for (let j = 0; j < refersNotes.length; j++) {
-      const tle = refersNotes[j]
-      const noteTitle = getPreExistingTitle(tle, backLinkMap)
+    const outgoingLinks = findReferences(node.rawBody) // All outgoing links from this note
+    refersTo[title] = outgoingLinks.map(outTitle => getPreExistingTitle(outTitle, allNoteTitles))
 
-      if (!noteTitle || backLinkMap[noteTitle] === undefined) {
-        backLinkMap[noteTitle] = [title]
-        related[noteTitle] = [{
-          title: title,
-          excerpt: excerpt,
-          slug: slug 
-        }]
+    for (let j = 0; j < outgoingLinks.length; j++) {
+      const tle = outgoingLinks[j]
+      const linkTitle = getPreExistingTitle(tle, allNoteTitles)
 
-      } else {
-        backLinkMap[noteTitle].push(title)
+      // Why this instead of just going thru the array to search? Optimizing. Might be premature. But, this function is already very slow. 
+      if(linkageCache[title+'->'+linkTitle] !== undefined) continue
 
-        related[noteTitle].push({
-          title: title,
-          excerpt: excerpt,
-          slug: slug
-        })
-      }
+      if (referredBy[linkTitle] === undefined) referredBy[linkTitle] = [] // If undefined, initialize
+
+      referredBy[linkTitle].push({
+        title: title,
+        excerpt: excerpt,
+        slug: slug
+      })
+
+      linkageCache[title+'->'+linkTitle] = true
     }
   }
 
@@ -148,9 +140,8 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         title: title,
         slug: node.fields.slug,
-        refersTo: referenceMap[title] ? referenceMap[title] : [],
-        referredBy: backLinkMap[title] ? backLinkMap[title] : [],
-        related: related[title] ? related[title] : []
+        refersTo: refersTo[title] ? refersTo[title] : [],
+        referredBy: referredBy[title] ? referredBy[title] : []
       },
     })
 
@@ -169,8 +160,8 @@ exports.createPages = async ({ graphql, actions }) => {
     path: `/note-map`,
     component: path.resolve(`./src/templates/note-map.jsx`),
     context: {
-      referenceMap,
-      backLinkMap,
+      allRefersTo: refersTo,
+      allReferredBy: referredBy,
     },
   })
 
@@ -206,6 +197,50 @@ exports.createPages = async ({ graphql, actions }) => {
     pathPrefix: `/sitemap`,
     component: path.resolve(`./src/templates/sitemap.jsx`),
   })
+
+  // Unlisted notes should be made a page.
+  const privateNotes = await graphql(`
+    query {
+      allMdx(
+          filter: {
+            fields: { visibility: { eq: "unlisted" } }
+          }) {
+        edges {
+          node {
+            fields {
+              slug
+              title
+              visibility
+              excerpt
+            }
+            frontmatter {
+              tags
+              title
+              date
+              aliases
+            }
+            excerpt
+            rawBody
+          }
+        }
+      }
+    }
+  `)
+  for (let i = 0; i < privateNotes.data.allMdx.edges.length; i++) {
+    const node = privateNotes.data.allMdx.edges[i].node
+    const title = node.fields.title ? node.fields.title : node.frontmatter.title
+
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/note.jsx`),
+      context: {
+        title: title,
+        slug: node.fields.slug,
+        refersTo: refersTo[title] ? refersTo[title] : [],
+        referredBy: referredBy[title] ? referredBy[title] : [],
+      },
+    })
+  }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
@@ -255,9 +290,11 @@ function findReferences(content) {
 
 // This makes the keys case insensitive. [Permenent Notes] and [permenant notes] should be treated the same.
 function getPreExistingTitle(title, obj) {
-  const key = Object.keys(obj).find(
+  const key = obj.find(
     key => key.toLowerCase() === title.toLowerCase()
   )
+
+  if(key === undefined) return title // If obj is empty(first time its called) or we didn't find any match.
 
   return key
 }

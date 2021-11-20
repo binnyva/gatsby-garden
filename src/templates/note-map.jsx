@@ -8,7 +8,7 @@ const makeSlug = require('../utils/make-slug')
 export default function Note({ pageContext }) {
   // Create the data for the graph visualisation for the note linking.
   const graphData = {
-    nodes: Object.keys(pageContext.referenceMap).map((key, index) => {
+    nodes: Object.keys(pageContext.allRefersTo).map((key, index) => {
       return { id: key }
     }),
     links: [],
@@ -17,22 +17,22 @@ export default function Note({ pageContext }) {
   graphData.nodes.push({ id: 'No Links', color: '#eee', fontColor: '#999' }) // All unlinked notes will link to this. So that the graphing library will render it properly.
 
   // Set up the linkages between the notes.
-  for (let noteTitle in pageContext.referenceMap) {
-    const refNoteTitles = pageContext.referenceMap[noteTitle]
+  for (let noteTitle in pageContext.allRefersTo) {
+    const refNoteTitles = pageContext.allRefersTo[noteTitle]
 
     for (let i in refNoteTitles) {
       const refNoteTitle = refNoteTitles[i]
 
       // Show links to only the notes that exists. There will be some linking to non existing notes - that will break the graph.
-      if (pageContext.referenceMap[refNoteTitle] !== undefined) {
+      if (pageContext.allRefersTo[refNoteTitle] !== undefined) {
         graphData.links.push({ source: noteTitle, target: refNoteTitle })
       }
     }
 
     // If this is an orphan note(no links to and from other notes), we need some hackery to get it to work.
     if (
-      !pageContext.referenceMap[noteTitle].length &&
-      !pageContext.backLinkMap[noteTitle].length
+      !pageContext.allRefersTo[noteTitle]?.length &&
+      !pageContext.allReferredBy[noteTitle]?.length
     ) {
       graphData.links.push({
         source: noteTitle,
@@ -50,7 +50,7 @@ export default function Note({ pageContext }) {
   // the graph configuration, just override the ones you need
   const graphConfig = {
     // automaticRearrangeAfterDropNode: true,
-    directed: false, // If true, highlighting on mouseover will also be directed
+    directed: true, // If true, highlighting on mouseover will also be directed
     // initialZoom: 1.4,
     highlightDegree: 2,
     nodeHighlightBehavior: true,
@@ -85,12 +85,12 @@ export default function Note({ pageContext }) {
   return (
     <Layout>
       <div className="column is-half">
-        <h1>Note Map</h1>
+        <h1>Knowledge Graph</h1>
 
         <p>
           Total Notes:{' '}
           <Link to="/sitemap">
-            <strong>{ Object.keys(pageContext.referenceMap).length }</strong>
+            <strong>{ Object.keys(pageContext.allRefersTo).length }</strong>
           </Link>
         </p>
 

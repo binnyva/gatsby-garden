@@ -20,7 +20,7 @@ export default function Note({ pageContext, data }) {
 
   // Links to the current Note
   for (let i = 0; i < pageContext.referredBy.length; i++) {
-    const refNoteTitle = pageContext.referredBy[i]
+    const refNoteTitle = pageContext.referredBy[i].title
     graphData.nodes.push({ id: refNoteTitle })
     graphData.links.push({ source: refNoteTitle, target: post.fields.title })
   }
@@ -84,11 +84,11 @@ export default function Note({ pageContext, data }) {
             </div>
 
             <div className="note-meta">
-              { pageContext.related.length ? (
+              { pageContext.referredBy.length ? (
                 <div className="related note-references">
                   <h5 className="block-title">Links to this note</h5>
                   <div className="related-wrapper">
-                    { pageContext.related.map((note, index) => (
+                    { pageContext.referredBy.map((note, index) => (
                       <div key={index} className="related-group"><Link to={`/${ makeSlug(note.title) }`}>
                         <h4>{ note.title }</h4>
                         <p className="related-excerpt">{ note.excerpt }</p>
