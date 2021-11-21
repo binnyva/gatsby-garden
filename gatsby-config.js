@@ -90,14 +90,21 @@ module.exports = {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           'gatsby-remark-mermaid',
+          // {
+          //   resolve: `gatsby-remark-double-brackets-link`,
+          //   options: {
+          //     titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
+          //     stripBrackets: true,
+          //     parseWikiLinks: true,
+          //   },
+          // },
           {
-            resolve: `gatsby-remark-double-brackets-link`,
+            resolve: `gatsby-remark-wiki-links`,
             options: {
-              titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true,
-              parseWikiLinks: true,
-            },
-          },
+              slugify: `${__dirname}/src/utils/make-slug.js`,
+              stripBrackets: true
+            }
+          }
         ],
       },
     },

@@ -1,5 +1,5 @@
 /*
-We are NOT using this right now. gatsby-remark-double-brackets-link added the `parseWikiLinks` option that we build this to support. If you need to reenable this plugin, add...
+If you need to reenable this plugin, add...
 
 ```
 gatsbyRemarkPlugins: [
@@ -12,6 +12,12 @@ gatsbyRemarkPlugins: [
     },
 ```
 in the `gatsby-config.js` file
+
+Want to add more features? Get these things(<https://www.gatsbyjs.com/plugins/gatsby-remark-obsidian/>)...
+- [] [[Internal link#heading]]
+- [] [[Internal link#heading|With custom text]]
+- [] ![[Embed note]]
+- [] ![[Embed note#heading]]
 */
 
 var __importDefault = (this && this.__importDefault) || function (mod) {

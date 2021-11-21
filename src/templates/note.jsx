@@ -104,7 +104,7 @@ export default function Note({ pageContext, data }) {
                   <div className="related-group">
                     <p>
                       <strong className="note-meta-title">Published on: </strong>{' '}
-                      {moment(new Date(post.fields.date)).format('do MMMM, YYYY')}
+                      {moment(new Date(post.fields.date)).format('Do MMMM, YYYY')}
                     </p>
                     {post.frontmatter.source ? (
                       <Source src={post.frontmatter.source} />
