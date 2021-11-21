@@ -17,8 +17,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const fileNode = getNode(node.parent)
     const date = node.frontmatter.date ? node.frontmatter.date : fileNode.mtime
     const visibility = node.frontmatter.visibility ? node.frontmatter.visibility : "public"
-
-    // node.excerpt is always returned as undefined. I think its a Gatbsy/MDx bug. So, workaround...
     const excerpt = node.frontmatter.excerpt ? node.frontmatter.excerpt : node.excerpt
     
     createNodeField({
@@ -251,6 +249,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     """
     type Mdx implements Node @infer {
       frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    """
+    Markdown Fields
+    """
+    type Fields @infer {
+      title: String
+      date: Date @dateformat
+      slug: String
+      visibility: String
+      excerpt: String
     }
 
     """
