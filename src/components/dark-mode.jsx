@@ -11,20 +11,30 @@ class DarkMode extends React.Component {
           <label className="theme-switcher">
             <input
               type="checkbox"
-              onChange={e => { toggleTheme(e.target.checked ? 'dark' : 'light'); } }
+              onChange={e => {
+                toggleTheme(e.target.checked ? 'dark' : 'light')
+              }}
               checked={theme === 'dark'}
               hidden
             />
             {theme === 'dark' ? (
               <div>
                 <span role="img" aria-label="moon">
-                  <img src="/img/moon.svg" id="dark-mode-toggle" alt="Switch to Light Mode" />
+                  <img
+                    src="/img/moon.svg"
+                    id="dark-mode-toggle"
+                    alt="Switch to Light Mode"
+                  />
                 </span>
               </div>
             ) : (
               <div>
                 <span role="img" aria-label="sun">
-                  <img src="/img/sun.svg" id="dark-mode-toggle" alt="Switch to Dark Mode" />
+                  <img
+                    src="/img/sun.svg"
+                    id="dark-mode-toggle"
+                    alt="Switch to Dark Mode"
+                  />
                 </span>
               </div>
             )}

@@ -8,17 +8,26 @@ const siteConfig = require(`./gatsby-config`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `Mdx`) {
     const { createNodeField } = actions
-    const title = node.frontmatter.title 
-      ? node.frontmatter.title 
-      : createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
+    const title = node.frontmatter.title
+      ? node.frontmatter.title
+      : createFilePath({ node, getNode, basePath: `_notes` }).replace(
+          /^\/(.+)\/$/,
+          '$1'
+        )
     const slug = node.frontmatter.slug
       ? makeSlug(node.frontmatter.slug)
       : makeSlug(title)
     const fileNode = getNode(node.parent)
     const date = node.frontmatter.date ? node.frontmatter.date : fileNode.mtime
-    const visibility = node.frontmatter.visibility ? node.frontmatter.visibility : "public"
-    const excerpt = node.frontmatter.excerpt ? node.frontmatter.excerpt : node.excerpt
-    
+    const visibility = node.frontmatter.visibility
+      ? node.frontmatter.visibility
+      : 'public'
+    const excerpt = node.frontmatter.excerpt
+      ? node.frontmatter.excerpt
+      : node.excerpt
+
+    // If you are adding new fields here, add it to createSchemaCustomization() as well.
+
     createNodeField({
       node,
       name: `slug`,
@@ -37,12 +46,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `excerpt`,
-      value: excerpt
+      value: excerpt,
     })
     createNodeField({
       node,
       name: `visibility`,
-      value: visibility
+      value: visibility,
     })
 
     // :TODO: Add tags. Ideally, every supported frontmatter should be added as a field.
@@ -54,10 +63,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Process for notes all public notes
   const result = await graphql(`
     query {
-      allMdx(
-          filter: {
-            fields: { visibility: { eq: "public" } }
-          }) {
+      allMdx(filter: { fields: { visibility: { eq: "public" } } }) {
         edges {
           node {
             fields {
@@ -105,24 +111,26 @@ exports.createPages = async ({ graphql, actions }) => {
     // Go thru all the notes, create a map of how references map.
 
     const outgoingLinks = findReferences(node.rawBody) // All outgoing links from this note
-    refersTo[title] = outgoingLinks.map(outTitle => getPreExistingTitle(outTitle, allNoteTitles))
+    refersTo[title] = outgoingLinks.map(outTitle =>
+      getPreExistingTitle(outTitle, allNoteTitles)
+    )
 
     for (let j = 0; j < outgoingLinks.length; j++) {
       const tle = outgoingLinks[j]
       const linkTitle = getPreExistingTitle(tle, allNoteTitles)
 
-      // Why this instead of just going thru the array to search? Optimizing. Might be premature. But, this function is already very slow. 
-      if(linkageCache[title+'->'+linkTitle] !== undefined) continue
+      // Why this instead of just going thru the array to search? Optimizing. Might be premature. But, this function is already very slow.
+      if (linkageCache[title + '->' + linkTitle] !== undefined) continue
 
       if (referredBy[linkTitle] === undefined) referredBy[linkTitle] = [] // If undefined, initialize
 
       referredBy[linkTitle].push({
         title: title,
         excerpt: excerpt,
-        slug: slug
+        slug: slug,
       })
 
-      linkageCache[title+'->'+linkTitle] = true
+      linkageCache[title + '->' + linkTitle] = true
     }
   }
 
@@ -139,7 +147,7 @@ exports.createPages = async ({ graphql, actions }) => {
         title: title,
         slug: node.fields.slug,
         refersTo: refersTo[title] ? refersTo[title] : [],
-        referredBy: referredBy[title] ? referredBy[title] : []
+        referredBy: referredBy[title] ? referredBy[title] : [],
       },
     })
 
@@ -199,10 +207,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Unlisted notes should be made a page.
   const privateNotes = await graphql(`
     query {
-      allMdx(
-          filter: {
-            fields: { visibility: { eq: "unlisted" } }
-          }) {
+      allMdx(filter: { fields: { visibility: { eq: "unlisted" } } }) {
         edges {
           node {
             fields {
@@ -300,11 +305,9 @@ function findReferences(content) {
 
 // This makes the keys case insensitive. [Permenent Notes] and [permenant notes] should be treated the same.
 function getPreExistingTitle(title, obj) {
-  const key = obj.find(
-    key => key.toLowerCase() === title.toLowerCase()
-  )
+  const key = obj.find(key => key.toLowerCase() === title.toLowerCase())
 
-  if(key === undefined) return title // If obj is empty(first time its called) or we didn't find any match.
+  if (key === undefined) return title // If obj is empty(first time its called) or we didn't find any match.
 
   return key
 }

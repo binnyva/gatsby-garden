@@ -16,7 +16,7 @@ To see an example site built using Gatsby Garden, visit my [Digital Garden](http
 
 ### Prerequisites
 
-To use this tool, you'll need [node](https://nodejs.org/en/download/), [npm](https://www.npmjs.com/get-npm) and [git](https://git-scm.com/downloads) installed on your system. 
+To use this tool, you'll need [node](https://nodejs.org/en/download/), [npm](https://www.npmjs.com/get-npm) and [git](https://git-scm.com/downloads) installed on your system.
 
 ### Installation
 
@@ -104,8 +104,8 @@ The notes in the `_notes` folder have to be in markdown format. Ideally, in this
 
 ```markdown
 ---
-title: "Zettelkasten"
-tags: ["zettelkasten", "pkm", "notes", "learning"]
+title: 'Zettelkasten'
+tags: ['zettelkasten', 'pkm', 'notes', 'learning']
 date: 2021-01-20 19:30:00
 ---
 

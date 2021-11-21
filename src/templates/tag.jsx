@@ -33,8 +33,8 @@ export const query = graphql`
     allMdx(
       skip: $skip
       limit: $limit
-      filter: { 
-        frontmatter: { tags: { in: [$tag] } },
+      filter: {
+        frontmatter: { tags: { in: [$tag] } }
         fields: { visibility: { eq: "public" } }
       }
     ) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, navigate} from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import '../styles/note.css'
 const moment = require('moment')
 
@@ -7,15 +7,28 @@ export default function NoteList({ notes }) {
   return (
     <div className="block note-cards note-list">
       {notes.map((data, index) => (
-        <div className="note-area box-feed" key={index} role='button' tabIndex={index}
-            onClick={() => { navigate(data.node.fields.slug) }}
-            onKeyDown={(event) => { if(event.keycode === 13) navigate(data.node.fields.slug) }}>
+        <div
+          className="note-area box-feed"
+          key={index}
+          role="button"
+          tabIndex={index}
+          onClick={() => {
+            navigate(data.node.fields.slug)
+          }}
+          onKeyDown={event => {
+            if (event.keycode === 13) navigate(data.node.fields.slug)
+          }}
+        >
           <h4 className="note-title">
             <Link to={`${data.node.fields.slug}`}>
               {data.node.fields.title}
             </Link>
           </h4>
-          <p className="note-excerpt">{ data.node.fields.excerpt ? data.node.fields.excerpt : data.node.excerpt }</p>
+          <p className="note-excerpt">
+            {data.node.fields.excerpt
+              ? data.node.fields.excerpt
+              : data.node.excerpt}
+          </p>
           <p className="note-tag-list">
             Tagged with:{' '}
             {data.node.frontmatter && data.node.frontmatter.tags
@@ -28,8 +41,7 @@ export default function NoteList({ notes }) {
               : 'No Tags'}
           </p>
           <p className="note-date">
-            Published on{' '}
-            {moment(new Date(data.node.fields.date)).fromNow()}
+            Published on {moment(new Date(data.node.fields.date)).fromNow()}
           </p>
         </div>
       ))}

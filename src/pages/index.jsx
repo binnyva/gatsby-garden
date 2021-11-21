@@ -21,12 +21,10 @@ export default function Home() {
         }
       }
       notes: allMdx(
-          filter: { 
-            fields: { visibility: { eq: "public" } }
-          }, 
-          limit: 5, 
-          sort: { fields: fields___date, order: DESC }
-        ) {
+        filter: { fields: { visibility: { eq: "public" } } }
+        limit: 5
+        sort: { fields: fields___date, order: DESC }
+      ) {
         edges {
           node {
             excerpt
@@ -51,8 +49,10 @@ export default function Home() {
       <div className="column is-half">
         <div className="note-area">
           <h1 className="note-title">{data.homeNote.fields.title}</h1>
-          <div className="note-content"
-            dangerouslySetInnerHTML={{ __html: data.homeNote.html }}></div>
+          <div
+            className="note-content"
+            dangerouslySetInnerHTML={{ __html: data.homeNote.html }}
+          ></div>
         </div>
       </div>
     </Layout>

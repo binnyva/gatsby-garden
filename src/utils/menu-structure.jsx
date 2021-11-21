@@ -56,7 +56,8 @@ export const DefaultMenuStructure = (menuType = 'main') => {
   }
 
   // If no menu exists, create a custom menu.
-  if (structure === null) { // Do NOT create a standard menu it structure === false
+  if (structure === null) {
+    // Do NOT create a standard menu it structure === false
     structure = defaultStructure
 
     let tagList = allMdx.group
@@ -102,7 +103,7 @@ export function MenuItem({ item, className }) {
     itm = <MenuItemText item={item} className={className} />
 
   return (
-    <li className={ item.liClassName ? item.liClassName : null }>
+    <li className={item.liClassName ? item.liClassName : null}>
       {itm}
       {item.menu ? <MenuRoot menu={item.menu} /> : null}
     </li>

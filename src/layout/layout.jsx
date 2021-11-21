@@ -6,9 +6,7 @@ export default function Layout({ children, title, type }) {
     <>
       <Header title={title} type={type} />
       <section className="section">
-        <div className="columns is-centered">
-          {children}
-        </div>
+        <div className="columns is-centered">{children}</div>
       </section>
     </>
   )

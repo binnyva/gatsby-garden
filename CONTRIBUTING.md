@@ -6,13 +6,13 @@ This guide assumes that you have a github account and a basic understanding of h
 
 ## What Should I Help With
 
-We have a list of open issues that we require help with in our [issue tracker in GitHub](https://github.com/binnyva/gatsby-garden/issues). Select one of the tasks there to start with. 
+We have a list of open issues that we require help with in our [issue tracker in GitHub](https://github.com/binnyva/gatsby-garden/issues). Select one of the tasks there to start with.
 
 If you have not contributed to an GitHub project yet, this page will help you get you up to speed.
 
 ## Setup
 
-First, **fork the project to your personal account**. 
+First, **fork the project to your personal account**.
 
 How to Fork?
 
@@ -57,11 +57,11 @@ Note: You might have to do this when pushing the branch for the first time...
 git push --set-upstream origin *<branch name>*
 ```
 
-Once all the changes are made and you can **create a pull request**. This will notify the admin of the project to merge your code in with the master branch. You can do this by going to the project page on your account(eg. github.com/*your github username*/gatsby-garden.git). There should be a '**Compare & pull request**' button at the top - click on that. Write a few comments on what the feature is about and submit the request.
+Once all the changes are made and you can **create a pull request**. This will notify the admin of the project to merge your code in with the master branch. You can do this by going to the project page on your account(eg. github.com/_your github username_/gatsby-garden.git). There should be a '**Compare & pull request**' button at the top - click on that. Write a few comments on what the feature is about and submit the request.
 
 Now the admin of the main repository will review your code and merge your feature branch into the main branch.
 
-## Working with Others 
+## Working with Others
 
 You'll need to sync your local repository with the main online repository. This will get you the code that other people are commiting to the repository. You do this by **adding the main repository as an 'upstream' branch**.
 

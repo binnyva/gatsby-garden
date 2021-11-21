@@ -20,29 +20,37 @@ export default function Search({ showExcerpt, size }) {
   const [query, setQuery] = React.useState('')
   const results = useFlexSearch(query, index, store)
 
-  let inputClassName = "input is-small"
-  if(size === "medium") {
-    inputClassName = "input is-medium"
+  let inputClassName = 'input is-small'
+  if (size === 'medium') {
+    inputClassName = 'input is-medium'
   }
 
   return (
-  	<form className="search-form" action="/">
+    <form className="search-form" action="/">
       <span>{searchStore.localSearchNotesIndex.publicStoreURL}</span>
-      <input className={ inputClassName } type="text" placeholder="Search" aria-label="Search..." name="filter" 
-      	value={query} onChange={event => setQuery(event.target.value)} />
-      { results.length ? (
+      <input
+        className={inputClassName}
+        type="text"
+        placeholder="Search"
+        aria-label="Search..."
+        name="filter"
+        value={query}
+        onChange={event => setQuery(event.target.value)}
+      />
+      {results.length ? (
         <div className="search-result">
           <ul>
             {results.map(result => (
               <li key={result.slug}>
-                <Link to={result.slug}>{ result.title }</Link>
-                { showExcerpt ? (<p>{ result.excerpt }</p>) : null }
+                <Link to={result.slug}>{result.title}</Link>
+                {showExcerpt ? <p>{result.excerpt}</p> : null}
               </li>
             ))}
           </ul>
           <button
             className="close-search button-link"
-            onClick={() => setQuery('')}>
+            onClick={() => setQuery('')}
+          >
             Close
           </button>
         </div>

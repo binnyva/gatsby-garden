@@ -69,10 +69,19 @@ export default function Note({ pageContext, data }) {
             <div className="buttons for-back-home">
               <Link className="button is-text button__page-back" to="/">
                 <span className="icon is-small">
-                  <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" clipRule="evenodd"
-                    d="M11.0309 0.468998C11.1007 0.538667 11.1561 0.62143 11.1939 0.712548C11.2318 0.803665 11.2512 0.901347 11.2512 0.999998C11.2512 1.09865 11.2318 1.19633 11.1939 1.28745C11.1561 1.37857 11.1007 1.46133 11.0309 1.531L2.56038 10L11.0309 18.469C11.1717 18.6098 11.2508 18.8008 11.2508 19C11.2508 19.1992 11.1717 19.3902 11.0309 19.531C10.89 19.6718 10.699 19.7509 10.4999 19.7509C10.3007 19.7509 10.1097 19.6718 9.96887 19.531L0.968875 10.531C0.899031 10.4613 0.843616 10.3786 0.805806 10.2874C0.767997 10.1963 0.748535 10.0986 0.748535 10C0.748535 9.90135 0.767997 9.80367 0.805806 9.71255C0.843616 9.62143 0.899031 9.53867 0.968875 9.469L9.96887 0.468998C10.0385 0.399153 10.1213 0.343739 10.2124 0.305929C10.3035 0.26812 10.4012 0.248657 10.4999 0.248657C10.5985 0.248657 10.6962 0.26812 10.7873 0.305929C10.8784 0.343739 10.9612 0.399153 11.0309 0.468998Z"
-                    fill="var(--text-main)" />
+                  <svg
+                    width="12"
+                    height="20"
+                    viewBox="0 0 12 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M11.0309 0.468998C11.1007 0.538667 11.1561 0.62143 11.1939 0.712548C11.2318 0.803665 11.2512 0.901347 11.2512 0.999998C11.2512 1.09865 11.2318 1.19633 11.1939 1.28745C11.1561 1.37857 11.1007 1.46133 11.0309 1.531L2.56038 10L11.0309 18.469C11.1717 18.6098 11.2508 18.8008 11.2508 19C11.2508 19.1992 11.1717 19.3902 11.0309 19.531C10.89 19.6718 10.699 19.7509 10.4999 19.7509C10.3007 19.7509 10.1097 19.6718 9.96887 19.531L0.968875 10.531C0.899031 10.4613 0.843616 10.3786 0.805806 10.2874C0.767997 10.1963 0.748535 10.0986 0.748535 10C0.748535 9.90135 0.767997 9.80367 0.805806 9.71255C0.843616 9.62143 0.899031 9.53867 0.968875 9.469L9.96887 0.468998C10.0385 0.399153 10.1213 0.343739 10.2124 0.305929C10.3035 0.26812 10.4012 0.248657 10.4999 0.248657C10.5985 0.248657 10.6962 0.26812 10.7873 0.305929C10.8784 0.343739 10.9612 0.399153 11.0309 0.468998Z"
+                      fill="var(--text-main)"
+                    />
                   </svg>
                 </span>
               </Link>
@@ -80,19 +89,21 @@ export default function Note({ pageContext, data }) {
 
             <h1 className="note-title">{post.fields.title}</h1>
             <div className="note-content">
-              <MDXRenderer>{ post.body }</MDXRenderer>
+              <MDXRenderer>{post.body}</MDXRenderer>
             </div>
 
             <div className="note-meta">
-              { pageContext.referredBy.length ? (
+              {pageContext.referredBy.length ? (
                 <div className="related note-references">
                   <h5 className="block-title">Links to this note</h5>
                   <div className="related-wrapper">
-                    { pageContext.referredBy.map((note, index) => (
-                      <div key={index} className="related-group"><Link to={`/${ makeSlug(note.title) }`}>
-                        <h4>{ note.title }</h4>
-                        <p className="related-excerpt">{ note.excerpt }</p>
-                      </Link></div>
+                    {pageContext.referredBy.map((note, index) => (
+                      <div key={index} className="related-group">
+                        <Link to={`/${makeSlug(note.title)}`}>
+                          <h4>{note.title}</h4>
+                          <p className="related-excerpt">{note.excerpt}</p>
+                        </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -103,8 +114,12 @@ export default function Note({ pageContext, data }) {
                 <div className="related-wrapper">
                   <div className="related-group">
                     <p>
-                      <strong className="note-meta-title">Published on: </strong>{' '}
-                      {moment(new Date(post.fields.date)).format('do MMMM, YYYY')}
+                      <strong className="note-meta-title">
+                        Published on:{' '}
+                      </strong>{' '}
+                      {moment(new Date(post.fields.date)).format(
+                        'do MMMM, YYYY'
+                      )}
                     </p>
                     {post.frontmatter.source ? (
                       <Source src={post.frontmatter.source} />
@@ -112,7 +127,9 @@ export default function Note({ pageContext, data }) {
 
                     {post.frontmatter.tags ? (
                       <div className="note-tags">
-                        <strong className="note-meta-title">Tagged With: </strong>
+                        <strong className="note-meta-title">
+                          Tagged With:{' '}
+                        </strong>
                         <ul>
                           {post.frontmatter.tags.map((tag, index) => (
                             <li key={index}>
@@ -135,7 +152,6 @@ export default function Note({ pageContext, data }) {
                 onClickNode={onClickNode}
               />
             </div>
-
           </div>
         </main>
       </div>

@@ -90,7 +90,7 @@ export default function Note({ pageContext }) {
         <p>
           Total Notes:{' '}
           <Link to="/sitemap">
-            <strong>{ Object.keys(pageContext.allRefersTo).length }</strong>
+            <strong>{Object.keys(pageContext.allRefersTo).length}</strong>
           </Link>
         </p>
 
