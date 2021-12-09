@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Layout from '../layout/layout'
 import siteConfig from '../../gatsby-config'
 import NoteList from '../components/note-list'
@@ -10,8 +11,8 @@ import { DefaultMenuStructure, MenuRoot } from '../utils/menu-structure'
 export default function Home() {
   const data = useStaticQuery(graphql`
     query HomeQuery {
-      homeNote: mdx(fields: { slug: { eq: "/home" } }) {
-        html
+      homeNote: mdx(frontmatter: {slug: {eq: "home"}}) {
+        body
         fields {
           title
           date
@@ -49,10 +50,9 @@ export default function Home() {
       <div className="column is-half">
         <div className="note-area">
           <h1 className="note-title">{data.homeNote.fields.title}</h1>
-          <div
-            className="note-content"
-            dangerouslySetInnerHTML={{ __html: data.homeNote.html }}
-          ></div>
+          <div className="note-content">
+            <MDXRenderer>{ data.homeNote.body }</MDXRenderer>
+          </div>
         </div>
       </div>
     </Layout>
