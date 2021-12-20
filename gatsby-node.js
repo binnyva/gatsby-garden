@@ -34,6 +34,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     })
     createNodeField({
       node,
+      name: `fileName`,
+      value: fileName,
+    })
+    createNodeField({
+      node,
       name: `date`,
       value: date,
     })
@@ -67,6 +72,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
+              fileName
               title
               visibility
               excerpt
@@ -154,6 +160,15 @@ exports.createPages = async ({ graphql, actions }) => {
     for (let j = 0; j < aliases.length; j++) {
       createRedirect({
         fromPath: `/${makeSlug(aliases[j])}`,
+        toPath: node.fields.slug,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    }
+
+    if(node.fields.slug != '/' + makeSlug(node.fields.fileName)) { // If there is a custom slug, setup a redirect.
+      createRedirect({
+        fromPath: `/${makeSlug(node.fields.fileName)}`,
         toPath: node.fields.slug,
         redirectInBrowser: true,
         isPermanent: true,
@@ -272,6 +287,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     """
     type Frontmatter @infer {
       title: String
+      fileName: String
       date: Date @dateformat
       tags: [String]
       aliases: [String]
