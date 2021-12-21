@@ -18,12 +18,12 @@ export default function Note({ pageContext, data }) {
     focusedNodeId: post.fields.title,
   }
 
-  // Links to the current Note
-  for (let i = 0; i < pageContext.referredBy.length; i++) {
-    const refNoteTitle = pageContext.referredBy[i].title
-    graphData.nodes.push({ id: refNoteTitle })
-    graphData.links.push({ source: refNoteTitle, target: post.fields.title })
-  }
+  // Links to the current Note - Disabled for Martin
+  // for (let i = 0; i < pageContext.referredBy.length; i++) {
+  //   const refNoteTitle = pageContext.referredBy[i].title
+  //   graphData.nodes.push({ id: refNoteTitle })
+  //   graphData.links.push({ source: refNoteTitle, target: post.fields.title })
+  // }
 
   // Links from the current Note
   for (let i = 0; i < pageContext.refersTo.length; i++) {
@@ -92,6 +92,23 @@ export default function Note({ pageContext, data }) {
               <MDXRenderer>{post.body}</MDXRenderer>
             </div>
 
+            <div className="note-navigation columns">
+              <div className="column">
+                <ul>
+                  <li><Link to='/'>👋 Welcome to SalesFlow Coach</Link></li>
+                  <li><Link to='/startday'>🌅 Start your day</Link></li>
+                  <li><Link to='/pick-and-review-a-lead-what-needs-to-happen-for-this-deal-to-close'>🚀 Let's review a lead</Link></li>
+                </ul>
+              </div>
+              <div className="column">
+                <ul>
+                  <li><Link to='/how-to-use-salesflow-coach'>👨‍🎓 Explain what we're doing here</Link></li>
+                  <li><Link to='/000-run-sfc'>🆕 Start from the top</Link></li>
+                  <li><a href='https://martinstellar.com/SFChelp'>💡 Get help or feedback</a></li>
+                </ul>
+              </div>
+            </div>
+
             <div className="note-meta">
               {pageContext.referredBy.length ? (
                 <div className="related note-references">
@@ -101,7 +118,6 @@ export default function Note({ pageContext, data }) {
                       <div key={index} className="related-group">
                         <Link to={`/${makeSlug(note.title)}`}>
                           <h4>{note.title}</h4>
-                          <p className="related-excerpt">{note.excerpt}</p>
                         </Link>
                       </div>
                     ))}

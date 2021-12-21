@@ -100,3 +100,10 @@
 .note-list .note-area:nth-child(odd) {
   background-color: var(--bg-sub);
 }
+
+.note-navigation ul {
+  list-style: none;
+}
+.note-navigation ul a {
+  color: var(--link);
+}

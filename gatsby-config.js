@@ -1,10 +1,10 @@
 module.exports = {
-  // pathPrefix: `/notes`, // If your Digital Garden is not published at the root of your website, use this.
+  // pathPrefix: `/SFC/`, // If your Digital Garden is not published at the root of your website, use this.
   siteMetadata: {
-    title: `Gatsby Garden`,
-    description: `A Digital Garden Tended by Gatsby`,
+    title: `SalesFlow Coach`,
+    description: `by Martin Stellar`,
 
-    // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published. This should be present if you want RSS feed.
+    siteUrl: `https://salesflowcoach.martinstellar.com/`, // URL at which your site will be published. This should be present if you want RSS feed.
     // headerMenu: [ // Top Navbar items
     //   {type: 'page', item: '', title: 'Home'}, // Type can be 'page', 'note', 'tag', or 'link'
     //   {type: 'page', item: 'sitemap', title: 'Sitemap'},
@@ -98,13 +98,19 @@ module.exports = {
           //     parseWikiLinks: true,
           //   },
           // },
+          // {
+          //   resolve: `gatsby-remark-wiki-links`,
+          //   options: {
+          //     slugify: `${__dirname}/src/utils/make-slug.js`,
+          //     stripBrackets: true
+          //   }
+          // }
           {
-            resolve: `gatsby-remark-wiki-links`,
+            resolve: 'gatsby-remark-obsidian',
             options: {
-              slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true
-            }
-          }
+              titleToURL: require(`${__dirname}/src/utils/make-slug.js`)
+            },
+          },
         ],
       },
     },
