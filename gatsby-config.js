@@ -118,7 +118,7 @@ module.exports = {
     // {
     //   resolve: `gatsby-plugin-google-fonts`,
     //   options: {
-    //     fonts: [`IBM Plex Sans:ital,wght@0,400;0,600;1,400;1,600`],
+    //     fonts: [`Playfair Display:ital,wght@0,400;0,600;1,400;1,600`, `Roboto Medium:ital,wght@0,400;0,600;1,400;1,600`],
     //     display: `swap`,
     //   },
     // },

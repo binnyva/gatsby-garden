@@ -96,20 +96,22 @@ export default function Note({ pageContext, data }) {
               <div className="column">
                 <ul>
                   <li><Link to='/'>👋 Welcome to SalesFlow Coach</Link></li>
-                  <li><Link to='/startday'>🌅 Start your day</Link></li>
-                  <li><Link to='/pick-and-review-a-lead-what-needs-to-happen-for-this-deal-to-close'>🚀 Let's review a lead</Link></li>
+                  <li><Link to='/good-morning-lets-get-your-day-started'>🌅 Start your day</Link></li>
+                  <li><Link to='/pick-a-lead-and-review-where-that-deal-is-at'>🚀 Let's review a lead</Link></li>
                 </ul>
               </div>
               <div className="column">
                 <ul>
                   <li><Link to='/how-to-use-salesflow-coach'>👨‍🎓 Explain what we're doing here</Link></li>
-                  <li><Link to='/000-run-sfc'>🆕 Start from the top</Link></li>
+                  <li><Link to='/000-run-salesflow-coach'>🆕 Start from the top</Link></li>
                   <li><a href='https://martinstellar.com/SFChelp'>💡 Get help or feedback</a></li>
                 </ul>
               </div>
             </div>
 
             <div className="note-meta">
+            
+            {/*            
               {pageContext.referredBy.length ? (
                 <div className="related note-references">
                   <h5 className="block-title">Links to this note</h5>
@@ -123,7 +125,7 @@ export default function Note({ pageContext, data }) {
                     ))}
                   </div>
                 </div>
-              ) : null}
+              ) : null}*/}
 
               <div className="related block-area">
                 <h5 className="block-title">Meta</h5>

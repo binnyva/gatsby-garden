@@ -101,9 +101,14 @@
   background-color: var(--bg-sub);
 }
 
+.note-navigation {
+  margin-top: 1rem;
+  border-top:  1px solid var(--border);
+}
 .note-navigation ul {
   list-style: none;
 }
 .note-navigation ul a {
   color: var(--link);
+  font-size: .8em;
 }
