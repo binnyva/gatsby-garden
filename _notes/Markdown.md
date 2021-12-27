@@ -17,7 +17,7 @@ Next, you should be able to create links - like [this](https://standup-philosoph
 
 ### Images
 
-![Image](https://standup-philosophy.netlify.app/static/7008363a9f35c1acd409ae92125a40c8/0f3a1/mental_programming.jpg)
+![Image](mental_programming.jpg)
 
 ---
 

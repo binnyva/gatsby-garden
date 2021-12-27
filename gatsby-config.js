@@ -2,7 +2,7 @@ module.exports = {
   // pathPrefix: `/notes`, // If your Digital Garden is not published at the root of your website, use this.
   siteMetadata: {
     title: `Gatsby Garden`,
-    description: `A Digital Garden Tended by Gatsby`,
+    description: `A Digital Garden tended by Gatsby`,
 
     // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published. This should be present if you want RSS feed.
     // headerMenu: [ // Top Navbar items
@@ -25,6 +25,8 @@ module.exports = {
     // ]
   },
   plugins: [
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-dark-mode`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
@@ -90,19 +92,16 @@ module.exports = {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           'gatsby-remark-mermaid',
-          // {
-          //   resolve: `gatsby-remark-double-brackets-link`,
-          //   options: {
-          //     titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
-          //     stripBrackets: true,
-          //     parseWikiLinks: true,
-          //   },
-          // },
           {
-            resolve: `gatsby-remark-wiki-links`,
+            resolve: `gatsby-remark-images`,
             options: {
-              slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true
+              maxWidth: 1200,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-obsidian',
+            options: {
+              titleToURL: require(`${__dirname}/src/utils/make-slug.js`)
             }
           }
         ],

@@ -10,6 +10,17 @@ gatsbyRemarkPlugins: [
         stripBrackets: true
       }
     },
+
+    OR this...
+
+    {
+       resolve: `gatsby-remark-wiki-links`,
+       options: {
+         slugify: `${__dirname}/src/utils/make-slug.js`,
+         stripBrackets: true
+       }
+    },
+
 ```
 in the `gatsby-config.js` file
 

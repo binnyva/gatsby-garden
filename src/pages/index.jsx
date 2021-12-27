@@ -43,7 +43,14 @@ export default function Home() {
     }
   `)
 
-  const tagList = DefaultMenuStructure('tag-list')
+  let tagList = DefaultMenuStructure('tag-list')
+  tagList.push({
+    type:'page',
+    item:'tags',
+    title: '...',
+    liClassName: 'pill'
+  })
+  console.log(tagList)
 
   return data.homeNote ? (
     <Layout title={data.homeNote.fields.title} type="home">
