@@ -25,6 +25,8 @@ module.exports = {
     // ]
   },
   plugins: [
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-dark-mode`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
@@ -89,6 +91,12 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
           'gatsby-remark-mermaid',
           // {
           //   resolve: `gatsby-remark-double-brackets-link`,
