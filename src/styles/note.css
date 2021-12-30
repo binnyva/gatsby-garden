@@ -100,6 +100,9 @@
 .note-list .note-area:nth-child(odd) {
   background-color: var(--bg-sub);
 }
+.note-background {
+  background-color: var(--bg-main) !important;
+}
 
 .note-navigation {
   margin-top: 1rem;

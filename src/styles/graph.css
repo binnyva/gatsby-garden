@@ -21,7 +21,7 @@ text:hover {
 .note-graph {
   background-color: var(--bg-sub);
   border: 1px solid var(--border);
-  height: 400px;
+  height: 300px;
   overflow: hidden !important;
 }
 
