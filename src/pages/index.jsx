@@ -44,13 +44,12 @@ export default function Home() {
   `)
 
   let tagList = DefaultMenuStructure('tag-list')
-  tagList.push({
+  tagList.push({ // Add a link to a page that shows all tags.
     type:'page',
     item:'tags',
     title: '...',
     liClassName: 'pill'
   })
-  console.log(tagList)
 
   return data.homeNote ? (
     <Layout title={data.homeNote.fields.title} type="home">
