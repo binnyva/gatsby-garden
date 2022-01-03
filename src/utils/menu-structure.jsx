@@ -9,9 +9,9 @@ export const DefaultMenuStructure = (menuType = 'main') => {
     { type: 'page', item: '', title: 'Home' },
     { type: 'link', item: 'about-salesflow-coach', title: "About"},
     { type: 'page', item: 'sitemap' },
-    { type: 'page', item: 'tags' },
-    { type: 'page', item: 'support' },
-    { type: 'page', item: 'start-salesflow-coach', title: "Start" },    
+//  { type: 'page', item: 'tags' },
+    { type: 'link', item: 'support' },
+    { type: 'page', item: 'start-salesflow-coach', title: "Start" }    
   ]
   let structure = null
 

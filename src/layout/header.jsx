@@ -117,27 +117,27 @@ export default function Header({ title, type, description }) {
             {menu.map((item, index) => {
               return item.menu ? (
                 <span key={index} className="navbar-item dropdown">
-                  <Link
-                    to={`/${item.item}`}
-                    id={`dropdown-${item.item}`}
-                    className="dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    {item.title ? item.title : startCase(camelCase(item.item))}
-                  </Link>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby={`dropdown-${item.item}`}
-                  >
-                    {item.menu.map((subItem, subIndex) => {
-                      return (
-                        <MenuItem
-                          className="navbar-item"
-                          item={subItem}
-                          key={subIndex}
-                        />
+                <Link
+                to={`/${item.item}`}
+                id={`dropdown-${item.item}`}
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >
+                {item.title ? item.title : startCase(camelCase(item.item))}
+                </Link>
+                <div
+                className="dropdown-menu"
+                aria-labelledby={`dropdown-${item.item}`}
+                >
+                {item.menu.map((subItem, subIndex) => {
+                  return (
+                    <MenuItem
+                    className="navbar-item"
+                    item={subItem}
+                    key={subIndex}
+                    />
                       )
                     })}
                   </div>

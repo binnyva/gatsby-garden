@@ -64,22 +64,28 @@ export default function Note({ pageContext, data }) {
 
   return (
     <Layout title={post.fields.title} type="note">
-      <div className="column is-three-fifths note-page-section ">
+      <div className="column is-four-fifths note-page-section ">
         <main className="columns">
-          <div className="column is-one-quarter">
-            <ul>
-              <li><Link to='/pick-a-lead-and-review-where-that-deal-is-at'>🚀 Review lead</Link></li>
-              <li><Link to='/'>👋 Welcome</Link></li>
-              <li><Link to='/how-to-use-salesflow-coach'>👨‍🎓 How to</Link></li>
-            </ul>
-          </div>
-          <div className="column is-half note-area">
-
-            <h1 className="note-title">{post.fields.title}</h1>
+          <div className="column is-one-fifth">
+            <Link to='/tags/instructions'>⚙️ Instructions</Link> <br></br>        
+            <p>&nbsp;</p>        
+            <Link to='/tags/workflows'>▶️ Workflows</Link>
+            <p>&nbsp;</p><Link to='/tags/learning'>👨‍🎓 Learning</Link> <br></br>
+            <p>&nbsp;</p>
+            <Link to='/tags/articles'>📄 Articles</Link> <br></br>
+            <p>&nbsp;</p>
+            <Link to='/tags'>#️⃣ Tags</Link> <br></br>
+            
+            
+        </div>
+        
+        <div className="column is-two-fifths">
+          <h1 className="note-title">{post.fields.title}</h1>
             <div className="note-content">
               <MDXRenderer>{post.body}</MDXRenderer>
             </div>
-
+            
+            <p>&nbsp;</p>
 
             {/* This is Binny's two-column Nav Menu layout. I'm keeping it here in case I want to quickly bring it back some day
               <div className="note-navigation columns">
@@ -161,12 +167,15 @@ export default function Note({ pageContext, data }) {
             </div>
 
             <div className="footer-content">
-              <p>SalesFlow Coach V 0.2 | Made with love by Martin Stellar using <a href="https://github.com/binnyva/gatsby-garden/">Gatsby Garden</a></p>
+    
+    
+    <p> SalesFlow Coach V 0.2 | Made with ❤️   by Martin Stellar | Built with <a href="https://github.com/binnyva/gatsby-garden/">Gatsby Garden</a></p>
+    
             </div>
 
           </div>
         
-          <div className="column is-one-quarter">
+          <div className="column is-two-sevenths">
             <div className="note-graph">
               <Graph
                 id="note-link-graph"
@@ -243,3 +252,4 @@ export const query = graphql`
     }
   }
 `
+  

@@ -9,11 +9,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `Mdx`) {
     const { createNodeField } = actions
 
-    const fileName = createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
+    const fileName = createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1', )
     const title = node.frontmatter.title
       ? node.frontmatter.title
       : fileName
-    const slug = node.frontmatter.slug
+    const slug = (node.frontmatter.slug)
       ? makeSlug(node.frontmatter.slug)
       : makeSlug(fileName)
     const fileNode = getNode(node.parent)
