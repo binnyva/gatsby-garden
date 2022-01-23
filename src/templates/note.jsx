@@ -43,9 +43,11 @@ export default function Note({ pageContext, data }) {
   }
 
   const onClickNode = function (nodeId) {
-    if (nodeId === 'Unlinked') return
-    const slug = makeSlug(nodeId)
-    navigate(`/${slug}`)
+    if (nodeId === 'No Links') return
+    const node = pageContext.allNotes.find(
+      obj => obj.node.fields.title === nodeId
+    )
+    navigate(`${node.node.fields.slug}`)
   }
 
   // the graph configuration, just override the ones you need
