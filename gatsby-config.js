@@ -30,7 +30,7 @@ module.exports = {
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-dark-mode`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
-    //   resolve: `gatsby-plugin-feed-mdx`,
+    //   resolve: `gatsby-plugin-feed`,
     //   options: {
     //     query: `
     //       {

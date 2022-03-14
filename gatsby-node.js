@@ -155,6 +155,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         refersTo: refersTo[title] ? refersTo[title] : [],
         referredBy: referredBy[title] ? referredBy[title] : [],
+        allNotes: allNotes
       },
     })
 
@@ -184,6 +185,7 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {
       allRefersTo: refersTo,
       allReferredBy: referredBy,
+      allNotes: allNotes
     },
   })
 
