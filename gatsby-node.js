@@ -85,6 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             excerpt
             rawBody
+            body
           }
         }
       }
@@ -133,6 +134,7 @@ exports.createPages = async ({ graphql, actions }) => {
         title: title,
         excerpt: excerpt,
         slug: slug,
+        body: node.body
       })
 
       linkageCache[title + '->' + linkTitle] = true

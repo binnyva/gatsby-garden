@@ -5,6 +5,8 @@ import { Graph } from 'react-d3-graph'
 import Layout from '../layout/layout'
 import '../styles/note.css'
 import '../styles/graph.css'
+import Tippy from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css'
 const makeSlug = require('../utils/make-slug')
 const moment = require('moment')
 
@@ -89,6 +91,7 @@ export default function Note({ pageContext, data }) {
 
             <h1 className="note-title">{post.fields.title}</h1>
             <div className="note-content">
+              {/* :TODO: Use shortcodes to get tippy to work - https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/*/}
               <MDXRenderer>{post.body}</MDXRenderer>
             </div>
 
@@ -96,24 +99,27 @@ export default function Note({ pageContext, data }) {
               {pageContext.referredBy.length ? (
                 <div className="related note-references">
                   <h5 className="block-title">Links to this note</h5>
+
                   <div className="related-wrapper">
                     {pageContext.referredBy.map((note, index) => (
-                      <div key={index} className="related-group">
+                      <div key={index} className="related-group block-box">
+                      <Tippy content={ (<MDXRenderer>{note.body}</MDXRenderer>) } interactive="true" allowHTML="true">
                         <Link to={`/${makeSlug(note.title)}`}>
-                          <h4>{note.title}</h4>
-                          <p className="related-excerpt">{note.excerpt}</p>
+                          <h4 className="related-title">{note.title}</h4>
+                          <p className="related-excerpt muted-text">{note.excerpt}</p>
                         </Link>
+                      </Tippy>
                       </div>
                     ))}
                   </div>
                 </div>
               ) : null}
 
-              <div className="related block-area">
+              <div className="block-area note-references">
                 <h5 className="block-title">Meta</h5>
-                <div className="related-wrapper">
+                <div className="related-wrapper block-box">
                   <div className="related-group">
-                    <p>
+                    <p className="muted-text">
                       <strong className="note-meta-title">Published on: </strong>{' '}
                       {moment(new Date(post.fields.date)).format('Do MMMM, YYYY')}
                     </p>
@@ -122,7 +128,7 @@ export default function Note({ pageContext, data }) {
                     ) : null}
 
                     {post.frontmatter.tags ? (
-                      <div className="note-tags">
+                      <div className="note-tags muted-text">
                         <strong className="note-meta-title">
                           Tagged With:{' '}
                         </strong>
