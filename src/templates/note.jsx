@@ -1,12 +1,12 @@
 import React from 'react'
 import { graphql, Link, navigate } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { MDXProvider } from "@mdx-js/react"
 import { Graph } from 'react-d3-graph'
+import Tooltip from '../components/tooltip'
 import Layout from '../layout/layout'
 import '../styles/note.css'
 import '../styles/graph.css'
-import Tippy from '@tippyjs/react'
-import 'tippy.js/dist/tippy.css'
 const makeSlug = require('../utils/make-slug')
 const moment = require('moment')
 
@@ -46,9 +46,7 @@ export default function Note({ pageContext, data }) {
 
   const onClickNode = function (nodeId) {
     if (nodeId === 'No Links') return
-    const node = pageContext.allNotes.find(
-      obj => obj.node.fields.title === nodeId
-    )
+    const node = pageContext.allNotesByTitle[nodeId]
     navigate(`${node.node.fields.slug}`)
   }
 
@@ -63,6 +61,25 @@ export default function Note({ pageContext, data }) {
       size: 120,
       fontSize: 10,
     },
+  }
+
+  const TooltipLink = (props) => {
+    if(props.href.includes("http")) { // External link
+      // eslint-disable-next-line
+      return <a { ...props } />
+    } else {
+      const title = props.children.toLowerCase()
+      const linkedNote = pageContext.allNotesByTitle[title] ? pageContext.allNotesByTitle[title] : null
+
+      // :TODO: Show the preview only if enabled in the config - hoverPreview
+      if(linkedNote) {
+        return (<Tooltip content={ linkedNote.body }>
+                  <Link { ...props } to={ `/${props.href}` } />
+                </Tooltip>)
+      } else {
+        return <Link { ...props } to={ `/${props.href}` } />
+      }
+    }
   }
 
   return (
@@ -93,8 +110,10 @@ export default function Note({ pageContext, data }) {
 
             <h1 className="note-title">{post.fields.title}</h1>
             <div className="note-content">
-              {/* :TODO: Use shortcodes to get tippy to work - https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/*/}
-              <MDXRenderer>{post.body}</MDXRenderer>
+              {/*<MDXRenderer>{post.body}</MDXRenderer>*/}
+              <MDXProvider components={{ a: TooltipLink }}>
+                <MDXRenderer>{post.body}</MDXRenderer>
+              </MDXProvider>
             </div>
 
             <div className="note-meta">
@@ -105,12 +124,12 @@ export default function Note({ pageContext, data }) {
                   <div className="related-wrapper">
                     {pageContext.referredBy.map((note, index) => (
                       <div key={index} className="related-group block-box">
-                      <Tippy content={ (<MDXRenderer>{note.body}</MDXRenderer>) } interactive="true" allowHTML="true">
+                      <Tooltip content={ note.body }>
                         <Link to={`/${makeSlug(note.title)}`}>
                           <h4 className="related-title">{note.title}</h4>
                           <p className="related-excerpt muted-text">{note.excerpt}</p>
                         </Link>
-                      </Tippy>
+                      </Tooltip>
                       </div>
                     ))}
                   </div>
@@ -213,6 +232,7 @@ export const query = graphql`
   query($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
       body
+      rawBody
       fields {
         title
         date
