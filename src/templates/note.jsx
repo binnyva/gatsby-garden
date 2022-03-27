@@ -67,11 +67,19 @@ export default function Note({ pageContext, data }) {
     if(props.href.includes("http")) { // External link
       // eslint-disable-next-line
       return <a { ...props } />
+
+    } else if(typeof props.children !== 'string') { // There might be cases where an image is refered(or other non notes). 
+      // eslint-disable-next-line
+      return <a { ...props } />
+
+    } else if(!pageContext.allNotesByTitle) { // For unlisted notes. Causes a error otherwise. Because of this, Tooltips are NOT availabe on unlisted notes.
+      // eslint-disable-next-line
+      return <a { ...props } />
+
     } else {
       const title = props.children.toLowerCase()
-      const linkedNote = pageContext.allNotesByTitle[title] ? pageContext.allNotesByTitle[title] : null
+      let linkedNote = pageContext.allNotesByTitle[title] ?? null
 
-      // :TODO: Show the preview only if enabled in the config - hoverPreview
       if(linkedNote) {
         return (<Tooltip content={ linkedNote.body }>
                   <Link { ...props } to={ `/${props.href}` } />
