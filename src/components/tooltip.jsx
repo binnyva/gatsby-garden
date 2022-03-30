@@ -4,6 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from "@mdx-js/react"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
+import '../styles/tooltip.css'
 import siteConfig from '../../gatsby-config'
 
 export default function Tooltip({ children, content}) {
@@ -19,6 +20,7 @@ export default function Tooltip({ children, content}) {
   }
 }
 
+// This is to disable the tooltips with the tooltip.
 const DefaultLink = (props) => {
   if(props.href.includes("http")) { // External link
     // eslint-disable-next-line

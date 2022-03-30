@@ -82,7 +82,7 @@ export default function Note({ pageContext, data }) {
 
       if(linkedNote) {
         return (<Tooltip content={ linkedNote.body }>
-                  <Link { ...props } to={ `/${props.href}` } />
+                  <Link { ...props } to={ `/${props.href}` } title="" />
                 </Tooltip>)
       } else {
         return <Link { ...props } to={ `/${props.href}` } />
