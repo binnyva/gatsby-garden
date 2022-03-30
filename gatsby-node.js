@@ -8,15 +8,14 @@ const siteConfig = require(`./gatsby-config`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `Mdx`) {
     const { createNodeField } = actions
+
+    const fileName = createFilePath({ node, getNode, basePath: `_notes` }).replace(/^\/(.+)\/$/, '$1')
     const title = node.frontmatter.title
       ? node.frontmatter.title
-      : createFilePath({ node, getNode, basePath: `_notes` }).replace(
-          /^\/(.+)\/$/,
-          '$1'
-        )
+      : fileName
     const slug = node.frontmatter.slug
       ? makeSlug(node.frontmatter.slug)
-      : makeSlug(title)
+      : makeSlug(fileName)
     const fileNode = getNode(node.parent)
     const date = node.frontmatter.date ? node.frontmatter.date : fileNode.mtime
     const visibility = node.frontmatter.visibility
@@ -32,6 +31,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       node,
       name: `slug`,
       value: `/${slug}`,
+    })
+    createNodeField({
+      node,
+      name: `fileName`,
+      value: fileName,
     })
     createNodeField({
       node,
@@ -68,6 +72,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
+              fileName
               title
               visibility
               excerpt
@@ -80,6 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             excerpt
             rawBody
+            body
           }
         }
       }
@@ -91,7 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
   const allNotes = _.get(result, `data.allMdx.edges`)
-
+  
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let refersTo = {} // refersTo['note title'] = ['note that "note title" linked to', 'another note that "note title" linked to', ...]
   let referredBy = {} // referredBy['note title'] = [{title: 'note that linked to "note title"' ...}, {title: 'another note that linked to "note title"', ...}, ...]
@@ -99,6 +105,7 @@ exports.createPages = async ({ graphql, actions }) => {
   let linkageCache = {} // Caches all linking. To prevent duplicate linking. Eg. linkageCache['note title->linked note'] = true
 
   const allNoteTitles = allNotes.map(note => note.node.fields.title) // A list of all note titles. Helps in finding the correct title in a case-insensitive manner.
+  let allNotesByTitle = {}
 
   // I didn't used the much more cleaner foreach because the `refersTo` was not working well with that.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
@@ -107,6 +114,8 @@ exports.createPages = async ({ graphql, actions }) => {
     const title = node.fields.title
     const slug = node.fields.slug
     const excerpt = node.fields.excerpt ? node.fields.excerpt : node.excerpt
+
+    allNotesByTitle[title.toLowerCase()] = node
 
     // Go thru all the notes, create a map of how references map.
 
@@ -128,6 +137,7 @@ exports.createPages = async ({ graphql, actions }) => {
         title: title,
         excerpt: excerpt,
         slug: slug,
+        body: node.body
       })
 
       linkageCache[title + '->' + linkTitle] = true
@@ -148,7 +158,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         refersTo: refersTo[title] ? refersTo[title] : [],
         referredBy: referredBy[title] ? referredBy[title] : [],
-        allNotes: allNotes
+        allNotesByTitle: allNotesByTitle
       },
     })
 
@@ -156,6 +166,15 @@ exports.createPages = async ({ graphql, actions }) => {
     for (let j = 0; j < aliases.length; j++) {
       createRedirect({
         fromPath: `/${makeSlug(aliases[j])}`,
+        toPath: node.fields.slug,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    }
+
+    if(node.fields.slug != '/' + makeSlug(node.fields.fileName)) { // If there is a custom slug, setup a redirect.
+      createRedirect({
+        fromPath: `/${makeSlug(node.fields.fileName)}`,
         toPath: node.fields.slug,
         redirectInBrowser: true,
         isPermanent: true,
@@ -275,6 +294,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     """
     type Frontmatter @infer {
       title: String
+      fileName: String
       date: Date @dateformat
       tags: [String]
       aliases: [String]

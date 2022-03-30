@@ -82,11 +82,16 @@
 .note-area .note-excerpt {
   margin: 0;
 }
-.note-meta p, .note-meta div {
+.muted-text {
   margin: 0;
-  opacity: .8;
+  opacity: .4;
   font-size: .9em;
 }
+.block-box h4,.block-box h5 {
+  margin: 0;
+  opacity: .6;
+}
+
 .note-list .note-tag-list {
   margin: 0;
   color: #999;
@@ -99,4 +104,9 @@
 }
 .note-list .note-area:nth-child(odd) {
   background-color: var(--bg-sub);
+}
+
+.tippy-box {
+  max-height: 14rem;
+  overflow: auto;
 }

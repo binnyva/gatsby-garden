@@ -2,7 +2,7 @@ module.exports = {
   // pathPrefix: `/notes`, // If your Digital Garden is not published at the root of your website, use this.
   siteMetadata: {
     title: `Gatsby Garden`,
-    description: `A Digital Garden Tended by Gatsby`,
+    description: `A Digital Garden tended by Gatsby`,
 
     // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published. This should be present if you want RSS feed.
     // headerMenu: [ // Top Navbar items
@@ -22,7 +22,9 @@ module.exports = {
 
     // menu: [ // This is the Table of Contents that comes in the home page if a Home Note is not specified. It can be much longer than the header menu.
     //   ... Same structure as headerMenu. You can have any depth level - multiple menus can be nested.
-    // ]
+    // ],
+
+    hoverPreview: true // If true, shows the content of an internal link in a tooltip when hovering over the link.
   },
   plugins: [
     `gatsby-plugin-sharp`,
@@ -91,26 +93,17 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
+          'gatsby-remark-mermaid',
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1200,
             },
           },
-          'gatsby-remark-mermaid',
-          // {
-          //   resolve: `gatsby-remark-double-brackets-link`,
-          //   options: {
-          //     titleToURLPath: `${__dirname}/src/utils/make-slug.js`,
-          //     stripBrackets: true,
-          //     parseWikiLinks: true,
-          //   },
-          // },
           {
-            resolve: `gatsby-remark-wiki-links`,
+            resolve: 'gatsby-remark-obsidian',
             options: {
-              slugify: `${__dirname}/src/utils/make-slug.js`,
-              stripBrackets: true
+              titleToURL: require(`${__dirname}/src/utils/make-slug.js`)
             }
           }
         ],

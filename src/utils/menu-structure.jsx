@@ -51,7 +51,7 @@ export const DefaultMenuStructure = (menuType = 'main') => {
         return { type: 'tag', item: tag.fieldValue, liClassName: 'pill' }
       })
     } else {
-      structure = false
+      structure = null
     }
   }
 
