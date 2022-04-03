@@ -19,8 +19,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const visibility = node.frontmatter.visibility || 'public'
     const excerpt = node.frontmatter.excerpt || node.excerpt
 
-    console.log({title, nft: node.frontmatter.title, fileName, date, nfd: node.frontmatter.date, visibility, excerpt, ne: node.excerpt})
-
     // If you are adding new fields here, add it to createSchemaCustomization() as well.
 
     createNodeField({
