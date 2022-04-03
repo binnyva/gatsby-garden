@@ -39,6 +39,12 @@ export default function Search({ showExcerpt, size }) {
       />
       {results.length ? (
         <div className="search-result">
+          <button
+            className="close-search button-link"
+            onClick={() => setQuery('')}
+          >
+            Close
+          </button>
           <ul>
             {results.map(result => (
               <li key={result.slug}>
@@ -47,12 +53,6 @@ export default function Search({ showExcerpt, size }) {
               </li>
             ))}
           </ul>
-          <button
-            className="close-search button-link"
-            onClick={() => setQuery('')}
-          >
-            Close
-          </button>
         </div>
       ) : null}
     </form>

@@ -1,10 +1,11 @@
 {
   "name": "gatsby-garden",
-  "version": "2.0.1",
+  "version": "2.2.1",
   "description": "Gatsby Garden lets you create a static html version of your markdown notes. You can convert your Obsidian Zettelkasten Notes into a public Digital Garden.",
   "homepage": "https://github.com/binnyva/gatsby-garden",
   "keywords": [
     "markdown",
+    "mdx",
     "static-site-generator",
     "gatsby",
     "gatsby-plugin",
@@ -38,8 +39,8 @@
     "gatsby-plugin-local-search": "^2.0.1",
     "gatsby-plugin-mdx": "^3.2.0",
     "gatsby-plugin-postcss": "^5.0.0",
+    "gatsby-plugin-purgecss": "^6.1.1",
     "gatsby-plugin-react-helmet": "^5.0.0",
-    "gatsby-plugin-remove-trailing-slashes": "^4.2.0",
     "gatsby-plugin-sharp": "^4.4.0",
     "gatsby-plugin-styled-components": "^5.0.0",
     "gatsby-remark-double-brackets-link": "^0.1.11",

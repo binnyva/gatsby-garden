@@ -46,8 +46,8 @@ export default function Note({ pageContext, data }) {
 
   const onClickNode = function (nodeId) {
     if (nodeId === 'No Links') return
-    const node = pageContext.allNotesByTitle[nodeId]
-    navigate(`${node.node.fields.slug}`)
+    const node = pageContext.linkedNotes[nodeId]
+    navigate(`${node.slug}`)
   }
 
   // the graph configuration, just override the ones you need
@@ -72,13 +72,13 @@ export default function Note({ pageContext, data }) {
       // eslint-disable-next-line
       return <a { ...props } />
 
-    } else if(!pageContext.allNotesByTitle) { // For unlisted notes. Causes a error otherwise. Because of this, Tooltips are NOT availabe on unlisted notes.
+    } else if(!pageContext.linkedNotes) { // For unlisted notes. Causes a error otherwise. Because of this, Tooltips are NOT availabe on unlisted notes.
       // eslint-disable-next-line
       return <a { ...props } />
 
     } else {
       const title = props.children.toLowerCase()
-      let linkedNote = pageContext.allNotesByTitle[title] ?? null
+      let linkedNote = pageContext.linkedNotes[title] || null
 
       if(linkedNote) {
         return (<Tooltip content={ linkedNote.body }>
@@ -230,7 +230,7 @@ function Source({ src }) {
   }
 
   return (
-    <p>
+    <p className="muted-text">
       <strong className="note-meta-title">Source</strong>: {link}
     </p>
   )
