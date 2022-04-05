@@ -138,7 +138,6 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  let linkedNotes = {}
   // Create pages for all notes.
   for (let i = 0; i < result.data.allMdx.edges.length; i++) {
     const node = result.data.allMdx.edges[i].node
@@ -147,11 +146,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // Add all notes linked to and from this note together.
     let linkedNoteTitles = []
-    if(refersTo[title]) linkedNoteTitles = refersTo[title].map(note => note.title)
+    let linkedNotes = {}
+    if(refersTo[title]) linkedNoteTitles = refersTo[title]
     if(referredBy[title]) linkedNoteTitles = linkedNoteTitles.concat(referredBy[title].map(note => note.title))
 
-    for(let linkTitle of linkedNoteTitles) {
-      if(allNotesByTitle[linkTitle] === undefined) continue
+    for(let j = 0; j < linkedNoteTitles.length; j++) {
+      let linkTitle = linkedNoteTitles[j]
+
+      if(allNotesByTitle[linkTitle] === undefined ) continue
 
       // This reduces the page context size. Use only things used in note.jsx. Otherwise I would have just set it as `node`.
       // Only the linked(from and to the current note) needs to be in this.

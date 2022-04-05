@@ -2,4 +2,6 @@
 	background-color: var(--bg-sub);
 	color: var(--text-sub);
 	border: 1px solid var(--border);
+	height: 200px;
+	overflow-y: auto;
 }
