@@ -1,19 +1,19 @@
 import React from 'react'
 import { Link, navigate } from 'gatsby'
-import { Graph } from 'react-d3-graph'
+// import { Graph } from 'react-d3-graph'
+import Graph from "react-graph-vis"
 import Layout from '../layout/layout'
 import '../styles/graph.css'
 
-export default function Note({ pageContext }) {
-  // Create the data for the graph visualisation for the note linking.
-  const graphData = {
-    nodes: Object.keys(pageContext.allRefersTo).map((key, index) => {
-      return { id: key }
-    }),
-    links: [],
-  }
+export default function NoteMap({ pageContext }) {
 
-  graphData.nodes.push({ id: 'No Links', color: '#eee', fontColor: '#999' }) // All unlinked notes will link to this. So that the graphing library will render it properly.
+    // Create the data for the graph visualisation for the note linking.
+  const graph = {
+    nodes: Object.keys(pageContext.allRefersTo).map((title) => {
+      return { id: title, label: title }
+    }),
+    edges: []
+  }
 
   // Set up the linkages between the notes.
   for (let noteTitle in pageContext.allRefersTo) {
@@ -24,65 +24,47 @@ export default function Note({ pageContext }) {
 
       // Show links to only the notes that exists. There will be some linking to non existing notes - that will break the graph.
       if (pageContext.allRefersTo[refNoteTitle] !== undefined) {
-        graphData.links.push({ source: noteTitle, target: refNoteTitle })
+        // graphData.links.push({ source: noteTitle, target: refNoteTitle })
+        graph.edges.push({ from: noteTitle, to: refNoteTitle })
       }
     }
+  }
 
-    // If this is an orphan note(no links to and from other notes), we need some hackery to get it to work.
-    if (
-      !pageContext.allRefersTo[noteTitle]?.length &&
-      !pageContext.allReferredBy[noteTitle]?.length
-    ) {
-      graphData.links.push({
-        source: noteTitle,
-        target: 'No Links',
-        color: '#eee',
-      })
+  const options = {
+    nodes: {
+      shape: "dot",
+      size: 8,
+      font: {
+        color: "#999",
+      },
+      color: {
+        border: "#aaa",
+        background: "#aaa",
+        highlight: {
+          border: "#ddd",
+          background: "#999",
+        }
+      }
+    },
+    edges: {
+      color: {
+        border: "#aaa"
+      },
+      arrows: "middle",
+    },
+    height: 600
+  };
+
+  const events = {
+    select: function(event) {
+      const { nodes } = event
+      const nodeId = nodes[0].toLowerCase();
+      const node = pageContext.allNotes.find(
+        obj => obj.node.fields.title.toLowerCase() === nodeId
+      )
+      navigate(node.node.fields.slug)
     }
-  }
-
-  const onClickNode = function (nodeId) {
-    if (nodeId === 'No Links') return
-    const node = pageContext.allNotes.find(
-      obj => obj.node.fields.title === nodeId
-    )
-    navigate(`${node.node.fields.slug}`)
-  }
-
-  // the graph configuration, just override the ones you need
-  const graphConfig = {
-    // automaticRearrangeAfterDropNode: true,
-    directed: false, // If true, highlighting on mouseover will also be directed
-    // initialZoom: 1.4,
-    highlightDegree: 2,
-    nodeHighlightBehavior: true,
-    linkHighlightBehavior: true,
-    collapsible: true,
-    height: 800,
-    width: 1100,
-
-    node: {
-      color: 'gray',
-      size: 120,
-      fontSize: 10,
-      highlightFontSize: 10,
-      highlightFontWeight: 'bold',
-      highlightStrokeColor: 'black',
-      highlightStrokeWidth: 1.5,
-      labelPosition: 'top',
-    },
-    link: {
-      highlightColor: 'black',
-    },
-
-    d3: {
-      alphaTarget: 0.05,
-      gravity: -250,
-      linkLength: 120,
-      linkStrength: 2,
-      disableLinkForce: false,
-    },
-  }
+  };
 
   return (
     <Layout>
@@ -98,10 +80,9 @@ export default function Note({ pageContext }) {
 
         <div id="graph-container">
           <Graph
-            id="all-note-link-graph"
-            data={graphData}
-            config={graphConfig}
-            onClickNode={onClickNode}
+            graph={graph}
+            options={options}
+            events={events}
           />
         </div>
       </div>

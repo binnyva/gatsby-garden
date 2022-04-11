@@ -2,7 +2,8 @@ import React from 'react'
 import { graphql, Link, navigate } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from "@mdx-js/react"
-import { Graph } from 'react-d3-graph'
+// import { Graph } from 'react-d3-graph'
+import Graph from "react-graph-vis";
 import Tooltip from '../components/tooltip'
 import Layout from '../layout/layout'
 import '../styles/note.css'
@@ -10,58 +11,71 @@ import '../styles/graph.css'
 const makeSlug = require('../utils/make-slug')
 const moment = require('moment')
 
+let titles = []
+const makeId = (title) => {
+  titles.push(title)
+  return title
+}
+
+const nodeExists = (title) => {
+  return titles.includes(title)
+}
+
 export default function Note({ pageContext, data }) {
   const post = data.mdx
 
-  // Create the data for the graph visualisation for the note linking.
-  const graphData = {
-    nodes: [{ id: post.fields.title, color: 'black' }],
-    links: [],
-    focusedNodeId: post.fields.title,
+    // Create the data for the graph visualisation for the note linking.
+  const graph = {
+    nodes: [{ id: makeId(post.fields.title), label: post.fields.title }],
+    edges: []
   }
 
   // Links to the current Note
   for (let i = 0; i < pageContext.referredBy.length; i++) {
     const refNoteTitle = pageContext.referredBy[i].title
-    graphData.nodes.push({ id: refNoteTitle })
-    graphData.links.push({ source: refNoteTitle, target: post.fields.title })
+    if(!nodeExists(refNoteTitle)) graph.nodes.push({ id: makeId(refNoteTitle), label: refNoteTitle })
+    graph.edges.push({ from: makeId(refNoteTitle), to: makeId(post.fields.title) })
   }
 
   // Links from the current Note
   for (let i = 0; i < pageContext.refersTo.length; i++) {
     const refNoteTitle = pageContext.refersTo[i]
-    graphData.nodes.push({ id: refNoteTitle })
-    graphData.links.push({ source: post.fields.title, target: refNoteTitle })
+    if(!nodeExists(refNoteTitle)) graph.nodes.push({ id: makeId(refNoteTitle), label: refNoteTitle })
+    graph.edges.push({ from: makeId(post.fields.title), to: makeId(refNoteTitle) })
   }
 
-  // If this is an orphan note(no links to and from other notes), we need some hackery to get it to work.
-  if (graphData.nodes.length === 1) {
-    graphData.nodes.push({ id: 'No Links', color: '#eee', fontColor: '#999' })
-    graphData.links.push({
-      source: post.fields.title,
-      target: 'No Links',
-      color: '#eee',
-    })
-  }
-
-  const onClickNode = function (nodeId) {
-    if (nodeId === 'No Links') return
-    const node = pageContext.linkedNotes[nodeId]
-    navigate(`${node.slug}`)
-  }
-
-  // the graph configuration, just override the ones you need
-  const graphConfig = {
-    automaticRearrangeAfterDropNode: true,
-    directed: true,
-    initialZoom: 1.4,
-    // nodeHighlightBehavior: true,
-    node: {
-      color: 'gray',
-      size: 120,
-      fontSize: 10,
+  const options = {
+    nodes: {
+      shape: "dot",
+      size: 8,
+      font: {
+        color: "#aaa",
+      },
+      color: {
+        border: "#aaa",
+        background: "#aaa",
+        highlight: {
+          border: "#ddd",
+          background: "#999",
+        }
+      }
     },
-  }
+    edges: {
+      color: {
+        border: "#aaa"
+      },
+      arrows: "middle",
+    }
+  };
+
+  const events = {
+    select: function(event) {
+      var { nodes } = event
+      const id = nodes[0].toLowerCase();
+      const node = pageContext.linkedNotes[id]
+      navigate(`${node.slug}`)
+    }
+  };
 
   const TooltipLink = (props) => {
     if(props.href.includes("http")) { // External link
@@ -177,10 +191,9 @@ export default function Note({ pageContext, data }) {
 
             <div className="note-graph">
               <Graph
-                id="note-link-graph"
-                data={graphData}
-                config={graphConfig}
-                onClickNode={onClickNode}
+                graph={graph}
+                options={options}
+                events={events}
               />
             </div>
           </div>
