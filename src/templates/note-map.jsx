@@ -53,7 +53,7 @@ export default function NoteMap({ pageContext }) {
       arrows: "middle",
     },
     height: 600
-  };
+  }
 
   const events = {
     select: function(event) {
@@ -64,7 +64,7 @@ export default function NoteMap({ pageContext }) {
       )
       navigate(node.node.fields.slug)
     }
-  };
+  }
 
   return (
     <Layout>

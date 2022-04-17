@@ -66,7 +66,7 @@ export default function Note({ pageContext, data }) {
       },
       arrows: "middle",
     }
-  };
+  }
 
   const events = {
     select: function(event) {
@@ -75,7 +75,7 @@ export default function Note({ pageContext, data }) {
       const node = pageContext.linkedNotes[id]
       navigate(`${node.slug}`)
     }
-  };
+  }
 
   const TooltipLink = (props) => {
     if(props.href.includes("http")) { // External link
