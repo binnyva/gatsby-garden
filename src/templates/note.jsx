@@ -65,6 +65,11 @@ export default function Note({ pageContext, data }) {
         border: "#aaa"
       },
       arrows: "middle",
+    },
+    layout: {
+      hierarchical: {
+        enabled: true
+      }
     }
   }
 
