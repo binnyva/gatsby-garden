@@ -44,7 +44,7 @@ Edit `gatsby-config.js` file and add your site details to the `siteMetaData` sec
 
 ```js
 module.exports = {
-  pathPrefix: `/notes`, // If your site has to be published at a non-root location, use this to specify the base folder. You'll see this in effect ONLY when you build the site with the 'gatsby build --prefix-paths' command. See <https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/> for more details.
+  // pathPrefix: `/notes`, // If your site has to be published at a non-root location, use this to specify the base folder. You'll see this in effect ONLY when you build the site with the 'gatsby build --prefix-paths' command. See <https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/> for more details.
   siteMetadata: {
     title: `Website Name`,
     description: `Short Description about the website`,
@@ -86,7 +86,7 @@ Once you are done with the configuration, you can **generate the static version 
 npm run build
 ```
 
-PS: You'll need to use `gatsby build --prefix-paths` if you are using a sub-directory for publishing your content.
+PS: You'll need to use `npm run build -- --prefix-paths` if you are using a sub-directory for publishing your content.
 
 ### Modifying
 
