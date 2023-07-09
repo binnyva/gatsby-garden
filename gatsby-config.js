@@ -32,7 +32,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-sharp`,
     `gatsby-remark-images`,
-    `gatsby-plugin-dark-mode`,
+    // `gatsby-plugin-dark-mode`,
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
     //   // Also, you'll need to install this library. To do that, run the command `npm install gatsby-plugin-feed-mdx --save` in the same directory as this gatsby-config.js file.
     //   resolve: `gatsby-plugin-feed`,
@@ -85,13 +85,6 @@ module.exports = {
     //   }
     // },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `notes`,
-        path: `${__dirname}/_notes/`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
@@ -103,13 +96,33 @@ module.exports = {
               maxWidth: 1200,
             },
           },
+          // {
+          //   resolve: `gatsby-remark-wiki-link`,
+          // },
+
           {
             resolve: 'gatsby-remark-obsidian',
             options: {
               titleToURL: require(`${__dirname}/src/utils/make-slug.js`)
             }
           }
+
+        //   {
+        //     resolve: `gatsby-remark-wiki-links`,
+        //     // resolve: require.resolve('./plugins/gatsby-remark-wiki-links'),
+        //     options: {
+        //       slugify: `${__dirname}/src/utils/make-slug.js`,
+        //       stripBrackets: true
+        //     }
+        //  },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `notes`,
+        path: `${__dirname}/_notes/`,
       },
     },
 
@@ -170,7 +183,7 @@ module.exports = {
                 frontmatter {
                   tags
                 }
-                rawBody
+                body
                 excerpt
               }
             }
@@ -200,7 +213,7 @@ module.exports = {
             title: node.fields.title,
             excerpt: node.fields.excerpt ? node.fields.excerpt : node.excerpt,
             tags: node.frontmatter.tags,
-            body: node.rawBody,
+            body: node.body,
           })),
       },
     },

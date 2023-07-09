@@ -56,7 +56,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  console.log("Creating Pages")
   const { createPage, createRedirect } = actions
   // Process for notes all public notes
   const result = await graphql(`
@@ -77,8 +78,10 @@ exports.createPages = async ({ graphql, actions }) => {
               date
               aliases
             }
+            internal {
+              contentFilePath        
+            }
             excerpt
-            rawBody
             body
           }
         }
@@ -90,7 +93,13 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+
+  if (result.errors) {
+    reporter.panicOnBuild('Error loading MDX result', result.errors)
+  }
+
   const allNotes = _.get(result, `data.allMdx.edges`)
+  console.log("Page count: " + allNotes.length )
   
   // Make a map of how notes link to other links. This is necessary to have back links and graph visualisation
   let refersTo = {} // refersTo['note title'] = ['note that "note title" linked to', 'another note that "note title" linked to', ...]
@@ -113,7 +122,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // Go thru all the notes, create a map of how references map.
 
-    const outgoingLinks = findReferences(node.rawBody) // All outgoing links from this note
+    const outgoingLinks = findReferences(node.body) // All outgoing links from this note
     refersTo[title] = outgoingLinks.map(outTitle =>
       getPreExistingTitle(outTitle, allNoteTitles)
     )
@@ -164,11 +173,13 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
 
-    // Context is becaming too big. I'm getting this warnding...
+    // Context is becoming too big. I'm getting this warning...
     //      `The size of at least one page context chunk exceeded 500kb, which could lead to degraded performance. Consider putting less data in the page context.`
+    console.log(`Creating page ${node.fields.slug}: ${title} - __contentFilePath=${node.internal.contentFilePath}`)
+    const noteTemplate = path.resolve(`./src/templates/note.jsx`);
     createPage({
       path: node.fields.slug,
-      component: path.resolve(`./src/templates/note.jsx`),
+      component: `${noteTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         title: title,
         slug: node.fields.slug,
@@ -260,7 +271,7 @@ exports.createPages = async ({ graphql, actions }) => {
               aliases
             }
             excerpt
-            rawBody
+            body
           }
         }
       }
@@ -342,7 +353,7 @@ function findReferences(content) {
   return matchedNotes
 }
 
-// This makes the keys case insensitive. [Permenent Notes] and [permenant notes] should be treated the same.
+// This makes the keys case insensitive. [Permanent Notes] and [permanent notes] should be treated the same.
 function getPreExistingTitle(title, obj) {
   const key = obj.find(key => key.toLowerCase() === title.toLowerCase())
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link, navigate } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import { MDXProvider } from "@mdx-js/react"
+// import { MDXRenderer } from 'gatsby-plugin-mdx'
+// import { MDXProvider } from "@mdx-js/react"
 // import { Graph } from 'react-d3-graph'
 import Graph from "react-graph-vis";
 import Tooltip from '../components/tooltip'
@@ -21,8 +21,10 @@ const nodeExists = (title) => {
   return titles.includes(title)
 }
 
-export default function Note({ pageContext, data }) {
+export default function Note({ pageContext, data, children }) {
   const post = data.mdx
+
+  console.log(data, children )
 
     // Create the data for the graph visualisation for the note linking.
   const graph = {
@@ -136,12 +138,13 @@ export default function Note({ pageContext, data }) {
             </div>
 
             <h1 className="note-title">{post.fields.title}</h1>
-            <div className="note-content">
-              {/*<MDXRenderer>{post.body}</MDXRenderer>*/}
-              <MDXProvider components={{ a: TooltipLink }}>
-                <MDXRenderer>{post.body}</MDXRenderer>
-              </MDXProvider>
+            <div className="note-content" components={{ a: TooltipLink }}>
+              {children}
             </div>
+
+            {/* <MDXProvider components={{ a: TooltipLink }}>
+  <MDXRenderer>{post.body}</MDXRenderer>
+</MDXProvider> */}
 
             <div className="note-meta">
               {pageContext.referredBy.length ? (
@@ -151,12 +154,12 @@ export default function Note({ pageContext, data }) {
                   <div className="related-wrapper">
                     {pageContext.referredBy.map((note, index) => (
                       <div key={index} className="related-group block-box">
-                      <Tooltip content={ note.body }>
+                      {/* <Tooltip content={ note.body }> */}
                         <Link to={`/${makeSlug(note.title)}`}>
                           <h4 className="related-title">{note.title}</h4>
                           <p className="related-excerpt muted-text">{note.excerpt}</p>
                         </Link>
-                      </Tooltip>
+                      {/* </Tooltip> */}
                       </div>
                     ))}
                   </div>
@@ -195,12 +198,13 @@ export default function Note({ pageContext, data }) {
             </div>
 
             <div className="note-graph">
-              <Graph
+              {/* <Graph
                 graph={graph}
                 options={options}
                 events={events}
-              />
+              /> */}
             </div>
+
           </div>
         </main>
       </div>
@@ -258,7 +262,6 @@ export const query = graphql`
   query($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
       body
-      rawBody
       fields {
         title
         date

@@ -1,6 +1,8 @@
 /*
 If you need to reenable this plugin, add...
 
+NOTE: This will only work with unitst-util-visit@2.0.3 - will not work with versions later that that.
+
 ```
 gatsbyRemarkPlugins: [
     {
@@ -50,6 +52,7 @@ const defaultSlugify = title => {
 }
 
 module.exports = async ({ cache, markdownAST }, pluginOptions) => {
+  console.log("HELLO!", markdownAST);
   const slugify = (
     pluginOptions === null || pluginOptions === void 0
       ? void 0
