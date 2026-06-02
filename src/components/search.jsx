@@ -13,11 +13,11 @@ export default function Search({ showExcerpt, size }) {
       }
     }
   `)
+  const [query, setQuery] = React.useState('')
 
   const index = searchStore.localSearchNotesIndex.index
   const store = searchStore.localSearchNotesIndex.store
 
-  const [query, setQuery] = React.useState('')
   const results = useFlexSearch(query, index, store)
 
   let inputClassName = 'input is-small'
